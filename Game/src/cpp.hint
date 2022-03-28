@@ -1,0 +1,6 @@
+#define WCE_INLINE
+#define WCE_CALL
+
+#define WCE_NO_COPY
+#define WCE_NO_MOVE
+#define WCE_DEFAULT_MOVE
