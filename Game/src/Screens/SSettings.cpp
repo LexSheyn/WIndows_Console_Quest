@@ -53,10 +53,14 @@ namespace wce
 
 	void SSettings::Init()
 	{
-		TextFields[EScreenField::CharSize].SetPosition(COORD{ 10, 8  }).SetText(L"Character size");
-		TextFields[EScreenField::Back    ].SetPosition(COORD{ 10, 16 }).SetText(L"Back");
+	// UI:
 
-		Sliders[EScreenField::CharSize].SetPosition(COORD{ 30, 8 }).SetSizeFill(0).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
+		TextFields[EScreenField::CharSize   ].SetPosition(COORD{ 10, 8  }).SetText(L"Character size");
+		TextFields[EScreenField::MusicVolume].SetPosition(COORD{ 10, 10 }).SetText(L"Music volume"  );
+		TextFields[EScreenField::Back       ].SetPosition(COORD{ 10, 14 }).SetText(L"Back"          );
+
+		Sliders[EScreenField::CharSize   ].SetPosition(COORD{ 30, 8  }).SetSizeFill(0).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
+		Sliders[EScreenField::MusicVolume].SetPosition(COORD{ 30, 10 }).SetSizeFill(0).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
 
 		Marker.SetPosition(TextFields[EScreenField::CharSize].GetPosition());
 		Marker.SetSize(18);
@@ -67,57 +71,87 @@ namespace wce
 
 	void SSettings::OnEvent(const FEvent* const Event)
 	{
-		if (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
+		if (!this->IsActive())
 		{
-			this->Activate();
+			if (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
+			{
+				this->Activate();
+			}
 		}
-
-		if (this->IsActive())
+		else // When Active:
 		{
-			if (Event->GetType() == EEventType::MouseMoved)
+			switch (Event->GetType())
 			{
-				for (auto& Field : TextFields)
+				case EEventType::MouseMoved:
 				{
-					if (Event->MouseData.dwMousePosition.Y == Field.second.GetPosition().Y)
-					{
-						Marker.SetPosition(Field.second.GetPosition());
-					}
+					MarkField(Event);
 				}
-			}
-			else if (Event->GetType() == EEventType::MouseLeftPressed)
-			{
-				if (Marker.GetPosition().Y == TextFields.at(EScreenField::Back).GetPosition().Y)
-				{
-					this->Deactivate();
+				break;
 
-					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
-				}
-			}
-			else if (Event->GetType() == EEventType::KeyPressed)
-			{
-				if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
+				case EEventType::MouseLeftPressed:
 				{
-					this->Deactivate();
-
-					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
+					ProcessField(Event);
 				}
-				else if ( (Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::A )
+				break;
+
+				case EEventType::KeyPressed:
 				{
-					ScreenBuffer.DecreaseFontSize();
-					Sliders.at(EScreenField::CharSize).Decrease();
-
-					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
+					ProcessKey(Event);
 				}
-				else if ( (Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::D )
-				{
-					ScreenBuffer.IncreaseFontSize();
-					Sliders.at(EScreenField::CharSize).Increase();
-
-					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
-				}
+				break;
 			}
 
 			this->Render();
+		}
+	}
+
+
+// Event Callbacks:
+
+	void SSettings::MarkField(const FEvent* const Event)
+	{
+		for (auto& Field : TextFields)
+		{
+			if (Event->MouseData.dwMousePosition.Y == Field.second.GetPosition().Y)
+			{
+				Marker.SetPosition(Field.second.GetPosition());
+			}
+		}
+	}
+
+	void SSettings::ProcessField(const FEvent* const Event)
+	{
+		if (Marker.GetPosition().Y == TextFields.at(EScreenField::Back).GetPosition().Y)
+		{
+			this->Deactivate();
+
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
+		}
+	}
+
+	void SSettings::ProcessKey(const FEvent* const Event)
+	{
+		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
+		{
+			this->Deactivate();
+
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
+		}
+		else if ((Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::A)
+		{
+			ScreenBuffer.DecreaseFontSize();
+
+			Sliders.at(EScreenField::CharSize).Decrease();
+
+			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
+		}
+		else if ((Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::D)
+		{
+			ScreenBuffer.IncreaseFontSize();
+
+			Sliders.at(EScreenField::CharSize).Increase();
+
+			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
 		}
 	}
 

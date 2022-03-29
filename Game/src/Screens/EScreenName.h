@@ -6,8 +6,8 @@ namespace wce
 	{
 		None = 0,
 		MainMenu,
-		Save,
-		Load,
+		Game,		
+		Memory,
 		Settings,
 		Exit
 	};

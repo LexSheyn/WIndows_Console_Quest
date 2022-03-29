@@ -13,9 +13,6 @@ namespace wce
 		 SMenu ();
 		~SMenu ();
 
-		WCE_NO_COPY(SMenu);
-		WCE_NO_MOVE(SMenu);
-
 	// IScreen Interface:
 
 		void Render      () override;
@@ -32,5 +29,10 @@ namespace wce
 	// IEventListener Interface:
 
 		void OnEvent(const FEvent* const Event) override;
+
+	// Event Callbacks:
+
+		void MarkField       (const FEvent* const Event);
+		void ProcessField    (const FEvent* const Event);
 	};
 }

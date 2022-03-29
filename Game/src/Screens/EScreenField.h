@@ -6,9 +6,8 @@ namespace wce
 	{
 	// MainMenu:
 
-		Play,
-		Save,
-		Load,
+		Game,
+		Memory,
 		Settings,
 		Exit,
 
@@ -26,6 +25,7 @@ namespace wce
 	// Settings:
 
 		CharSize,
+		MusicVolume,
 
 	// Save and Load:
 

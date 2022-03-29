@@ -48,13 +48,12 @@ namespace wce
 
 	void SMenu::Init()
 	{
-		TextFields[EScreenField::Play    ].SetPosition(COORD{ 10, 8  }).SetText(L"Play");
-		TextFields[EScreenField::Save    ].SetPosition(COORD{ 10, 10 }).SetText(L"Save").Disable();
-		TextFields[EScreenField::Load    ].SetPosition(COORD{ 10, 12 }).SetText(L"Load").Disable();
-		TextFields[EScreenField::Settings].SetPosition(COORD{ 10, 14 }).SetText(L"Settings");
-		TextFields[EScreenField::Exit    ].SetPosition(COORD{ 10, 16 }).SetText(L"Exit");
+		TextFields[EScreenField::Game    ].SetPosition(COORD{ 10, 8  }).SetText(L"Start game");
+		TextFields[EScreenField::Memory  ].SetPosition(COORD{ 10, 10 }).SetText(L"Memory"    ).Disable();
+		TextFields[EScreenField::Settings].SetPosition(COORD{ 10, 12 }).SetText(L"Settings"  );
+		TextFields[EScreenField::Exit    ].SetPosition(COORD{ 10, 14 }).SetText(L"Exit"      );
 
-		Marker.SetPosition(TextFields[EScreenField::Play].GetPosition());
+		Marker.SetPosition(TextFields[EScreenField::Game].GetPosition());
 		Marker.SetSize(12);
 	}
 
@@ -63,48 +62,69 @@ namespace wce
 
 	void SMenu::OnEvent(const FEvent* const Event)
 	{
-		if (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
+		if (!this->IsActive())
 		{
-			this->Activate();
-		}
-		else if (Event->GetType() == EEventType::FontChanged)
-		{
-			ScreenBuffer.SetFontSize(Event->FontData.ToSize);
-		}
-
-		if (this->IsActive())
-		{
-			if (Event->GetType() == EEventType::MouseMoved)
+			if      (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
 			{
-				for (auto& Field : TextFields)
-				{
-					if ( (Event->MouseData.dwMousePosition.Y == Field.second.GetPosition().Y) && Field.second.IsEnabled())
-					{
-						Marker.SetPosition(Field.second.GetPosition());
-					}
-				}
+				this->Activate();
 			}
-			else if (Event->GetType() == EEventType::MouseLeftPressed)
+			else if (Event->GetType() == EEventType::FontChanged)
 			{
-				if      (Marker.GetPosition().Y == TextFields.at(EScreenField::Play).GetPosition().Y)
+				ScreenBuffer.SetFontSize(Event->FontData.ToSize);
+			}
+		}
+		else // When Active:
+		{
+			switch (Event->GetType())
+			{
+				case EEventType::MouseMoved:
 				{
-					//
+					MarkField(Event);
 				}
-				else if (Marker.GetPosition().Y == TextFields.at(EScreenField::Settings).GetPosition().Y)
-				{
-					this->Deactivate();
+				break;
 
-					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Settings }));
-				}
-				else if (Marker.GetPosition().Y == TextFields.at(EScreenField::Exit).GetPosition().Y)
+				case EEventType::MouseLeftPressed:
 				{
-					this->Deactivate();
-
-					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Exit }));
+					ProcessField(Event);
 				}
+				break;
 			}
 
 			this->Render();
+		}
+	}
+
+
+// Event Callbacks:
+
+	void SMenu::MarkField(const FEvent* const Event)
+	{
+		for (auto& Field : TextFields)
+		{
+			if ((Event->MouseData.dwMousePosition.Y == Field.second.GetPosition().Y) && Field.second.IsEnabled())
+			{
+				Marker.SetPosition(Field.second.GetPosition());
+			}
+		}
+	}
+
+	void SMenu::ProcessField(const FEvent* const Event)
+	{
+		if      (Marker.GetPosition().Y == TextFields.at(EScreenField::Game).GetPosition().Y)
+		{
+			//
+		}
+		else if (Marker.GetPosition().Y == TextFields.at(EScreenField::Settings).GetPosition().Y)
+		{
+			this->Deactivate();
+
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Settings }));
+		}
+		else if (Marker.GetPosition().Y == TextFields.at(EScreenField::Exit).GetPosition().Y)
+		{
+			this->Deactivate();
+
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Exit }));
 		}
 	}
 

@@ -13,9 +13,6 @@ namespace wce
 		 SSettings ();
 		~SSettings ();
 
-		WCE_NO_COPY(SSettings);
-		WCE_NO_MOVE(SSettings);
-
 	// IScreen Intarface:
 
 		void Render    () override;
@@ -32,5 +29,11 @@ namespace wce
 	// IEventListener Interface:
 
 		void OnEvent(const FEvent* const Event) override;
+
+	// Event Callbacks:
+
+		void MarkField       (const FEvent* const Event);
+		void ProcessField    (const FEvent* const Event);
+		void ProcessKey      (const FEvent* const Event);
 	};
 }
