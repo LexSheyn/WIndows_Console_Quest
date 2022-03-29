@@ -95,6 +95,8 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">wcepch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\ScreenBuffer\FScreenBuffer.cpp" />
+    <ClCompile Include="src\Screens\SGame.cpp" />
+    <ClCompile Include="src\Screens\SMemory.cpp" />
     <ClCompile Include="src\Screens\SMenu.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../PrecompiledHeaders/wcepch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../PrecompiledHeaders/wcepch.h</PrecompiledHeaderFile>
@@ -120,6 +122,8 @@
     <ClInclude Include="src\ScreenBuffer\FScreenBuffer.h" />
     <ClInclude Include="src\Screens\EScreenName.h" />
     <ClInclude Include="src\Screens\EScreenField.h" />
+    <ClInclude Include="src\Screens\SGame.h" />
+    <ClInclude Include="src\Screens\SMemory.h" />
     <ClInclude Include="src\Screens\SSettings.h" />
     <ClInclude Include="src\Types\WCE_Types.h" />
     <ClInclude Include="src\Screens\SMenu.h" />
