@@ -69,7 +69,7 @@ namespace wce
 		}
 		else if (Event->GetType() == EEventType::FontChanged)
 		{
-			ScreenBuffer.SetFontHeight(Event->FontData.ToHeight);
+			ScreenBuffer.SetFontSize(Event->FontData.ToSize);
 		}
 
 		if (this->IsActive())

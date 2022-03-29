@@ -56,7 +56,7 @@ namespace wce
 		TextFields[EScreenField::CharSize].SetPosition(COORD{ 10, 8  }).SetText(L"Character size");
 		TextFields[EScreenField::Back    ].SetPosition(COORD{ 10, 16 }).SetText(L"Back");
 
-		Sliders[EScreenField::CharSize].SetPosition(COORD{ 30, 8 }).SetSizeFill(0).SetRange(14i16, 20i16);
+		Sliders[EScreenField::CharSize].SetPosition(COORD{ 30, 8 }).SetSizeFill(0).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
 
 		Marker.SetPosition(TextFields[EScreenField::CharSize].GetPosition());
 		Marker.SetSize(18);
@@ -103,17 +103,17 @@ namespace wce
 				}
 				else if ( (Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::A )
 				{
-					Sliders.at(EScreenField::CharSize).SetSizeFill(Sliders.at(EScreenField::CharSize).GetSizeFill() - 1u);
-					ScreenBuffer.SetFontHeight(ScreenBuffer.GetFontHeight() - 2i16);
+					ScreenBuffer.DecreaseFontSize();
+					Sliders.at(EScreenField::CharSize).Decrease();
 
-					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontHeight(), ScreenBuffer.GetFontName() }));
+					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
 				}
 				else if ( (Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::D )
 				{
-					Sliders.at(EScreenField::CharSize).SetSizeFill(Sliders.at(EScreenField::CharSize).GetSizeFill() + 1u);
-					ScreenBuffer.SetFontHeight(ScreenBuffer.GetFontHeight() + 2i16);
+					ScreenBuffer.IncreaseFontSize();
+					Sliders.at(EScreenField::CharSize).Increase();
 
-					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontHeight(), ScreenBuffer.GetFontName() }));
+					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
 				}
 			}
 

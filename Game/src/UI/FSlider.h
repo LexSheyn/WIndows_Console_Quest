@@ -15,19 +15,18 @@ namespace wce
 
 		void Draw(class FScreenBuffer& ScreenBuffer);
 
-		void SetRange(SHORT ValueMin, SHORT ValueMax);
-		void SetRange(FLOAT ValueMin, FLOAT ValueMax);
-
-		void Update(SHORT Value);
-		void Update(FLOAT Value);
+		void SetRange    (SHORT ValueMin, SHORT ValueMax);
+		void SetRange    (FLOAT ValueMin, FLOAT ValueMax);
+		void Increase    (LONG Offset = 1i16);
+		void Decrease    (LONG Offset = 1i16);
 
 	// Accessors:
 
 		const COORD& GetPosition         () const;
 		const WORD&  GetAttributeBack    () const;
 		const WORD&  GetAttributeFill    () const;
-		const DWORD& GetSizeBack         () const;
-		const DWORD& GetSizeFill         () const;
+		const LONG&  GetSizeBack         () const;
+		const LONG&  GetSizeFill         () const;
 
 	// Modifiers:
 
@@ -44,8 +43,8 @@ namespace wce
 		COORD Coord;
 		WORD  AttributeBack;
 		WORD  AttributeFill;
-		DWORD SizeBack;
-		DWORD SizeFill;
+		LONG SizeBack;
+		LONG SizeFill;
 
 		SHORT ValueMin;
 		SHORT ValueMax;

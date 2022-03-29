@@ -18,18 +18,22 @@ namespace wce
 		void FillWithAttribute    (WORD Attribute, DWORD Length, COORD Coordinate);
 		void Write                (COORD Coordinate, WCHAR Character);
 		void Write                (COORD Coordinate, const std::wstring& String);
-		void Present              ();		
+		void Present              ();
+		void IncreaseFontSize     (SHORT Offset = 1i16);
+		void DecreaseFontSize     (SHORT Offset = 1i16);
 
 	// Accessors:
 
 		const WCHAR* GetFontName           () const;
-		const SHORT& GetFontHeight         () const;
+		const SHORT& GetFontSize           () const;
+		const SHORT& GetFontSizeMax        () const;
+		const SHORT& GetFontSizeMin        () const;
 		const WORD&  GetOutputAttribute    () const;
 
 	// Modifiers:
 
 		FScreenBuffer& SetFont               (const std::wstring& FontName);
-		FScreenBuffer& SetFontHeight         (SHORT FontHeight);
+		FScreenBuffer& SetFontSize           (SHORT FontHeight);
 		FScreenBuffer& SetOutputAttribute    (WORD Attribute);
 
 	private:
@@ -52,6 +56,8 @@ namespace wce
 		CONSOLE_SCREEN_BUFFER_INFO ConsoleScreenInfo;
 		CONSOLE_CURSOR_INFO        ConsoleCursorInfo;
 		CONSOLE_FONT_INFOEX        ConsoleFontInfo;
+		static constexpr SHORT     FontSizeMax = 26i16;
+		static constexpr SHORT     FontSizeMin = 16i16;
 
 		DWORD NumAttributesWritten;
 	};

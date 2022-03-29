@@ -25,8 +25,8 @@ namespace wce
 
 	void FSlider::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.FillWithAttribute(AttributeBack, SizeBack, Coord);
-		ScreenBuffer.FillWithAttribute(AttributeFill, SizeFill, Coord);
+		ScreenBuffer.FillWithAttribute(AttributeBack, static_cast<DWORD>(SizeBack), Coord);
+		ScreenBuffer.FillWithAttribute(AttributeFill, static_cast<DWORD>(SizeFill), Coord);
 	}
 
 	void FSlider::SetRange(SHORT ValueMin, SHORT ValueMax)
@@ -41,14 +41,24 @@ namespace wce
 		this->ValueMax = static_cast<SHORT>(ValueMax);
 	}
 
-	void FSlider::Update(SHORT Value)
+	void FSlider::Increase(LONG Offset)
 	{
-		SizeFill = 10u * (Value / ValueMax);
+		SizeFill += Offset;
+
+		if (SizeFill >= SizeBack)
+		{
+			SizeFill = SizeBack;
+		}
 	}
 
-	void FSlider::Update(FLOAT Value)
+	void FSlider::Decrease(LONG Offset)
 	{
-		SizeFill = 10u * (static_cast<SHORT>(Value) / ValueMax);
+		SizeFill -= Offset;
+
+		if (SizeFill < 0)
+		{
+			SizeFill = 0;
+		}
 	}
 
 
@@ -69,12 +79,12 @@ namespace wce
 		return AttributeFill;
 	}
 
-	const DWORD& FSlider::GetSizeBack() const
+	const LONG& FSlider::GetSizeBack() const
 	{
 		return SizeBack;
 	}
 
-	const DWORD& FSlider::GetSizeFill() const
+	const LONG& FSlider::GetSizeFill() const
 	{
 		return SizeFill;
 	}

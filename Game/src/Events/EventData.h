@@ -6,5 +6,5 @@ namespace wce
 {
 	struct FScreenData { EScreenName FromScreen; EScreenName ToScreen; };
 
-	struct FFontData   { SHORT FromHeight; SHORT ToHeight; const WCHAR* Name; };
+	struct FFontData   { SHORT FromSize; SHORT ToSize; const WCHAR* Name; };
 }

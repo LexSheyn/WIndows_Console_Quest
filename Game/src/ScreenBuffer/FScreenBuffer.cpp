@@ -36,7 +36,7 @@ namespace wce
 
 	// Set console font height:
 
-		this->SetFontHeight(16);
+		this->SetFontSize(FontSizeMin);
 	}
 
 	FScreenBuffer::~FScreenBuffer()
@@ -84,6 +84,30 @@ namespace wce
 		WriteConsoleOutputCharacterW(ConsoleScreenBuffer, CharBuffer, static_cast<DWORD>(Width * Height), COORD{}, &NumCharactersWritten);		
 	}
 
+	void FScreenBuffer::IncreaseFontSize(SHORT Offset)
+	{
+		ConsoleFontInfo.dwFontSize.Y += Offset;
+
+		if (ConsoleFontInfo.dwFontSize.Y >= FontSizeMax)
+		{
+			ConsoleFontInfo.dwFontSize.Y = FontSizeMax;
+		}
+
+		this->SetFontSize(ConsoleFontInfo.dwFontSize.Y);
+	}
+
+	void FScreenBuffer::DecreaseFontSize(SHORT Offset)
+	{
+		ConsoleFontInfo.dwFontSize.Y -= Offset;
+
+		if (ConsoleFontInfo.dwFontSize.Y <= FontSizeMin)
+		{
+			ConsoleFontInfo.dwFontSize.Y = FontSizeMin;
+		}
+
+		this->SetFontSize(ConsoleFontInfo.dwFontSize.Y);
+	}
+
 
 // Accessors:
 
@@ -92,9 +116,19 @@ namespace wce
 		return ConsoleFontInfo.FaceName;
 	}
 
-	const SHORT& FScreenBuffer::GetFontHeight() const
+	const SHORT& FScreenBuffer::GetFontSize() const
 	{
 		return ConsoleFontInfo.dwFontSize.Y;
+	}
+
+	const SHORT& FScreenBuffer::GetFontSizeMax() const
+	{
+		return FontSizeMax;
+	}
+
+	const SHORT& FScreenBuffer::GetFontSizeMin() const
+	{
+		return FontSizeMin;
 	}
 
 	const WORD& FScreenBuffer::GetOutputAttribute() const
@@ -115,7 +149,7 @@ namespace wce
 		return *this;
 	}
 
-	FScreenBuffer& FScreenBuffer::SetFontHeight(SHORT FontHeight)
+	FScreenBuffer& FScreenBuffer::SetFontSize(SHORT FontHeight)
 	{
 		ConsoleFontInfo.cbSize       = sizeof(ConsoleFontInfo);
 		ConsoleFontInfo.nFont        = 0;
