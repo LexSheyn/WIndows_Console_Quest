@@ -13,16 +13,24 @@ namespace wce
 
 	// Functions:
 
-		void Activate      ();
-		void Clear         (WORD Attribute = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		void Write         (COORD Coordinate, WCHAR Character);
-		void Write         (COORD Coordinate, const std::wstring& String);
-		void Present       ();		
+		void Activate             ();
+		void Clear                ();
+		void FillWithAttribute    (WORD Attribute, DWORD Length, COORD Coordinate);
+		void Write                (COORD Coordinate, WCHAR Character);
+		void Write                (COORD Coordinate, const std::wstring& String);
+		void Present              ();		
+
+	// Accessors:
+
+		const WCHAR* GetFontName           () const;
+		const SHORT& GetFontHeight         () const;
+		const WORD&  GetOutputAttribute    () const;
 
 	// Modifiers:
 
-		void SetFontHeight         (SHORT FontHeight);
-		void SetOutputAttribute    (WORD Attribute, DWORD Length, COORD Coordinte);
+		FScreenBuffer& SetFont               (const std::wstring& FontName);
+		FScreenBuffer& SetFontHeight         (SHORT FontHeight);
+		FScreenBuffer& SetOutputAttribute    (WORD Attribute);
 
 	private:
 
@@ -38,6 +46,7 @@ namespace wce
 		WCHAR* CharBuffer;
 
 		HANDLE ConsoleScreenBuffer;
+		WORD   ConsoleOutputAttribute;
 		DWORD  NumCharactersWritten;
 
 		CONSOLE_SCREEN_BUFFER_INFO ConsoleScreenInfo;

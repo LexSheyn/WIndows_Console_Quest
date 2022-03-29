@@ -14,5 +14,8 @@
 #define WCE_NO_MOVE(Class) Class(Class&&) = delete;\
                            Class& operator = (Class&&) = delete
 
+#define WCE_DEFAULT_COPY(Class) Class(const Class&) = default;\
+                                Class& operator = (const Class&) = default
+
 #define WCE_DEFAULT_MOVE(Class) Class(Class&&) = default;\
                                 Class& operator = (Class&&) = default

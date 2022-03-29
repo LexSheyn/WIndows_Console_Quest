@@ -36,7 +36,7 @@ namespace wce
 
 	void FTextField::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.SetOutputAttribute(Attribute, static_cast<DWORD>(Text.length()), Coord);
+		ScreenBuffer.FillWithAttribute(Attribute, static_cast<DWORD>(Text.length()), Coord);
 		ScreenBuffer.Write(Coord, Text);
 	}
 

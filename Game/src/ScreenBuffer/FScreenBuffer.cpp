@@ -7,7 +7,8 @@ namespace wce
 
 	FScreenBuffer::FScreenBuffer()
 		: Width  (120),
-		  Height (30)
+		  Height (30),
+		  ConsoleOutputAttribute(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
 	{
 	// Create char buffer:
 
@@ -32,6 +33,10 @@ namespace wce
 	// Set console screen buffer cursor position:
 
 		SetConsoleCursorPosition(ConsoleScreenBuffer, COORD{ 0i16, 0i16 });
+
+	// Set console font height:
+
+		this->SetFontHeight(16);
 	}
 
 	FScreenBuffer::~FScreenBuffer()
@@ -47,16 +52,21 @@ namespace wce
 		SetConsoleActiveScreenBuffer(ConsoleScreenBuffer);
 	}
 
-	void FScreenBuffer::Clear(WORD Attribute)
+	void FScreenBuffer::Clear()
 	{
 		this->HideConsoleCursor();
 
 		for (WORD i = 0ui16; i < Height; i++)
 		{
-			this->SetOutputAttribute(Attribute, Width, COORD{ 0, static_cast<SHORT>(i) });
+			this->FillWithAttribute(ConsoleOutputAttribute, Width, COORD{ 0, static_cast<SHORT>(i) });
 		}
 
 		std::fill_n(CharBuffer, static_cast<int32>(Width * Height), ' ');
+	}
+
+	void FScreenBuffer::FillWithAttribute(WORD Attribute, DWORD Length, COORD Coordinate)
+	{
+		FillConsoleOutputAttribute(ConsoleScreenBuffer, Attribute, Length, Coordinate, &NumAttributesWritten);
 	}
 
 	void FScreenBuffer::Write(COORD Coordinate, WCHAR Character)
@@ -75,9 +85,37 @@ namespace wce
 	}
 
 
+// Accessors:
+
+	const WCHAR* FScreenBuffer::GetFontName() const
+	{
+		return ConsoleFontInfo.FaceName;
+	}
+
+	const SHORT& FScreenBuffer::GetFontHeight() const
+	{
+		return ConsoleFontInfo.dwFontSize.Y;
+	}
+
+	const WORD& FScreenBuffer::GetOutputAttribute() const
+	{
+		return ConsoleOutputAttribute;
+	}
+
+
 // Modifiers:
 
-	void FScreenBuffer::SetFontHeight(SHORT FontHeight)
+	FScreenBuffer& FScreenBuffer::SetFont(const std::wstring& FontName)
+	{
+		for (uint64 i = 0u; i < FontName.size(); i++)
+		{
+			ConsoleFontInfo.FaceName[i] = FontName[i];
+		}
+
+		return *this;
+	}
+
+	FScreenBuffer& FScreenBuffer::SetFontHeight(SHORT FontHeight)
 	{
 		ConsoleFontInfo.cbSize       = sizeof(ConsoleFontInfo);
 		ConsoleFontInfo.nFont        = 0;
@@ -85,15 +123,20 @@ namespace wce
 		ConsoleFontInfo.dwFontSize.Y = FontHeight;
 		ConsoleFontInfo.FontFamily   = FF_DONTCARE;
 		ConsoleFontInfo.FontWeight   = FW_NORMAL;
+	//	ConsoleFontInfo.FaceName;
 
 		wcscpy_s(ConsoleFontInfo.FaceName, L"Consolas");
 
 		SetCurrentConsoleFontEx(ConsoleScreenBuffer, FALSE, &ConsoleFontInfo);
+
+		return *this;
 	}
 
-	void FScreenBuffer::SetOutputAttribute(WORD Attribute, DWORD Length, COORD Coordinate)
+	FScreenBuffer& FScreenBuffer::SetOutputAttribute(WORD Attribute)
 	{
-		FillConsoleOutputAttribute(ConsoleScreenBuffer, Attribute, Length, Coordinate, &NumAttributesWritten);
+		ConsoleOutputAttribute = Attribute;
+
+		return *this;
 	}
 
 

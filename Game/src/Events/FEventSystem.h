@@ -11,7 +11,7 @@ namespace wce
 
 	// Functions:
 
-		static void  WCE_CALL PushEvent                (FEvent&& Event);
+		static void  WCE_CALL PushEvent                (const FEvent& Event);
 		static void  WCE_CALL PollEvents               ();
 		static void  WCE_CALL Subscribe                (EEventType Type, IEventListener* Listener);
 		static void  WCE_CALL Unsubscribe              (EEventType Type, IEventListener* Listener);

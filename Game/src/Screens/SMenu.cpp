@@ -13,6 +13,7 @@ namespace wce
 		FEventSystem::Subscribe(EEventType::ScreenSwitched  , this);
 		FEventSystem::Subscribe(EEventType::MouseMoved      , this);
 		FEventSystem::Subscribe(EEventType::MouseLeftPressed, this);
+		FEventSystem::Subscribe(EEventType::FontChanged     , this);
 	}
 
 	SMenu::~SMenu()
@@ -66,6 +67,10 @@ namespace wce
 		{
 			this->Activate();
 		}
+		else if (Event->GetType() == EEventType::FontChanged)
+		{
+			ScreenBuffer.SetFontHeight(Event->FontData.ToHeight);
+		}
 
 		if (this->IsActive())
 		{
@@ -73,7 +78,7 @@ namespace wce
 			{
 				for (auto& Field : TextFields)
 				{
-					if (Event->MouseData.dwMousePosition.Y == Field.second.GetPosition().Y)
+					if ( (Event->MouseData.dwMousePosition.Y == Field.second.GetPosition().Y) && Field.second.IsEnabled())
 					{
 						Marker.SetPosition(Field.second.GetPosition());
 					}
@@ -81,17 +86,17 @@ namespace wce
 			}
 			else if (Event->GetType() == EEventType::MouseLeftPressed)
 			{
-				if      (Event->MouseData.dwMousePosition.Y == TextFields.at(EScreenField::Play).GetPosition().Y)
+				if      (Marker.GetPosition().Y == TextFields.at(EScreenField::Play).GetPosition().Y)
 				{
 					//
 				}
-				else if (Event->MouseData.dwMousePosition.Y == TextFields.at(EScreenField::Settings).GetPosition().Y)
+				else if (Marker.GetPosition().Y == TextFields.at(EScreenField::Settings).GetPosition().Y)
 				{
 					this->Deactivate();
 
 					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Settings }));
 				}
-				else if (Event->MouseData.dwMousePosition.Y == TextFields.at(EScreenField::Exit).GetPosition().Y)
+				else if (Marker.GetPosition().Y == TextFields.at(EScreenField::Exit).GetPosition().Y)
 				{
 					this->Deactivate();
 

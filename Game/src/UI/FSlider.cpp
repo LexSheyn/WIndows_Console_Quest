@@ -25,8 +25,8 @@ namespace wce
 
 	void FSlider::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.SetOutputAttribute(AttributeBack, SizeBack, Coord);
-		ScreenBuffer.SetOutputAttribute(AttributeFill, SizeFill, Coord);
+		ScreenBuffer.FillWithAttribute(AttributeBack, SizeBack, Coord);
+		ScreenBuffer.FillWithAttribute(AttributeFill, SizeFill, Coord);
 	}
 
 	void FSlider::SetRange(SHORT ValueMin, SHORT ValueMax)

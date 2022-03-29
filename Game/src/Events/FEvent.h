@@ -15,9 +15,12 @@ namespace wce
 		FEvent (EEventType Type, MOUSE_EVENT_RECORD        MouseData)        : Type(Type), MouseData        (MouseData)        {}
 		FEvent (EEventType Type, WINDOW_BUFFER_SIZE_RECORD WindowBufferData) : Type(Type), WindowBufferData (WindowBufferData) {}
 		FEvent (EEventType Type, FScreenData               ScreenData)       : Type(Type), ScreenData       (ScreenData)       {}
+		FEvent (EEventType Type, FFontData                 FontData)         : Type(Type), FontData         (FontData)         {}
 
-		WCE_NO_COPY(FEvent);
-		WCE_DEFAULT_MOVE(FEvent);
+		~FEvent () {}
+
+	//	WCE_DEFAULT_COPY(FEvent);
+	//	WCE_DEFAULT_MOVE(FEvent);
 
 	// Accessors:
 
@@ -36,6 +39,7 @@ namespace wce
 		// Engine:
 
 			FScreenData ScreenData;
+			FFontData   FontData;
 		};
 
 	private:

@@ -56,7 +56,7 @@ namespace wce
 		TextFields[EScreenField::CharSize].SetPosition(COORD{ 10, 8  }).SetText(L"Character size");
 		TextFields[EScreenField::Back    ].SetPosition(COORD{ 10, 16 }).SetText(L"Back");
 
-		Sliders[EScreenField::CharSize].SetPosition(COORD{ 30, 8 }).SetSizeFill(1).SetRange(14i16, 20i16);
+		Sliders[EScreenField::CharSize].SetPosition(COORD{ 30, 8 }).SetSizeFill(0).SetRange(14i16, 20i16);
 
 		Marker.SetPosition(TextFields[EScreenField::CharSize].GetPosition());
 		Marker.SetSize(18);
@@ -86,22 +86,35 @@ namespace wce
 			}
 			else if (Event->GetType() == EEventType::MouseLeftPressed)
 			{
-				if (Event->MouseData.dwMousePosition.Y == TextFields.at(EScreenField::CharSize).GetPosition().Y)
-				{
-					//
-				}
-				else if (Event->MouseData.dwMousePosition.Y == TextFields.at(EScreenField::Back).GetPosition().Y)
+				if (Marker.GetPosition().Y == TextFields.at(EScreenField::Back).GetPosition().Y)
 				{
 					this->Deactivate();
 
 					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
 				}
 			}
-			else if ( (Event->GetType() == EEventType::KeyPressed) && (Event->KeyData.wVirtualKeyCode == FKey::Escape) )
+			else if (Event->GetType() == EEventType::KeyPressed)
 			{
-				this->Deactivate();
+				if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
+				{
+					this->Deactivate();
 
-				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
+					FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::MainMenu }));
+				}
+				else if ( (Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::A )
+				{
+					Sliders.at(EScreenField::CharSize).SetSizeFill(Sliders.at(EScreenField::CharSize).GetSizeFill() - 1u);
+					ScreenBuffer.SetFontHeight(ScreenBuffer.GetFontHeight() - 2i16);
+
+					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontHeight(), ScreenBuffer.GetFontName() }));
+				}
+				else if ( (Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::D )
+				{
+					Sliders.at(EScreenField::CharSize).SetSizeFill(Sliders.at(EScreenField::CharSize).GetSizeFill() + 1u);
+					ScreenBuffer.SetFontHeight(ScreenBuffer.GetFontHeight() + 2i16);
+
+					FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontHeight(), ScreenBuffer.GetFontName() }));
+				}
 			}
 
 			this->Render();

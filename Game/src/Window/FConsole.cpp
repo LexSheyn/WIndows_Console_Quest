@@ -9,6 +9,21 @@ namespace wce
 		: Console(GetConsoleWindow()),
 		  Desktop(GetDesktopWindow())
 	{
+	// Remove resize and maximize functionality:
+
+		Style  = GetWindowLong(Console, GWL_STYLE);
+		Style &= ~WS_MAXIMIZEBOX;
+		Style &= ~WS_SIZEBOX;
+
+		SetWindowLong(Console, GWL_STYLE, Style);
+	}
+
+	FConsole::~FConsole()
+	{
+	}
+
+	void FConsole::ArrangeToCenter()
+	{
 	// Get console window size:
 
 		GetWindowRect(Console, &ConsoleRect);
@@ -27,21 +42,6 @@ namespace wce
 		DesktopX      = DesktopRect.left;
 		DesktopY      = DesktopRect.top;
 
-	// Remove resize and maximize functionality:
-
-		Style  = GetWindowLong(Console, GWL_STYLE);
-		Style &= ~WS_MAXIMIZEBOX;
-		Style &= ~WS_SIZEBOX;
-
-		SetWindowLong(Console, GWL_STYLE, Style);
-	}
-
-	FConsole::~FConsole()
-	{
-	}
-
-	void FConsole::ArrangeToCenter()
-	{
 		SetWindowPos(Console,
 			         nullptr,
 			         static_cast<INT>((static_cast<FLOAT>(DesktopWidth ) / 2.0f) - (static_cast<FLOAT>(ConsoleWidth ) / 2.0f)),

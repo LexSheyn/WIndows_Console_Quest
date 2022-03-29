@@ -23,7 +23,7 @@ namespace wce
 
 	void FMarker::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.SetOutputAttribute(Attribute, Size, Coord);
+		ScreenBuffer.FillWithAttribute(Attribute, Size, Coord);
 	}
 
 

@@ -5,9 +5,9 @@ namespace wce
 {
 // Functions:
 
-	void FEventSystem::PushEvent(FEvent&& Event)
+	void FEventSystem::PushEvent(const FEvent& Event)
 	{
-		EventQueue.push_back(std::move(Event));
+		EventQueue.push_back(Event);
 	}
 
 	void FEventSystem::PollEvents()

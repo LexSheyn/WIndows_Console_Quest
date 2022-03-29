@@ -22,6 +22,7 @@ namespace wce
 
 	// Engine:
 
-		ScreenSwitched
+		ScreenSwitched,
+		FontChanged
 	};
 }
