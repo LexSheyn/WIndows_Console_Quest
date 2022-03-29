@@ -27,12 +27,14 @@ namespace wce
 
 		bool8 ShouldClose;
 
-		FConsole Console;
-
 	// Screens:
 
 		SMenu     Menu;
 		SSettings Settings;
+
+	// Window:
+
+		FConsole Console;
 
 	// IEventListener Interface:
 
