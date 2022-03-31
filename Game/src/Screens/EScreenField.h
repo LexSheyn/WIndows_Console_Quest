@@ -26,6 +26,7 @@ namespace wce
 
 		CharacterSize,
 		MusicVolume,
+		SoundVolume,
 
 	// Save and Load:
 

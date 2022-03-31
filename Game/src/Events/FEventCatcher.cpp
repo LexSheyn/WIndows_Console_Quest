@@ -15,13 +15,9 @@ namespace wce
 
 		GetConsoleMode(StdInput, &ConsoleModeOld);
 
-	// Disable Quick Edit Mode:
+	// Disable Quick Edit Mode and enable the window and mouse input events:
 
-		SetConsoleMode(StdInput, ENABLE_EXTENDED_FLAGS);
-
-	// Enable the window and mouse input events:
-
-		SetConsoleMode(StdInput, ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+		SetConsoleMode(StdInput, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
 	}
 
 	void FEventCatcher::CatchEvents()
@@ -39,42 +35,37 @@ namespace wce
 				case KEY_EVENT:
 				{
 					KeyEventProc(EventData[i].Event.KeyEvent);
-
-					break;
 				}
+				break;
 
 				case MOUSE_EVENT:
 				{
 					MouseEventProc(EventData[i].Event.MouseEvent);
-
-					break;
 				}
+				break;
 
 				case WINDOW_BUFFER_SIZE_EVENT:
 				{
 					ResizeEventProc(EventData[i].Event.WindowBufferSizeEvent);
-
-					break;
 				}
+				break;
 
 				case MENU_EVENT:
 				{
 					// To do...
-
-					break;
 				}
+				break;
 
 				case FOCUS_EVENT:
 				{
 					// To do...
-
-					break;
 				}
+				break;
 
 				default:
 				{
-					break;
 				}
+				break;
 			}
 		}
 	}
@@ -108,28 +99,25 @@ namespace wce
 			case 0:
 			{
 				FEventSystem::PushEvent(FEvent(EEventType::MousePressed, MouseData));
-
-				break;
 			}
+			break;
 
 			case MOUSE_WHEELED:
 			{
 				FEventSystem::PushEvent(FEvent(EEventType::MouseScrolled, MouseData));
-
-				break;
 			}
+			break;
 
 			case MOUSE_MOVED:
 			{
 				FEventSystem::PushEvent(FEvent(EEventType::MouseMoved, MouseData));
-
-				break;
 			}
+			break;
 
 			default:
 			{
-				break;
 			}
+			break;
 		}
 	}
 

@@ -16,9 +16,15 @@ namespace wce
 		CharacterSize,
 		CharacterSizePlus,
 		CharacterSizeMinus,
+
 		MusicVolume,
 		MusicVolumePlus,
 		MusicVolumeMinus,
+		
+		SoundVolume,
+		SoundVolumePlus,
+		SoundVolumeMinus,
+		
 		Back
 	};
 }

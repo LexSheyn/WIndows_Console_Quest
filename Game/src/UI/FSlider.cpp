@@ -11,6 +11,7 @@ namespace wce
 		: Coord(COORD{}),
 		  AttributeBack(128),
 		  AttributeFill(BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY),
+	//	  AttributeFill(BACKGROUND_RED | BACKGROUND_GREEN |                   BACKGROUND_INTENSITY),
 		  SizeBack(10),
 		  SizeFill(0)
 	{

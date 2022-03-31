@@ -61,6 +61,7 @@ namespace wce
 
 		TextFields[EScreenField::CharacterSize].SetPosition(COORD{ 10, 8  }).SetText(L"Character size");
 		TextFields[EScreenField::MusicVolume  ].SetPosition(COORD{ 10, 10 }).SetText(L"Music volume"  );
+		TextFields[EScreenField::SoundVolume  ].SetPosition(COORD{ 10, 12 }).SetText(L"Sound volume"  );
 
 	// Buttons and Sliders:
 
@@ -73,6 +74,10 @@ namespace wce
 		Sliders[EScreenField::MusicVolume].SetPosition(COORD{ 30, 10 }).SetSizeFill(0).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
 		Buttons[EButtonName::MusicVolumePlus ].SetPosition(COORD{ 41, 10 }).SetWidth(3).SetName(EButtonName::MusicVolumePlus ).SetText(L"+");
 		Buttons[EButtonName::MusicVolumeMinus].SetPosition(COORD{ 45, 10 }).SetWidth(3).SetName(EButtonName::MusicVolumeMinus).SetText(L"-");
+
+		Sliders[EScreenField::SoundVolume].SetPosition(COORD{ 30, 12 }).SetSizeFill(0).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
+		Buttons[EButtonName::SoundVolumePlus ].SetPosition(COORD{ 41, 12 }).SetWidth(3).SetName(EButtonName::SoundVolumePlus ).SetText(L"+");
+		Buttons[EButtonName::SoundVolumeMinus].SetPosition(COORD{ 45, 12 }).SetWidth(3).SetName(EButtonName::SoundVolumeMinus).SetText(L"-");
 	}
 
 
@@ -117,6 +122,46 @@ namespace wce
 
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::CharacterSizePlus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			ScreenBuffer.IncreaseFontSize();
+
+			Sliders.at(EScreenField::CharacterSize).Increase();
+
+			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::CharacterSizeMinus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			ScreenBuffer.DecreaseFontSize();
+
+			Sliders.at(EScreenField::CharacterSize).Decrease();
+
+			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::MusicVolumePlus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			// Music stuff
+
+			Sliders.at(EScreenField::MusicVolume).Increase();
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::MusicVolumeMinus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			// Music stuff
+
+			Sliders.at(EScreenField::MusicVolume).Decrease();
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::SoundVolumePlus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			// Sound stuff
+
+			Sliders.at(EScreenField::SoundVolume).Increase();
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::SoundVolumeMinus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			// Sound stuff
+
+			Sliders.at(EScreenField::SoundVolume).Decrease();
+		}
 	}
 
 	void SSettings::KeyPressCallback(const FEvent* const Event)
@@ -128,32 +173,6 @@ namespace wce
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
 	}
-
-//	void SSettings::ProcessKey(const FEvent* const Event)
-//	{
-//		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
-//		{
-//			this->Deactivate();
-//
-//			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
-//		}
-//		else if ((Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::A)
-//		{
-//			ScreenBuffer.DecreaseFontSize();
-//
-//			Sliders.at(EScreenField::CharSize).Decrease();
-//
-//			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
-//		}
-//		else if ((Marker.GetPosition().Y == TextFields.at(EScreenField::CharSize).GetPosition().Y) && Event->KeyData.wVirtualKeyCode == FKey::D)
-//		{
-//			ScreenBuffer.IncreaseFontSize();
-//
-//			Sliders.at(EScreenField::CharSize).Increase();
-//
-//			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
-//		}
-//	}
 
 
 }
