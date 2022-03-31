@@ -5,7 +5,7 @@ namespace wce
 	enum class EScreenName
 	{
 		None = 0,
-		MainMenu,
+		Menu,
 		Game,		
 		Memory,
 		Settings,

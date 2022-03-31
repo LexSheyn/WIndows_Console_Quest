@@ -7,7 +7,7 @@ namespace wce
 
 	IScreen::IScreen(EScreenName Name)
 		: Name(Name),
-		  IsActivated(false)
+		  Activated(false)
 	{
 	}
 
@@ -21,12 +21,12 @@ namespace wce
 	void IScreen::Activate()
 	{
 		ScreenBuffer.Activate();
-		IsActivated = true;
+		Activated = true;
 	}
 
 	void IScreen::Deactivate()
 	{
-		IsActivated = false;
+		Activated = false;
 	}
 
 
@@ -39,7 +39,7 @@ namespace wce
 
 	const bool8& IScreen::IsActive() const
 	{
-		return IsActivated;
+		return Activated;
 	}
 
 

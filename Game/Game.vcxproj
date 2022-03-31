@@ -103,7 +103,9 @@
     </ClCompile>
     <ClCompile Include="src\Screens\IScreen.cpp" />
     <ClCompile Include="src\Screens\SSettings.cpp" />
+    <ClCompile Include="src\UI\FButton.cpp" />
     <ClCompile Include="src\UI\FMarker.cpp" />
+    <ClCompile Include="src\UI\FMemorySlot.cpp" />
     <ClCompile Include="src\UI\FSlider.cpp" />
     <ClCompile Include="src\UI\FTextField.cpp" />
     <ClCompile Include="src\Window\FConsole.cpp" />
@@ -117,6 +119,7 @@
     <ClInclude Include="src\Events\FEventSystem.h" />
     <ClInclude Include="src\Events\IEventListener.h" />
     <ClInclude Include="src\Input\FKey.h" />
+    <ClInclude Include="src\Input\FMouseButton.h" />
     <ClInclude Include="src\Macros\WCE_Macros.h" />
     <ClInclude Include="src\PrecompiledHeaders\wcepch.h" />
     <ClInclude Include="src\ScreenBuffer\FScreenBuffer.h" />
@@ -128,7 +131,10 @@
     <ClInclude Include="src\Types\WCE_Types.h" />
     <ClInclude Include="src\Screens\SMenu.h" />
     <ClInclude Include="src\Screens\IScreen.h" />
+    <ClInclude Include="src\UI\EButtonName.h" />
+    <ClInclude Include="src\UI\FButton.h" />
     <ClInclude Include="src\UI\FMarker.h" />
+    <ClInclude Include="src\UI\FMemorySlot.h" />
     <ClInclude Include="src\UI\FSlider.h" />
     <ClInclude Include="src\UI\FTextField.h" />
     <ClInclude Include="src\Window\FConsole.h" />

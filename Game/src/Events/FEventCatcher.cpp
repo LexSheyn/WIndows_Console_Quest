@@ -107,14 +107,7 @@ namespace wce
 		{
 			case 0:
 			{
-				if      (MouseData.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
-				{
-					FEventSystem::PushEvent(FEvent(EEventType::MouseLeftPressed, MouseData));
-				}
-				else if (MouseData.dwButtonState == RIGHTMOST_BUTTON_PRESSED)
-				{
-					FEventSystem::PushEvent(FEvent(EEventType::MouseRightPressed, MouseData));
-				}
+				FEventSystem::PushEvent(FEvent(EEventType::MousePressed, MouseData));
 
 				break;
 			}

@@ -8,34 +8,32 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FTextField();
-		~FTextField();
+		 FTextField ();
+		~FTextField ();
 
 	// Functions:
 
-		void Disable    ();
-		void Enable     ();
-		void Draw       (class FScreenBuffer& ScreenBuffer);
+		void Draw (class FScreenBuffer& ScreenBuffer);
 
 	// Accessors:
 
-		const COORD&        GetPosition    () const;
-		const std::wstring& GetText        () const;
-		const bool8&        IsEnabled      () const;
-		uint64              GetLength      () const;
+		const COORD&        GetPosition     () const;
+		const WORD&         GetAttribute    () const;
+		const std::wstring& GetText         () const;
+		uint64              GetLength       () const;
 
 	// Modifiers:
 
-		FTextField& SetPosition    (COORD Position);
-		FTextField& SetText        (const std::wstring Text);
+		FTextField& SetPosition     (COORD Position);
+		FTextField& SetAttribute    (WORD Attribute);
+		FTextField& SetText         (const std::wstring Text);
 
 	private:
 
 	// Variables:
 
+		COORD        Position;
+		WORD         Attribute;
 		std::wstring Text;
-		COORD Coord;
-		WORD  Attribute;
-		bool8 Enabled;
 	};
 }

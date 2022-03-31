@@ -24,16 +24,23 @@ namespace wce
 
 		void Init ();
 
+	// Components:
+
+		std::map<EScreenField, FTextField> TextFields;
+		std::map<EButtonName , FButton>    Buttons;
+		std::map<EScreenField, FSlider>    Sliders;
+
 	public:
 
 	// IEventListener Interface:
 
-		void OnEvent(const FEvent* const Event) override;
+		void OnEvent (const FEvent* const Event) override;
+
+	private:
 
 	// Event Callbacks:
 
-		void MarkField       (const FEvent* const Event);
-		void ProcessField    (const FEvent* const Event);
-		void ProcessKey      (const FEvent* const Event);
+		void ButtonPressCallback (const FEvent* const Event);
+		void KeyPressCallback    (const FEvent* const Event);
 	};
 }

@@ -8,9 +8,8 @@ namespace wce
 // Constructors and Destructor:
 
 	FTextField::FTextField()
-		: Coord        (COORD{}),
-		  Attribute    (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE),
-		  Enabled      (true)
+		: Position  (COORD{}),
+		  Attribute (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
 	{
 		Text.reserve(120);
 	}
@@ -22,22 +21,10 @@ namespace wce
 
 // Functions:
 
-	void FTextField::Disable()
-	{
-		Enabled = false;
-		Attribute = 8;
-	}
-
-	void FTextField::Enable()
-	{
-		Enabled = true;
-		Attribute = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-	}
-
 	void FTextField::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.FillWithAttribute(Attribute, static_cast<DWORD>(Text.length()), Coord);
-		ScreenBuffer.Write(Coord, Text);
+		ScreenBuffer.FillWithAttribute(Attribute, static_cast<DWORD>(Text.length()), Position);
+		ScreenBuffer.Write(Position, Text);
 	}
 
 
@@ -45,17 +32,17 @@ namespace wce
 
 	const COORD& FTextField::GetPosition() const
 	{
-		return Coord;
+		return Position;
+	}
+
+	const WORD& FTextField::GetAttribute() const
+	{
+		return Attribute;
 	}
 
 	const std::wstring& FTextField::GetText() const
 	{
 		return Text;
-	}
-
-	const bool8& FTextField::IsEnabled() const
-	{
-		return Enabled;
 	}
 
 	uint64 FTextField::GetLength() const
@@ -68,7 +55,14 @@ namespace wce
 
 	FTextField& FTextField::SetPosition(COORD Position)
 	{
-		Coord = Position;
+		this->Position = Position;
+
+		return *this;
+	}
+
+	FTextField& FTextField::SetAttribute(WORD Attribute)
+	{
+		this->Attribute = Attribute;
 
 		return *this;
 	}

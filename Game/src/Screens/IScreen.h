@@ -3,10 +3,10 @@
 #include "EScreenName.h"
 #include "EScreenField.h"
 #include "../Input/FKey.h"
+#include "../Input/FMouseButton.h"
 #include "../ScreenBuffer/FScreenBuffer.h"
-#include "../UI/FTextField.h"
+#include "../UI/FButton.h"
 #include "../UI/FSlider.h"
-#include "../UI/FMarker.h"
 
 namespace wce
 {
@@ -16,8 +16,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		         IScreen(EScreenName Name);
-		virtual ~IScreen();
+		         IScreen (EScreenName Name);
+		virtual ~IScreen ();
 
 	// Intarface:
 
@@ -36,22 +36,19 @@ namespace wce
 
 	// Components:
 
-		FScreenBuffer                                ScreenBuffer;
-		std::unordered_map<EScreenField, FTextField> TextFields;
-		std::unordered_map<EScreenField, FSlider>    Sliders;
-		FMarker                                      Marker;
+		FScreenBuffer ScreenBuffer;
 
 	private:
 
 	// Variables:
 
 		EScreenName Name;
-		bool8       IsActivated;
+		bool8       Activated;
 
 	public:
 
 	// IEventListener Interface:
 
-		virtual void OnEvent(const FEvent* const Event) override = 0;
+		virtual void OnEvent (const FEvent* const Event) override = 0;
 	};
 }

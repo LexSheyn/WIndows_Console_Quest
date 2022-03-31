@@ -4,7 +4,7 @@ namespace wce
 {
 	enum class EScreenField
 	{
-	// MainMenu:
+	// Menu:
 
 		Game,
 		Memory,
@@ -24,7 +24,7 @@ namespace wce
 
 	// Settings:
 
-		CharSize,
+		CharacterSize,
 		MusicVolume,
 
 	// Save and Load:

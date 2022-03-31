@@ -11,8 +11,7 @@ namespace wce
 
 	// Mouse:
 
-		MouseLeftPressed,
-		MouseRightPressed,
+		MousePressed,
 		MouseScrolled,
 		MouseMoved,
 
@@ -22,7 +21,12 @@ namespace wce
 
 	// Engine:
 
+		ApplicationUpdated,
 		ScreenSwitched,
-		FontChanged
+		FontChanged,
+
+	// UI:
+
+		ButtonPressed
 	};
 }

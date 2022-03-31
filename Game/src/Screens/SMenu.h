@@ -15,8 +15,8 @@ namespace wce
 
 	// IScreen Interface:
 
-		void Render      () override;
-		void Update      () override;
+		void Render    () override;
+		void Update    () override;
 
 	private:
 
@@ -24,15 +24,20 @@ namespace wce
 
 		void Init ();
 
+	// Components:
+
+		std::map<EButtonName, FButton> Buttons;
+
 	public:
 
 	// IEventListener Interface:
 
-		void OnEvent(const FEvent* const Event) override;
+		void OnEvent (const FEvent* const Event) override;
+
+	private:
 
 	// Event Callbacks:
 
-		void MarkField       (const FEvent* const Event);
-		void ProcessField    (const FEvent* const Event);
+		void ButtonPressCallback (const FEvent* const Event);
 	};
 }
