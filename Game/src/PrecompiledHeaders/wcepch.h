@@ -21,6 +21,8 @@
 // Engine Macros:
 #include "../Macros/WCE_Macros.h"
 
-// Event System:
+// Event Core:
 #include "../Events/FEventCatcher.h"
 #include "../Events/FEventSystem.h"
+#include "../FileManager/MFileManager.h"
+#include "../MemoryData/MDataManager.h"

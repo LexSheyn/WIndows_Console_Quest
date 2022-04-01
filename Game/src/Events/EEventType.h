@@ -22,6 +22,7 @@ namespace wce
 	// Engine:
 
 		ApplicationUpdated,
+		ApplicationClosed,
 		ScreenSwitched,
 		FontChanged,
 

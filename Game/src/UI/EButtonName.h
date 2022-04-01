@@ -25,6 +25,13 @@ namespace wce
 		SoundVolumePlus,
 		SoundVolumeMinus,
 		
-		Back
+		Back,
+
+	// Game:
+
+		Choice_1,
+		Choice_2,
+		Choice_3,
+		Choice_4,
 	};
 }

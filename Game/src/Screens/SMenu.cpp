@@ -48,7 +48,7 @@ namespace wce
 
 	void SMenu::Init()
 	{
-		Buttons[EButtonName::StartGame].SetPosition(COORD{ 10, 8  }).SetWidth(12).SetName(EButtonName::StartGame).SetText(L"Start game").Disable();
+		Buttons[EButtonName::StartGame].SetPosition(COORD{ 10, 8  }).SetWidth(12).SetName(EButtonName::StartGame).SetText(L"Start game");
 		Buttons[EButtonName::Memory   ].SetPosition(COORD{ 10, 10 }).SetWidth(12).SetName(EButtonName::Memory   ).SetText(L"Memory"    ).Disable();
 		Buttons[EButtonName::Settings ].SetPosition(COORD{ 10, 12 }).SetWidth(12).SetName(EButtonName::Settings ).SetText(L"Settings"  );
 		Buttons[EButtonName::Exit     ].SetPosition(COORD{ 10, 14 }).SetWidth(12).SetName(EButtonName::Exit     ).SetText(L"Exit"      );

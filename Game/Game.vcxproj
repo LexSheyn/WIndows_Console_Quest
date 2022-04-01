@@ -45,9 +45,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)VS_Output\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)VS_Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)VS_Output\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)VS_Intermediate\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -88,6 +92,8 @@
     <ClCompile Include="src\EntryPoint\Main.cpp" />
     <ClCompile Include="src\Events\FEventCatcher.cpp" />
     <ClCompile Include="src\Events\FEventSystem.cpp" />
+    <ClCompile Include="src\FileManager\MFileManager.cpp" />
+    <ClCompile Include="src\MemoryData\MDataManager.cpp" />
     <ClCompile Include="src\PrecompiledHeaders\wcepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">wcepch.h</PrecompiledHeaderFile>
@@ -118,9 +124,14 @@
     <ClInclude Include="src\Events\FEventCatcher.h" />
     <ClInclude Include="src\Events\FEventSystem.h" />
     <ClInclude Include="src\Events\IEventListener.h" />
+    <ClInclude Include="src\FileManager\MFileManager.h" />
     <ClInclude Include="src\Input\FKey.h" />
     <ClInclude Include="src\Input\FMouseButton.h" />
     <ClInclude Include="src\Macros\WCE_Macros.h" />
+    <ClInclude Include="src\MemoryData\FGameData.h" />
+    <ClInclude Include="src\MemoryData\MDataManager.h" />
+    <ClInclude Include="src\MemoryData\FSettingsData.h" />
+    <ClInclude Include="src\MemoryData\IMemoryData.h" />
     <ClInclude Include="src\PrecompiledHeaders\wcepch.h" />
     <ClInclude Include="src\ScreenBuffer\FScreenBuffer.h" />
     <ClInclude Include="src\Screens\EScreenName.h" />
