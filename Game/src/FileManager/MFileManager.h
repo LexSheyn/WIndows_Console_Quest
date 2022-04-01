@@ -8,8 +8,9 @@ namespace wce
 
 	// Functions:
 
-		static void                     Save    (const std::string& Content, const std::string& FilePath);
-		static std::vector<std::string> Load    (const std::string& FilePath);
+		static bool8                    Exists    (const std::string& FilePath);
+		static void                     Save      (const std::string& Content, const std::string& FilePath);
+		static std::vector<std::string> Load      (const std::string& FilePath);
 
 	private:
 

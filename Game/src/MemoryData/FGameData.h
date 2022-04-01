@@ -7,6 +7,6 @@ namespace wce
 		std::string Time;
 		std::string Date;
 
-		WORD        Chapter{};
+		WORD        Chapter = 0;
 	};
 }

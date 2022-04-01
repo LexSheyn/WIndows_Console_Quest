@@ -5,6 +5,11 @@ namespace wce
 {
 // Functions:
 
+	bool8 MFileManager::Exists(const std::string& FilePath)
+	{
+		return std::filesystem::exists(FilePath);
+	}
+
 	void MFileManager::Save(const std::string& Content, const std::string& FilePath)
 	{
 		std::ofstream OutFile;

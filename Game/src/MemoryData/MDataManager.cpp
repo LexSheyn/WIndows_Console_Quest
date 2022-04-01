@@ -21,16 +21,21 @@ namespace wce
 
 	FSettingsData MDataManager::LoadSettings(const std::string& FilePath)
 	{
-		std::vector<std::string> Content = MFileManager::Load(FilePath);
+		std::vector<std::string> Content;
 
 		FSettingsData Data;
 
-		Data.FontSliderSize  = std::stol(Content[0]);
-		Data.FontSize        = static_cast<SHORT>( std::stoi(Content[1]) );
-		Data.MusicSliderSize = std::stol(Content[2]);
-		Data.MusicVolume     = std::stof(Content[3]);
-		Data.SoundSliderSize = std::stol(Content[4]);
-		Data.SoundVolume     = std::stof(Content[5]);
+		if (MFileManager::Exists(FilePath))
+		{
+			Content = MFileManager::Load(FilePath);
+
+			Data.FontSliderSize  = std::stol(Content[0]);
+			Data.FontSize        = static_cast<SHORT>( std::stoi(Content[1]) );
+			Data.MusicSliderSize = std::stol(Content[2]);
+			Data.MusicVolume     = std::stof(Content[3]);
+			Data.SoundSliderSize = std::stol(Content[4]);
+			Data.SoundVolume     = std::stof(Content[5]);
+		}
 
 		return Data;
 	}
