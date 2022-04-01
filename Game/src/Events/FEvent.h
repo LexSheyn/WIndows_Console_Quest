@@ -11,6 +11,7 @@ namespace wce
 
 	// Constructors:
 
+		FEvent (EEventType Type)                                             : Type(Type)                                      {} // No data.
 		FEvent (EEventType Type, KEY_EVENT_RECORD          KeyData)          : Type(Type), KeyData          (KeyData)          {}
 		FEvent (EEventType Type, MOUSE_EVENT_RECORD        MouseData)        : Type(Type), MouseData        (MouseData)        {}
 		FEvent (EEventType Type, WINDOW_BUFFER_SIZE_RECORD WindowBufferData) : Type(Type), WindowBufferData (WindowBufferData) {}

@@ -10,9 +10,10 @@ namespace wce
 	{
 		this->Init();
 
-		FEventSystem::Subscribe(EEventType::ScreenSwitched, this);
-		FEventSystem::Subscribe(EEventType::FontChanged   , this);
-		FEventSystem::Subscribe(EEventType::ButtonPressed , this);
+		FEventSystem::Subscribe(EEventType::ApplicationStarted, this);
+		FEventSystem::Subscribe(EEventType::ScreenSwitched    , this);
+		FEventSystem::Subscribe(EEventType::FontChanged       , this);
+		FEventSystem::Subscribe(EEventType::ButtonPressed     , this);
 	}
 
 	SMenu::~SMenu()
@@ -59,24 +60,32 @@ namespace wce
 
 	void SMenu::OnEvent(const FEvent* const Event)
 	{
-		if (!this->IsActive())
+		switch (Event->GetType())
 		{
-			if      (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
+			case EEventType::ApplicationStarted:
+			{}
+			break;
+
+			case EEventType::ScreenSwitched:
 			{
-				this->Activate();
+				this->ScreenSwitchCallback(Event);
 			}
-			else if (Event->GetType() == EEventType::FontChanged)
+			break;
+
+			case EEventType::FontChanged:
 			{
-				ScreenBuffer.SetFontSize(Event->FontData.ToSize);
+				this->FontChangeCallback(Event);
 			}
+			break;
 		}
-		else
+
+		if (this->IsActive())
 		{
 			switch (Event->GetType())
 			{
 				case EEventType::ButtonPressed:
 				{
-					ButtonPressCallback(Event);
+					this->ButtonPressCallback(Event);
 				}
 				break;
 			}
@@ -85,6 +94,19 @@ namespace wce
 
 
 // Event Callbacks:
+
+	void SMenu::ScreenSwitchCallback(const FEvent* const Event)
+	{
+		if (Event->ScreenData.ToScreen == this->GetName())
+		{
+			this->Activate();
+		}
+	}
+
+	void SMenu::FontChangeCallback(const FEvent* const Event)
+	{
+		ScreenBuffer.SetFontSize(Event->FontData.ToSize);
+	}
 
 	void SMenu::ButtonPressCallback(const FEvent* const Event)
 	{
@@ -110,7 +132,7 @@ namespace wce
 		{
 			this->Deactivate();
 		
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Exit }));
+			FEventSystem::PushEvent(FEvent(EEventType::MenuExit));
 		}
 	}
 

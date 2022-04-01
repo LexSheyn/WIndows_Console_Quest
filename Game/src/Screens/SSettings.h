@@ -40,7 +40,10 @@ namespace wce
 
 	// Event Callbacks:
 
-		void ButtonPressCallback (const FEvent* const Event);
-		void KeyPressCallback    (const FEvent* const Event);
+		void ApplicationStartCallback    (const FEvent* const Event);
+		void ApplicationCloseCallback    (const FEvent* const Event);
+		void ScreenSwitchCallback        (const FEvent* const Event);
+		void ButtonPressCallback         (const FEvent* const Event);
+		void KeyPressCallback            (const FEvent* const Event);
 	};
 }

@@ -11,8 +11,9 @@ namespace wce
 		Console.SetTitle(L"Game v.0.0.0.1").ArrangeToCenter();
 
 		FEventCatcher::Initialize();
+		FEventSystem::PushEvent(FEvent(EEventType::ApplicationStarted));
 		FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ EScreenName::None, EScreenName::Menu }));
-		FEventSystem::Subscribe(EEventType::ScreenSwitched, this);
+		FEventSystem::Subscribe(EEventType::MenuExit, this);
 	}
 
 	FApplication::~FApplication()
@@ -52,9 +53,11 @@ namespace wce
 
 	void FApplication::OnEvent(const FEvent* const Event)
 	{
-		if ( (Event->GetType() == EEventType::ScreenSwitched) && (Event->ScreenData.ToScreen == EScreenName::Exit) )
+		if (Event->GetType() == EEventType::MenuExit)
 		{
 			ShouldClose = true;
+
+			FEventSystem::PushEvent(FEvent(EEventType::ApplicationClosed));
 		}
 	}
 

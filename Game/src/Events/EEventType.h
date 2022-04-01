@@ -21,6 +21,7 @@ namespace wce
 
 	// Engine:
 
+		ApplicationStarted,
 		ApplicationUpdated,
 		ApplicationClosed,
 		ScreenSwitched,
@@ -28,6 +29,15 @@ namespace wce
 
 	// UI:
 
-		ButtonPressed
+		ButtonPressed,
+
+	// Menu:
+
+		MenuExit,
+
+	// Game:
+
+		GameCompleted,
+		GameFinished
 	};
 }

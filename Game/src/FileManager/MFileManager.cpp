@@ -16,10 +16,10 @@ namespace wce
 		OutFile.close();
 	}
 
-	std::string MFileManager::Load(const std::string& FilePath)
+	std::vector<std::string> MFileManager::Load(const std::string& FilePath)
 	{
-		std::string Content;
-		Content.reserve(10'000);
+		std::vector<std::string> Content;
+		Content.reserve(10);
 
 		std::string Line;
 		Line.reserve(100);
@@ -30,12 +30,14 @@ namespace wce
 
 		if (!InFile.is_open())
 		{
-			return std::string("Failed to load " + FilePath);
+			Content.push_back(std::string("Failed to load " + FilePath));
+
+			return Content;
 		}
 
 		while (std::getline(InFile, Line))
 		{
-			Content += Line + "\n";
+			Content.push_back(Line);
 		}
 
 		InFile.close();

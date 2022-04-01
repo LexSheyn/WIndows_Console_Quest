@@ -24,7 +24,7 @@ namespace wce
 
 	// Settings:
 
-		CharacterSize,
+		FontSize,
 		MusicVolume,
 		SoundVolume,
 
