@@ -10,9 +10,10 @@ namespace wce
 	{
 		this->Init();
 
-		FEventSystem::Subscribe(EEventType::ScreenSwitched  , this);
-		FEventSystem::Subscribe(EEventType::FontChanged     , this);
-		FEventSystem::Subscribe(EEventType::KeyPressed      , this);		
+		FEventSystem::Subscribe(EEventType::ApplicationStarted, this);
+		FEventSystem::Subscribe(EEventType::ScreenSwitched    , this);
+		FEventSystem::Subscribe(EEventType::FontChanged       , this);
+		FEventSystem::Subscribe(EEventType::KeyPressed        , this);
 	}
 
 	SMemory::~SMemory()
@@ -28,6 +29,11 @@ namespace wce
 		if (this->IsActive())
 		{
 			ScreenBuffer.Clear();
+
+			for (auto& Slot : MemorySlots)
+			{
+				Slot.Draw(ScreenBuffer);
+			}
 
 			for (auto&[Key, Button] : Buttons)
 			{
@@ -47,6 +53,10 @@ namespace wce
 
 	void SMemory::Init()
 	{
+		MemorySlots.emplace_back(FMemorySlot());
+		MemorySlots.emplace_back(FMemorySlot());
+		MemorySlots.emplace_back(FMemorySlot());
+		MemorySlots.emplace_back(FMemorySlot());
 	}
 
 
@@ -59,7 +69,19 @@ namespace wce
 
 // Event Callbacks:
 
-	void SMemory::ProcessKey(const FEvent* const Event)
+	void SMemory::ApplicationStartCallback(const FEvent* const Event)
+	{
+	}
+
+	void SMemory::ScreenSwitchCallback(const FEvent* const Event)
+	{
+	}
+
+	void SMemory::FontChangeCallback(const FEvent* const Event)
+	{
+	}
+
+	void SMemory::KeyPressCallback(const FEvent* const Event)
 	{
 	}
 

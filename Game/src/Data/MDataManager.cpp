@@ -58,9 +58,13 @@ namespace wce
 	{
 		std::vector<std::wstring> Content = MFileManager::Load(FilePath);
 
-		// To do...
+		FGameData Data;
 
-		return FGameData();
+		Data.Time    = Content[0];
+		Data.Date    = Content[1];
+		Data.Chapter = static_cast<WORD>( std::stoul(Content[2]) );
+
+		return Data;
 	}
 
 

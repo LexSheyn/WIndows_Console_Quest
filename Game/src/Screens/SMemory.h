@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IScreen.h"
+#include "../UI/FMemorySlot.h"
 
 namespace wce
 {
@@ -27,7 +28,7 @@ namespace wce
 	// Components:
 
 		std::map<EScreenField, FButton> Buttons;
-		// Memory slots:
+		std::vector<FMemorySlot> MemorySlots;
 
 	public:
 
@@ -39,8 +40,9 @@ namespace wce
 
 	// Event Callbacks:
 
-		// Process Memory Slot
-
-		void ProcessKey(const FEvent* const Event);
+		void ApplicationStartCallback    (const FEvent* const Event);
+		void ScreenSwitchCallback        (const FEvent* const Event);
+		void FontChangeCallback          (const FEvent* const Event);
+		void KeyPressCallback            (const FEvent* const Event);
 	};
 }
