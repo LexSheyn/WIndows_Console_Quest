@@ -10,10 +10,11 @@ namespace wce
 	{
 		this->Init();
 
-		FEventSystem::Subscribe(EEventType::ScreenSwitched, this);
-		FEventSystem::Subscribe(EEventType::FontChanged   , this);
-		FEventSystem::Subscribe(EEventType::ButtonPressed , this);
-		FEventSystem::Subscribe(EEventType::KeyPressed    , this);
+		FEventSystem::Subscribe(EEventType::ApplicationStarted, this);
+		FEventSystem::Subscribe(EEventType::ScreenSwitched    , this);
+		FEventSystem::Subscribe(EEventType::FontChanged       , this);
+		FEventSystem::Subscribe(EEventType::ButtonPressed     , this);
+		FEventSystem::Subscribe(EEventType::KeyPressed        , this);
 	}
 
 	SGame::~SGame()
@@ -30,11 +31,17 @@ namespace wce
 		{
 			ScreenBuffer.Clear();
 
-			TextField.Draw(ScreenBuffer);
+			for (size_t i = 0u; i < Dialogs[Chapter].size(); i++)
+			{
+				TextFields[i].Draw(ScreenBuffer);
+			}
 
 			for (auto& [Key, Button] : Buttons)
 			{
-				Button.Draw(ScreenBuffer);
+				if (Button.IsEnabled())
+				{
+					Button.Draw(ScreenBuffer);
+				}				
 			}
 
 			ScreenBuffer.Present();
@@ -43,6 +50,30 @@ namespace wce
 
 	void SGame::Update()
 	{
+		for (size_t i = 0u; i < Dialogs[Chapter].size(); i++)
+		{
+			TextFields[i].SetPosition(COORD{ 10, static_cast<SHORT>(5 + i) }).SetText(Dialogs[Chapter][i]);
+		}
+
+		Buttons[EButtonName::Choice_0].SetText(Choices[Chapter][0].Text);
+		Buttons[EButtonName::Choice_1].Disable();
+		Buttons[EButtonName::Choice_2].Disable();
+		Buttons[EButtonName::Choice_3].Disable();
+		
+		if (Choices[Chapter].size() > 1u)
+		{
+			Buttons[EButtonName::Choice_1].SetText(Choices[Chapter][1].Text).Enable();
+		}
+		
+		if (Choices[Chapter].size() > 2u)
+		{
+			Buttons[EButtonName::Choice_2].SetText(Choices[Chapter][2].Text).Enable();
+		}
+		
+		if (Choices[Chapter].size() > 3u)
+		{
+			Buttons[EButtonName::Choice_3].SetText(Choices[Chapter][3].Text).Enable();
+		}
 	}
 
 
@@ -50,12 +81,12 @@ namespace wce
 
 	void SGame::Init()
 	{
-		TextField.SetPosition(COORD{10, 5}).SetText(L"Here we are! Finally met you here! Come, come!");
+		TextFields[0].SetPosition(COORD{ 10, 5 });
 
-		Buttons[EButtonName::Choice_1].SetPosition(COORD{ 10, 23 }).SetWidth(30).SetName(EButtonName::Choice_1).SetText(L"WTF?");
-		Buttons[EButtonName::Choice_2].SetPosition(COORD{ 10, 25 }).SetWidth(30).SetName(EButtonName::Choice_2).SetText(L"It was not me!");
-		Buttons[EButtonName::Choice_3].SetPosition(COORD{ 50, 23 }).SetWidth(30).SetName(EButtonName::Choice_3).SetText(L"Where the WC room?");
-		Buttons[EButtonName::Choice_4].SetPosition(COORD{ 50, 25 }).SetWidth(30).SetName(EButtonName::Choice_4).SetText(L"DESTROY EVERYTHING!!!");
+		Buttons[EButtonName::Choice_0].SetPosition(COORD{ 10, 23 }).SetWidth(30).SetName(EButtonName::Choice_0);
+		Buttons[EButtonName::Choice_1].SetPosition(COORD{ 10, 25 }).SetWidth(30).SetName(EButtonName::Choice_1);
+		Buttons[EButtonName::Choice_2].SetPosition(COORD{ 50, 23 }).SetWidth(30).SetName(EButtonName::Choice_2);
+		Buttons[EButtonName::Choice_3].SetPosition(COORD{ 50, 25 }).SetWidth(30).SetName(EButtonName::Choice_3);
 	}
 
 
@@ -63,18 +94,28 @@ namespace wce
 
 	void SGame::OnEvent(const FEvent* const Event)
 	{
-		if (!this->IsActive())
+		switch (Event->GetType())
 		{
-			if (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
+			case EEventType::ApplicationStarted:
 			{
-				this->Activate();
+				this->ApplicationStartCallback(Event);
 			}
-			else if (Event->GetType() == EEventType::FontChanged)
+			break;
+
+			case EEventType::ScreenSwitched:
 			{
-				ScreenBuffer.SetFontSize(Event->FontData.ToSize);
+				this->ScreenSwitchCallback(Event);
 			}
+			break;
+
+			case EEventType::FontChanged:
+			{
+				this->FontChangeCallback(Event);
+			}
+			break;
 		}
-		else
+
+		if (this->IsActive())
 		{
 			switch (Event->GetType())
 			{
@@ -96,8 +137,46 @@ namespace wce
 
 // Event Callbacks:
 
+	void SGame::ApplicationStartCallback(const FEvent* const Event)
+	{
+		MDataManager::LoadContent(Dialogs, Choices, L"Content/Content.tale");
+
+		this->Update();
+	}
+
+	void SGame::ScreenSwitchCallback(const FEvent* const Event)
+	{
+		if (Event->ScreenData.ToScreen == this->GetName())
+		{
+			this->Activate();
+		}
+	}
+
+	void SGame::FontChangeCallback(const FEvent* const Event)
+	{
+		ScreenBuffer.SetFontSize(Event->FontData.ToSize);
+	}
+
 	void SGame::ButtonPressCallback(const FEvent* const Event)
 	{
+		if      ( (Event->ButtonData.ButtonName == EButtonName::Choice_0) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			Chapter = Choices.at(Chapter)[0].ToChapter;
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::Choice_1) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			Chapter = Choices.at(Chapter)[1].ToChapter;
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::Choice_2) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			Chapter = Choices.at(Chapter)[2].ToChapter;
+		}
+		else if ( (Event->ButtonData.ButtonName == EButtonName::Choice_3) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			Chapter = Choices.at(Chapter)[3].ToChapter;
+		}
+
+		this->Update();
 	}
 
 	void SGame::KeyPressCallback(const FEvent* const Event)

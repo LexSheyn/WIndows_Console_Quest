@@ -15,6 +15,8 @@
 #include <list>
 #include <filesystem>
 
+// Windows defines:
+#undef CreateDirectory
 
 // Engine Types:
 #include "../Types/WCE_Types.h"
@@ -26,4 +28,4 @@
 #include "../Events/FEventCatcher.h"
 #include "../Events/FEventSystem.h"
 #include "../FileManager/MFileManager.h"
-#include "../MemoryData/MDataManager.h"
+#include "../Data/MDataManager.h"

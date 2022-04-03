@@ -1,0 +1,83 @@
+<chapter>0
+<dialog>There are only two kinds of languages: the ones people complain about and the ones nobody uses.
+<dialog>
+<dialog>                                              - Bjarne Stroustrup, The C++ Programming Language.
+<choice>Next<move>1
+
+<chapter>1
+<dialog>I have always wished for my computer to be as easy to use as my telephone.
+<dialog>My wish has come true because I can no longer figure out how to use my telephone.
+<dialog>
+<dialog>                                                                            - Bjarne Stroustrup.
+<choice>Next<move>2
+<choice>Previous<move>0
+
+<chapter>2
+<dialog>C makes it easy to shoot yourself in the foot.
+<dialog>C++ makes it harder, but when you do it blows your whole leg off.
+<dialog>
+<dialog>                                                                            - Bjarne Stroustrup.
+<choice>Next<move>3
+<choice>Previous<move>1
+
+<chapter>3
+<dialog>It's easy to win forgiveness for being wrong.
+<dialog>Being right is what gets you into real trouble.
+<dialog>
+<dialog>                                                                            - Bjarne Stroustrup.
+<choice>Next<move>0
+<choice>Previous<move>2
+
+<Dialog> 5
+“If you think it's simple, then you have misunderstood the problem.”
+― Bjarne Stroustrup
+<Choice> 1
+<Choice> 2
+
+<Dialog> 6
+“Design and programming are human activities.
+Forget that and all is lost.”
+― Bjarne Stroustrup
+<Choice>
+<Choice>
+
+<Dialog> 7
+“Proof by analogy is fraud.”
+― Bjarne Stroustrup, The C++ Programming Language
+
+<Dialog> 8
+“C++ is designed to allow you to express ideas, but if you don't have ideas
+or don't have any clue about how to express them, C++ doesn't offer much help.”
+― Bjarne Stroustrup
+<Choice>
+<Choice>
+
+<Dialog> 9
+“The standard library saves programmers from having to reinvent the wheel.”
+― Bjarne Stroustrup
+<Choice>
+<Choice>
+
+<Dialog> 10
+“Programming is like sex: It may give some concrete results, but that is not why we do it.”
+― Bjarne Stroustrup, The C++ Programming Language
+<Choice>
+<Choice>
+
+<Dialog> 11
+“Hollywood and similar “popular culture” sources of disinformation have assigned largely negative images to programmers.
+For example, we have all seen the solitary, fat, ugly nerd with no social skills who is obsessed with video games
+and breaking into other people’s computers. He (almost always a male) is as likely to want to destroy the world
+as he is to want to save it. Obviously, milder versions of such caricatures exist in real life, but in our experience
+they are no more frequent among software developers than they are among lawyers, police officers, car salesmen,
+journalists, artists, or politicians.”
+― Bjarne Stroustrup, Programming: Principles and Practice Using C++
+<Choice>
+<Choice>
+
+<Dialog> 12
+“From one point of view, all that a program ever does is to compute.
+That is, it takes some inputs and produces some output.”
+― Bjarne Stroustrup, Programming: Principles and Practice Using C++
+<Choice>
+<Choice>

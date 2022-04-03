@@ -29,9 +29,9 @@ namespace wce
 
 	// Game:
 
+		Choice_0,
 		Choice_1,
 		Choice_2,
 		Choice_3,
-		Choice_4,
 	};
 }

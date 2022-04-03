@@ -26,12 +26,14 @@ namespace wce
 
 	// Components:
 
-		FTextField                     TextField;
+		std::map<size_t, FTextField>   TextFields;
 		std::map<EButtonName, FButton> Buttons;
 
 	// Variables:
 
 		WORD Chapter;
+		std::map<WORD, std::vector<std::wstring>> Dialogs;
+		std::map<WORD, std::vector<FChoice>>      Choices;
 
 	public:
 
@@ -43,7 +45,10 @@ namespace wce
 
 	// Event Callbacks:
 
-		void ButtonPressCallback    (const FEvent* const Event);
-		void KeyPressCallback       (const FEvent* const Event);
+		void ApplicationStartCallback    (const FEvent* const Event);
+		void ScreenSwitchCallback        (const FEvent* const Event);
+		void FontChangeCallback          (const FEvent* const Event);
+		void ButtonPressCallback         (const FEvent* const Event);
+		void KeyPressCallback            (const FEvent* const Event);
 	};
 }

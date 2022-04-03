@@ -3,6 +3,9 @@
 #include "EEventType.h"
 #include "EventData.h"
 
+#pragma warning( push )
+#pragma warning( disable : 26495 ) // Uninitialized variables. Unions does not allow default initialization.
+
 namespace wce
 {
 	class FEvent
@@ -49,3 +52,5 @@ namespace wce
 		EEventType Type;
 	};
 }
+
+#pragma warning( push )

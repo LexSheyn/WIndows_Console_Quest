@@ -66,7 +66,7 @@
     <ClCompile Include="src\UI\FButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\MemoryData\MDataManager.cpp">
+    <ClCompile Include="src\Data\MDataManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\FileManager\MFileManager.cpp">
@@ -155,19 +155,22 @@
     <ClInclude Include="src\UI\EButtonName.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MemoryData\FGameData.h">
+    <ClInclude Include="src\Data\FGameData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MemoryData\FSettingsData.h">
+    <ClInclude Include="src\Data\FSettingsData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MemoryData\MDataManager.h">
+    <ClInclude Include="src\Data\MDataManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\MemoryData\IMemoryData.h">
+    <ClInclude Include="src\Data\IMemoryData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\FileManager\MFileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Data\FChoice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,6 +24,10 @@ namespace wce
 
 	private:
 
+	// Private Functons:
+
+		void Init ();
+
 	// Variables:
 
 		bool8 ShouldClose;

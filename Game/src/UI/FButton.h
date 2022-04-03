@@ -54,9 +54,9 @@ namespace wce
 		FTextField TextField;
 
 	//	static constexpr WORD ButtonEnabledAttribute  = 128;
-	//	static constexpr WORD ButtonEnabledAttribute  =                  BACKGROUND_GREEN | BACKGROUND_BLUE;
-		static constexpr WORD ButtonEnabledAttribute  = BACKGROUND_RED | BACKGROUND_GREEN ;
+	//	static constexpr WORD ButtonEnabledAttribute  = BACKGROUND_RED | BACKGROUND_GREEN ;
 	//	static constexpr WORD ButtonEnabledAttribute  = BACKGROUND_RED                    | BACKGROUND_BLUE;
+		static constexpr WORD ButtonEnabledAttribute  =                  BACKGROUND_GREEN | BACKGROUND_BLUE;
 		static constexpr WORD ButtonDisabledAttribute = 8;
 		static constexpr WORD ButtonHoveredAttribute  = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY;
 		

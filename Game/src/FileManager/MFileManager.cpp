@@ -5,14 +5,24 @@ namespace wce
 {
 // Functions:
 
-	bool8 MFileManager::Exists(const std::string& FilePath)
+	void MFileManager::CreateDirectory(const std::wstring& Path)
+	{
+		std::filesystem::create_directory(Path);
+	}
+
+	void MFileManager::CreateDirectories(const std::wstring& Path)
+	{
+		std::filesystem::create_directories(Path);
+	}
+
+	bool8 MFileManager::Exists(const std::wstring& FilePath)
 	{
 		return std::filesystem::exists(FilePath);
 	}
 
-	void MFileManager::Save(const std::string& Content, const std::string& FilePath)
+	void MFileManager::Save(const std::wstring& Content, const std::wstring& FilePath)
 	{
-		std::ofstream OutFile;
+		std::wofstream OutFile;
 
 		OutFile.open(FilePath);
 
@@ -21,21 +31,21 @@ namespace wce
 		OutFile.close();
 	}
 
-	std::vector<std::string> MFileManager::Load(const std::string& FilePath)
+	std::vector<std::wstring> MFileManager::Load(const std::wstring& FilePath)
 	{
-		std::vector<std::string> Content;
+		std::vector<std::wstring> Content;
 		Content.reserve(10);
 
-		std::string Line;
+		std::wstring Line;
 		Line.reserve(100);
 
-		std::ifstream InFile;
+		std::wifstream InFile;
 
 		InFile.open(FilePath);
 
 		if (!InFile.is_open())
 		{
-			Content.push_back(std::string("Failed to load " + FilePath));
+			Content.push_back(std::wstring(L"Failed to load " + FilePath));
 
 			return Content;
 		}

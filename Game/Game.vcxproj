@@ -47,6 +47,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)VS_Output\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)VS_Intermediate\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -93,7 +94,7 @@
     <ClCompile Include="src\Events\FEventCatcher.cpp" />
     <ClCompile Include="src\Events\FEventSystem.cpp" />
     <ClCompile Include="src\FileManager\MFileManager.cpp" />
-    <ClCompile Include="src\MemoryData\MDataManager.cpp" />
+    <ClCompile Include="src\Data\MDataManager.cpp" />
     <ClCompile Include="src\PrecompiledHeaders\wcepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">wcepch.h</PrecompiledHeaderFile>
@@ -118,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\FApplication.h" />
+    <ClInclude Include="src\Data\FChoice.h" />
     <ClInclude Include="src\Events\EEventType.h" />
     <ClInclude Include="src\Events\EventData.h" />
     <ClInclude Include="src\Events\FEvent.h" />
@@ -128,10 +130,10 @@
     <ClInclude Include="src\Input\FKey.h" />
     <ClInclude Include="src\Input\FMouseButton.h" />
     <ClInclude Include="src\Macros\WCE_Macros.h" />
-    <ClInclude Include="src\MemoryData\FGameData.h" />
-    <ClInclude Include="src\MemoryData\MDataManager.h" />
-    <ClInclude Include="src\MemoryData\FSettingsData.h" />
-    <ClInclude Include="src\MemoryData\IMemoryData.h" />
+    <ClInclude Include="src\Data\FGameData.h" />
+    <ClInclude Include="src\Data\MDataManager.h" />
+    <ClInclude Include="src\Data\FSettingsData.h" />
+    <ClInclude Include="src\Data\IMemoryData.h" />
     <ClInclude Include="src\PrecompiledHeaders\wcepch.h" />
     <ClInclude Include="src\ScreenBuffer\FScreenBuffer.h" />
     <ClInclude Include="src\Screens\EScreenName.h" />

@@ -8,11 +8,15 @@ namespace wce
 	FApplication::FApplication()
 		: ShouldClose (false)
 	{
-		Console.SetTitle(L"Game v.0.0.0.1").ArrangeToCenter();
+		this->Init();
+
+		Console.SetTitle(L"Game v.0.0.0.1");
 
 		FEventCatcher::Initialize();
+
 		FEventSystem::PushEvent(FEvent(EEventType::ApplicationStarted));
 		FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ EScreenName::None, EScreenName::Menu }));
+
 		FEventSystem::Subscribe(EEventType::MenuExit, this);
 	}
 
@@ -42,6 +46,10 @@ namespace wce
 
 		FEventCatcher::CatchEvents();
 		FEventSystem::PollEvents();
+
+	// Game:
+
+	//	Game.Update();
 	}
 
 	void FApplication::Render()
@@ -50,6 +58,18 @@ namespace wce
 		Game.Render();
 		Settings.Render();
 	}
+
+
+// Private Functions:
+
+	void FApplication::Init()
+	{
+		MFileManager::CreateDirectory(L"Memory");
+		MFileManager::CreateDirectory(L"Config");
+	}
+
+
+// IEventListener Interface:
 
 	void FApplication::OnEvent(const FEvent* const Event)
 	{

@@ -138,7 +138,7 @@ namespace wce
 	{
 		// Check does the file exist first, and if so - do the rest, but if not...
 		
-		FSettingsData Data = MDataManager::LoadSettings("Config/Settings.cfg");
+		FSettingsData Data = MDataManager::LoadSettings(L"Config/Settings.cfg");
 
 		Sliders[EScreenField::FontSize].SetSizeFill(Data.FontSliderSize);
 		ScreenBuffer.SetFontSize(Data.FontSize);
@@ -163,7 +163,7 @@ namespace wce
 		Data.SoundSliderSize = Sliders.at(EScreenField::SoundVolume).GetSizeFill();
 		Data.SoundVolume     = 1.0f; // Dummy value.
 
-		MDataManager::SaveSettings(Data, "Config/Settings.cfg");
+		MDataManager::SaveSettings(Data, L"Config/Settings.cfg");
 	}
 
 	void SSettings::ScreenSwitchCallback(const FEvent* const Event)
