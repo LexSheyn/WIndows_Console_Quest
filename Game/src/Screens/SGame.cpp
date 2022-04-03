@@ -11,6 +11,7 @@ namespace wce
 		this->Init();
 
 		FEventSystem::Subscribe(EEventType::ApplicationStarted, this);
+		FEventSystem::Subscribe(EEventType::ApplicationClosed , this);
 		FEventSystem::Subscribe(EEventType::ScreenSwitched    , this);
 		FEventSystem::Subscribe(EEventType::FontChanged       , this);
 		FEventSystem::Subscribe(EEventType::ButtonPressed     , this);
@@ -102,6 +103,12 @@ namespace wce
 			}
 			break;
 
+			case EEventType::ApplicationClosed:
+			{
+				this->ApplicationCloseCallback(Event);
+			}
+			break;
+
 			case EEventType::ScreenSwitched:
 			{
 				this->ScreenSwitchCallback(Event);
@@ -142,6 +149,17 @@ namespace wce
 		MDataManager::LoadContent(Dialogs, Choices, L"Content/Content.tale");
 
 		this->Update();
+	}
+
+	void SGame::ApplicationCloseCallback(const FEvent* const Event)
+	{
+		FGameData Data;
+
+		Data.Time    = L"Dummy Time: 11:11:11";
+		Data.Date    = L"Dummy Date: 22/22/22";
+		Data.Chapter = Chapter;
+
+		MDataManager::SaveGame(Data, L"Memory/0001.mem");
 	}
 
 	void SGame::ScreenSwitchCallback(const FEvent* const Event)
