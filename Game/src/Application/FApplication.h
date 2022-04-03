@@ -45,5 +45,9 @@ namespace wce
 	// IEventListener Interface:
 
 		void OnEvent(const FEvent* const Event) override;
+
+	// Event Callbacks:
+
+		void MenuExitCallback (const FEvent* const Event);
 	};
 }

@@ -1,10 +1,6 @@
 #pragma once
 
-#if _DEBUG
-#define WCE_INLINE 
-#else
 #define WCE_INLINE inline
-#endif
 
 #define WCE_CALL __fastcall
 

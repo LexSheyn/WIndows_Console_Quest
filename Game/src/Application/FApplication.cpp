@@ -73,12 +73,24 @@ namespace wce
 
 	void FApplication::OnEvent(const FEvent* const Event)
 	{
-		if (Event->GetType() == EEventType::MenuExit)
+		switch (Event->GetType())
 		{
-			ShouldClose = true;
-
-			FEventSystem::PushEvent(FEvent(EEventType::ApplicationClosed));
+			case EEventType::MenuExit:
+			{
+				this->MenuExitCallback(Event);
+			}
+			break;
 		}
+	}
+
+
+// Event Callbacks:
+
+	void FApplication::MenuExitCallback(const FEvent* const Event)
+	{
+		ShouldClose = true;
+
+		FEventSystem::PushEvent(FEvent(EEventType::ApplicationClosed));
 	}
 
 
