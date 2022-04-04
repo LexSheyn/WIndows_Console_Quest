@@ -144,7 +144,8 @@
     <ClInclude Include="src\Types\WCE_Types.h" />
     <ClInclude Include="src\Screens\SMenu.h" />
     <ClInclude Include="src\Screens\IScreen.h" />
-    <ClInclude Include="src\UI\EButtonName.h" />
+    <ClInclude Include="src\UI\EButton.h" />
+    <ClInclude Include="src\UI\EMemorySlotButton.h" />
     <ClInclude Include="src\UI\FButton.h" />
     <ClInclude Include="src\UI\FMarker.h" />
     <ClInclude Include="src\UI\FMemorySlot.h" />

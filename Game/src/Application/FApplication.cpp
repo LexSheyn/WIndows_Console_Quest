@@ -56,6 +56,7 @@ namespace wce
 	{
 		Menu.Render();
 		Game.Render();
+		Memory.Render();
 		Settings.Render();
 	}
 

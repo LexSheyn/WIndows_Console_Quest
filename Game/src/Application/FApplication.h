@@ -3,6 +3,7 @@
 #include "../Window/FConsole.h"
 #include "../Screens/SMenu.h"
 #include "../Screens/SGame.h"
+#include "../Screens/SMemory.h"
 #include "../Screens/SSettings.h"
 
 namespace wce
@@ -36,6 +37,7 @@ namespace wce
 
 		SMenu     Menu;
 		SGame     Game;
+		SMemory   Memory;
 		SSettings Settings;
 
 	// Window:

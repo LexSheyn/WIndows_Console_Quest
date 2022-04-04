@@ -49,10 +49,10 @@ namespace wce
 
 	void SMenu::Init()
 	{
-		Buttons[EButtonName::StartGame].SetPosition(COORD{ 10, 8  }).SetWidth(12).SetName(EButtonName::StartGame).SetText(L"Start game");
-		Buttons[EButtonName::Memory   ].SetPosition(COORD{ 10, 10 }).SetWidth(12).SetName(EButtonName::Memory   ).SetText(L"Memory"    ).Disable();
-		Buttons[EButtonName::Settings ].SetPosition(COORD{ 10, 12 }).SetWidth(12).SetName(EButtonName::Settings ).SetText(L"Settings"  );
-		Buttons[EButtonName::Exit     ].SetPosition(COORD{ 10, 14 }).SetWidth(12).SetName(EButtonName::Exit     ).SetText(L"Exit"      );
+		Buttons[EButton::StartGame].SetPosition(COORD{ 10, 10 }).SetWidth(12).SetText(L"Start game");
+		Buttons[EButton::Memory   ].SetPosition(COORD{ 10, 12 }).SetWidth(12).SetText(L"Memory"    );
+		Buttons[EButton::Settings ].SetPosition(COORD{ 10, 14 }).SetWidth(12).SetText(L"Settings"  );
+		Buttons[EButton::Exit     ].SetPosition(COORD{ 10, 16 }).SetWidth(12).SetText(L"Exit"      );
 	}
 
 
@@ -110,25 +110,25 @@ namespace wce
 
 	void SMenu::ButtonPressCallback(const FEvent* const Event)
 	{
-		if      ( (Event->ButtonData.ButtonName == EButtonName::StartGame) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		if      ( (Event->ButtonData.ID == Buttons[EButton::StartGame].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			this->Deactivate();
 		
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Game }));
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::Memory) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons[EButton::Memory].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			this->Deactivate();
 		
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Memory }));
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::Settings) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons[EButton::Settings].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			this->Deactivate();
 
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Settings }));
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::Exit) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons[EButton::Exit].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			this->Deactivate();
 		

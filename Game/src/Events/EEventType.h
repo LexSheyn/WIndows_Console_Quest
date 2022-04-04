@@ -38,6 +38,14 @@ namespace wce
 	// Game:
 
 		GameCompleted,
-		GameFinished
+		GameFinished,
+
+	// Memory:
+
+		GameSaved,
+		GameLoaded,
+		MemorySlotPressed,
+		GameDataRequested,
+		GameDataSent
 	};
 }

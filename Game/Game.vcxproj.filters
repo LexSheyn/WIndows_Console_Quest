@@ -152,7 +152,7 @@
     <ClInclude Include="src\Input\FMouseButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\UI\EButtonName.h">
+    <ClInclude Include="src\UI\EButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Data\FGameData.h">
@@ -171,6 +171,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Data\FChoice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI\EMemorySlotButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

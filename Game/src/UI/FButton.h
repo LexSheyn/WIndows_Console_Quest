@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EButtonName.h"
+#include "EButton.h"
 #include "FTextFIeld.h"
 #include "../Input/FMouseButton.h"
 
@@ -23,7 +23,7 @@ namespace wce
 
 	// Accessors:
 
-		const EButtonName&  GetName         () const;
+		const WORD&         GetID           () const;
 		const COORD&        GetPosition     () const;
 		const SHORT&        GetWidth        () const;
 		const WORD&         GetAttribute    () const;
@@ -32,7 +32,6 @@ namespace wce
 
 	// Modifiers:
 
-		FButton& SetName         (EButtonName Name);
 		FButton& SetPosition     (COORD Position);
 		FButton& SetWidth        (SHORT Width);
 		FButton& SetAttribute    (WORD Attribute);
@@ -40,13 +39,17 @@ namespace wce
 
 	private:
 
+	// Private Functions:
+
+		void GenerateID ();
+
 	// Components:
 
-		EButtonName Name;
-		COORD       Position;
-		SHORT       Width;
-		WORD        Attribute;
-		bool8       Enabled;
+		WORD  ID;
+		COORD Position;
+		SHORT Width;
+		WORD  Attribute;
+		bool8 Enabled;
 
 		COORD MousePositionLast;
 		DWORD MouseButtonStateLast;

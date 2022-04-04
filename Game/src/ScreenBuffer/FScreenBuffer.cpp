@@ -12,7 +12,10 @@ namespace wce
 	{
 	// Create char buffer:
 
+	#pragma warning( push )
+	#pragma warning( disable : 26451 ) // Arithmetic overflow.
 		CharBuffer = new WCHAR[Width * Height];
+	#pragma warning( pop )
 
 	// Fill char buffer with spaces:
 

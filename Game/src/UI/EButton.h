@@ -2,7 +2,7 @@
 
 namespace wce
 {
-	enum class EButtonName
+	enum class EButton
 	{
 	// Menu:
 
@@ -10,6 +10,18 @@ namespace wce
 		Memory,
 		Settings,
 		Exit,
+
+	// Game:
+
+		Choice_0,
+		Choice_1,
+		Choice_2,
+		Choice_3,
+
+	// Memory:
+
+		Save,
+		Load,
 
 	// Settings:
 
@@ -25,13 +37,6 @@ namespace wce
 		SoundVolumePlus,
 		SoundVolumeMinus,
 		
-		Back,
-
-	// Game:
-
-		Choice_0,
-		Choice_1,
-		Choice_2,
-		Choice_3,
+		Back
 	};
 }

@@ -14,6 +14,8 @@ namespace wce
 		  Enabled   (true),
 		  MousePositionLast(COORD{})
 	{
+		this->GenerateID();
+
 		this->Enable();
 
 		FEventSystem::Subscribe(EEventType::MouseMoved  , this);
@@ -56,9 +58,9 @@ namespace wce
 
 // Accessors:
 
-	const EButtonName& FButton::GetName() const
+	const WORD& FButton::GetID() const
 	{
-		return Name;
+		return ID;
 	}
 
 	const COORD& FButton::GetPosition() const
@@ -89,13 +91,6 @@ namespace wce
 
 // Modifiers:
 
-	FButton& FButton::SetName(EButtonName Name)
-	{
-		this->Name = Name;
-
-		return *this;
-	}
-
 	FButton& FButton::SetPosition(COORD Position)
 	{
 		this->Position = Position;
@@ -124,6 +119,16 @@ namespace wce
 		TextField.SetText(Text);
 
 		return *this;
+	}
+
+
+// Private Functions:
+
+	void FButton::GenerateID()
+	{
+		static WORD NewID = 0;
+
+		ID = NewID++;
 	}
 
 
@@ -173,7 +178,7 @@ namespace wce
 		{
 			if (Event->MouseData.dwButtonState == FMouseButton::Left)
 			{
-				FEventSystem::PushEvent(FEvent(EEventType::ButtonPressed, FButtonData{ this->GetName(), FMouseButton::Left }));
+				FEventSystem::PushEvent(FEvent(EEventType::ButtonPressed, FButtonData{ this->GetID(), FMouseButton::Left }));
 			}
 		}
 	}

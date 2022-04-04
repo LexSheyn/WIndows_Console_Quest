@@ -27,7 +27,7 @@ namespace wce
 	// Components:
 
 		std::map<EScreenField, FTextField> TextFields;
-		std::map<EButtonName , FButton>    Buttons;
+		std::map<EButton , FButton>    Buttons;
 		std::map<EScreenField, FSlider>    Sliders;
 
 	public:

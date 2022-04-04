@@ -61,28 +61,28 @@ namespace wce
 	{
 	// Text:
 
-		TextFields[EScreenField::FontSize   ].SetPosition(COORD{ 10, 8  }).SetText(L"Font size"   );
-		TextFields[EScreenField::MusicVolume].SetPosition(COORD{ 10, 10 }).SetText(L"Music volume");
-		TextFields[EScreenField::SoundVolume].SetPosition(COORD{ 10, 12 }).SetText(L"Sound volume");
+		TextFields[EScreenField::FontSize   ].SetPosition(COORD{ 10, 10 }).SetText(L"Font size"   );
+		TextFields[EScreenField::MusicVolume].SetPosition(COORD{ 10, 12 }).SetText(L"Music volume");
+		TextFields[EScreenField::SoundVolume].SetPosition(COORD{ 10, 14 }).SetText(L"Sound volume");
 
 	// Buttons and Sliders:
 
-		Buttons[EButtonName::Back].SetPosition(COORD{ 10, 14 }).SetWidth(12).SetName(EButtonName::Back).SetText(L"Back");
+		Buttons[EButton::Back].SetPosition(COORD{ 10, 16 }).SetWidth(12).SetText(L"Back");
 
-		Sliders[EScreenField::FontSize   ].SetPosition(COORD{ 30, 8  }).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
+		Sliders[EScreenField::FontSize   ].SetPosition(COORD{ 30, 10 }).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
 
-		Buttons[EButtonName::FontSizePlus ].SetPosition(COORD{ 41, 8 }).SetWidth(3).SetName(EButtonName::FontSizePlus ).SetText(L"+");
-		Buttons[EButtonName::FontSizeMinus].SetPosition(COORD{ 45, 8 }).SetWidth(3).SetName(EButtonName::FontSizeMinus).SetText(L"-");
+		Buttons[EButton::FontSizePlus ].SetPosition(COORD{ 41, 10 }).SetWidth(3).SetText(L"+");
+		Buttons[EButton::FontSizeMinus].SetPosition(COORD{ 45, 10 }).SetWidth(3).SetText(L"-");
 
-		Sliders[EScreenField::MusicVolume].SetPosition(COORD{ 30, 10 }).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
+		Sliders[EScreenField::MusicVolume].SetPosition(COORD{ 30, 12 }).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
 
-		Buttons[EButtonName::MusicVolumePlus ].SetPosition(COORD{ 41, 10 }).SetWidth(3).SetName(EButtonName::MusicVolumePlus ).SetText(L"+");
-		Buttons[EButtonName::MusicVolumeMinus].SetPosition(COORD{ 45, 10 }).SetWidth(3).SetName(EButtonName::MusicVolumeMinus).SetText(L"-");
+		Buttons[EButton::MusicVolumePlus ].SetPosition(COORD{ 41, 12 }).SetWidth(3).SetText(L"+");
+		Buttons[EButton::MusicVolumeMinus].SetPosition(COORD{ 45, 12 }).SetWidth(3).SetText(L"-");
 
-		Sliders[EScreenField::SoundVolume].SetPosition(COORD{ 30, 12 }).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
+		Sliders[EScreenField::SoundVolume].SetPosition(COORD{ 30, 14 }).SetRange(ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSizeMax());
 
-		Buttons[EButtonName::SoundVolumePlus ].SetPosition(COORD{ 41, 12 }).SetWidth(3).SetName(EButtonName::SoundVolumePlus ).SetText(L"+");
-		Buttons[EButtonName::SoundVolumeMinus].SetPosition(COORD{ 45, 12 }).SetWidth(3).SetName(EButtonName::SoundVolumeMinus).SetText(L"-");
+		Buttons[EButton::SoundVolumePlus ].SetPosition(COORD{ 41, 14 }).SetWidth(3).SetText(L"+");
+		Buttons[EButton::SoundVolumeMinus].SetPosition(COORD{ 45, 14 }).SetWidth(3).SetText(L"-");
 	}
 
 
@@ -176,13 +176,13 @@ namespace wce
 
 	void SSettings::ButtonPressCallback(const FEvent* const Event)
 	{
-		if ( (Event->ButtonData.ButtonName == EButtonName::Back) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		if ( (Event->ButtonData.ID == Buttons.at(EButton::Back).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			this->Deactivate();
 
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::FontSizePlus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::FontSizePlus).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			ScreenBuffer.IncreaseFontSize();
 
@@ -190,7 +190,7 @@ namespace wce
 
 			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::FontSizeMinus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::FontSizeMinus).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			ScreenBuffer.DecreaseFontSize();
 
@@ -198,25 +198,25 @@ namespace wce
 
 			FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ 0, ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::MusicVolumePlus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::MusicVolumePlus).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			// Music stuff
 
 			Sliders.at(EScreenField::MusicVolume).Increase();
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::MusicVolumeMinus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::MusicVolumeMinus).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			// Music stuff
 
 			Sliders.at(EScreenField::MusicVolume).Decrease();
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::SoundVolumePlus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::SoundVolumePlus).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			// Sound stuff
 
 			Sliders.at(EScreenField::SoundVolume).Increase();
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::SoundVolumeMinus) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::SoundVolumeMinus).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			// Sound stuff
 

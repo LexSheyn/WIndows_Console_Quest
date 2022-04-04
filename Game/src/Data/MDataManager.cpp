@@ -60,8 +60,8 @@ namespace wce
 
 		FGameData Data;
 
-		Data.Time    = Content[0];
-		Data.Date    = Content[1];
+		Data.Time    = Content[0].c_str();
+		Data.Date    = Content[1].c_str();
 		Data.Chapter = static_cast<WORD>( std::stoul(Content[2]) );
 
 		return Data;

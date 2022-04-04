@@ -26,8 +26,8 @@ namespace wce
 
 	// Components:
 
-		std::map<size_t, FTextField>   TextFields;
-		std::map<EButtonName, FButton> Buttons;
+		std::map<size_t, FTextField> TextFields;
+		std::map<EButton, FButton>   Buttons;
 
 	// Variables:
 
@@ -51,5 +51,7 @@ namespace wce
 		void FontChangeCallback          (const FEvent* const Event);
 		void ButtonPressCallback         (const FEvent* const Event);
 		void KeyPressCallback            (const FEvent* const Event);
+		void GameDataRequestCallback     (const FEvent* const Event);
+		void GameLoadCallback            (const FEvent* const Event);
 	};
 }

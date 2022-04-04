@@ -9,6 +9,7 @@ namespace wce
 
 	FMemorySlot::FMemorySlot()
 	{
+		this->GenerateID();
 		this->Init();
 
 		FEventSystem::Subscribe(EEventType::ButtonPressed, this);
@@ -22,25 +23,24 @@ namespace wce
 
 // Functions:
 
-	void FMemorySlot::Save(const FGameData& Data, const std::wstring& FilePath)
-	{
-	}
-
-	FGameData FMemorySlot::Load(const std::wstring& FilePath)
-	{
-		return FGameData();
-	}
-
 	void FMemorySlot::Draw(FScreenBuffer& ScreenBuffer)
 	{
 		TimeField.Draw(ScreenBuffer);
 		DateField.Draw(ScreenBuffer);
-		SaveButton.Draw(ScreenBuffer);
-		LoadButton.Draw(ScreenBuffer);
+
+		for (auto&[Key, Button] : Buttons)
+		{
+			Button.Draw(ScreenBuffer);
+		}
 	}
 
 
 // Accessors:
+
+	const WORD& FMemorySlot::GetID() const
+	{
+		return ID;
+	}
 
 	const COORD& FMemorySlot::GetPosition() const
 	{
@@ -65,9 +65,9 @@ namespace wce
 		this->Position = Position;
 
 		TimeField.SetPosition(Position);
-		DateField.SetPosition(COORD{ Position.X, static_cast<SHORT>(Position.Y + 1i16) });
-		SaveButton.SetPosition(COORD{ Position.X, static_cast<SHORT>(Position.Y + 2i16) });
-		LoadButton.SetPosition(COORD{ static_cast<SHORT>(SaveButton.GetPosition().X + SaveButton.GetWidth() + 1i16), SaveButton.GetPosition().Y });
+		DateField.SetPosition(COORD{ static_cast<SHORT>(TimeField.GetPosition().X + TimeField.GetLength() + 2i16), Position.Y });
+		Buttons.at(EButton::Save).SetPosition(COORD{ static_cast<SHORT>(DateField.GetPosition().X + DateField.GetLength() + 3i16), Position.Y });
+		Buttons.at(EButton::Load).SetPosition(COORD{ static_cast<SHORT>(Buttons.at(EButton::Save).GetPosition().X + Buttons.at(EButton::Save).GetWidth() + 2i16), Position.Y });
 
 		return *this;
 	}
@@ -79,7 +79,7 @@ namespace wce
 		return *this;
 	}
 
-	FMemorySlot& FMemorySlot::SetData(const std::wstring& Date)
+	FMemorySlot& FMemorySlot::SetDate(const std::wstring& Date)
 	{
 		DateField.SetText(Date);
 
@@ -89,12 +89,19 @@ namespace wce
 
 // Private Functions:
 
+	void FMemorySlot::GenerateID()
+	{
+		static WORD NewID = 0;
+
+		ID = NewID++;
+	}
+
 	void FMemorySlot::Init()
 	{
-		TimeField.SetText(L"00:00:00");
-		DateField.SetText(L"00/00/0000");
-		SaveButton.SetText(L"Save");
-		LoadButton.SetText(L"Load");
+		TimeField.SetText(L"--:--");
+		DateField.SetText(L"--/--/----");
+		Buttons[EButton::Save].SetWidth(6).SetText(L"Save");
+		Buttons[EButton::Load].SetWidth(6).SetText(L"Load");
 
 		this->SetPosition(COORD{ 0, 0 });
 	}
@@ -104,6 +111,14 @@ namespace wce
 
 	void FMemorySlot::OnEvent(const FEvent* const Event)
 	{
+		switch (Event->GetType())
+		{
+			case EEventType::ButtonPressed:
+			{
+				this->ButtonPressCallback(Event);
+			}
+			break;
+		}
 	}
 
 
@@ -111,6 +126,14 @@ namespace wce
 
 	void FMemorySlot::ButtonPressCallback(const FEvent* const Event)
 	{
+		if      ( (Event->ButtonData.ID == Buttons.at(EButton::Save).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			FEventSystem::PushEvent(FEvent(EEventType::MemorySlotPressed, FMemorySlotData{ this->GetID(), EMemorySlotButton::Save, Event->ButtonData.MouseButton }));
+		}
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::Load).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		{
+			FEventSystem::PushEvent(FEvent(EEventType::MemorySlotPressed, FMemorySlotData{ this->GetID(), EMemorySlotButton::Load, Event->ButtonData.MouseButton }));
+		}
 	}
 
 

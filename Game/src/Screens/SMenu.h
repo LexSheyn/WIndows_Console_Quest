@@ -26,7 +26,7 @@ namespace wce
 
 	// Components:
 
-		std::map<EButtonName, FButton> Buttons;
+		std::map<EButton, FButton> Buttons;
 
 	public:
 

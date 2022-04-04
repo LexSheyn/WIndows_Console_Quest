@@ -15,12 +15,11 @@ namespace wce
 
 	// Functions:
 
-		void      Save    (const FGameData& Data, const std::wstring& FilePath);
-		FGameData Load    (const std::wstring& FilePath);
 		void      Draw    (class FScreenBuffer& ScreenBuffer);
 
 	// Accessors:
 
+		const WORD&         GetID          () const;
 		const COORD&        GetPosition    () const;
 		const std::wstring& GetTime        () const;
 		const std::wstring& GetDate        () const;
@@ -29,24 +28,25 @@ namespace wce
 
 		FMemorySlot& SetPosition    (COORD Position);
 		FMemorySlot& SetTime        (const std::wstring& Time);
-		FMemorySlot& SetData        (const std::wstring& Date);
+		FMemorySlot& SetDate        (const std::wstring& Date);
 
 	private:
 
 	// Private Functions:
 
-		void Init();
+		void GenerateID    ();
+		void Init          ();
 
 	// Variables:
 
+		WORD  ID;
 		COORD Position;
 
 	// Components:
 
 		FTextField TimeField;
 		FTextField DateField;
-		FButton    SaveButton;
-		FButton    LoadButton;
+		std::map<EButton, FButton> Buttons;
 
 	public:
 

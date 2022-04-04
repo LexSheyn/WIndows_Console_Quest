@@ -27,8 +27,8 @@ namespace wce
 
 	// Components:
 
-		std::map<EScreenField, FButton> Buttons;
-		std::vector<FMemorySlot> MemorySlots;
+		std::map<EButton, FButton>  Buttons;
+		std::map<WORD, FMemorySlot> MemorySlots;
 
 	public:
 
@@ -43,6 +43,9 @@ namespace wce
 		void ApplicationStartCallback    (const FEvent* const Event);
 		void ScreenSwitchCallback        (const FEvent* const Event);
 		void FontChangeCallback          (const FEvent* const Event);
+		void ButtonPressCallback         (const FEvent* const Event);
 		void KeyPressCallback            (const FEvent* const Event);
+		void MemorySlotPressCallback     (const FEvent* const Event);
+		void GameDataSendCallback        (const FEvent* const Event);
 	};
 }

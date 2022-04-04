@@ -16,6 +16,8 @@ namespace wce
 		FEventSystem::Subscribe(EEventType::FontChanged       , this);
 		FEventSystem::Subscribe(EEventType::ButtonPressed     , this);
 		FEventSystem::Subscribe(EEventType::KeyPressed        , this);
+		FEventSystem::Subscribe(EEventType::GameDataRequested , this);
+		FEventSystem::Subscribe(EEventType::GameLoaded        , this);
 	}
 
 	SGame::~SGame()
@@ -56,24 +58,24 @@ namespace wce
 			TextFields[i].SetPosition(COORD{ 10, static_cast<SHORT>(5 + i) }).SetText(Dialogs[Chapter][i]);
 		}
 
-		Buttons[EButtonName::Choice_0].SetText(Choices[Chapter][0].Text);
-		Buttons[EButtonName::Choice_1].Disable();
-		Buttons[EButtonName::Choice_2].Disable();
-		Buttons[EButtonName::Choice_3].Disable();
+		Buttons[EButton::Choice_0].SetText(Choices[Chapter][0].Text);
+		Buttons[EButton::Choice_1].Disable();
+		Buttons[EButton::Choice_2].Disable();
+		Buttons[EButton::Choice_3].Disable();
 		
 		if (Choices[Chapter].size() > 1u)
 		{
-			Buttons[EButtonName::Choice_1].SetText(Choices[Chapter][1].Text).Enable();
+			Buttons[EButton::Choice_1].SetText(Choices[Chapter][1].Text).Enable();
 		}
 		
 		if (Choices[Chapter].size() > 2u)
 		{
-			Buttons[EButtonName::Choice_2].SetText(Choices[Chapter][2].Text).Enable();
+			Buttons[EButton::Choice_2].SetText(Choices[Chapter][2].Text).Enable();
 		}
 		
 		if (Choices[Chapter].size() > 3u)
 		{
-			Buttons[EButtonName::Choice_3].SetText(Choices[Chapter][3].Text).Enable();
+			Buttons[EButton::Choice_3].SetText(Choices[Chapter][3].Text).Enable();
 		}
 	}
 
@@ -84,10 +86,10 @@ namespace wce
 	{
 		TextFields[0].SetPosition(COORD{ 10, 5 });
 
-		Buttons[EButtonName::Choice_0].SetPosition(COORD{ 10, 23 }).SetWidth(30).SetName(EButtonName::Choice_0);
-		Buttons[EButtonName::Choice_1].SetPosition(COORD{ 10, 25 }).SetWidth(30).SetName(EButtonName::Choice_1);
-		Buttons[EButtonName::Choice_2].SetPosition(COORD{ 50, 23 }).SetWidth(30).SetName(EButtonName::Choice_2);
-		Buttons[EButtonName::Choice_3].SetPosition(COORD{ 50, 25 }).SetWidth(30).SetName(EButtonName::Choice_3);
+		Buttons[EButton::Choice_0].SetPosition(COORD{ 10, 22 }).SetWidth(30);
+		Buttons[EButton::Choice_1].SetPosition(COORD{ 10, 24 }).SetWidth(30);
+		Buttons[EButton::Choice_2].SetPosition(COORD{ 50, 22 }).SetWidth(30);
+		Buttons[EButton::Choice_3].SetPosition(COORD{ 50, 24 }).SetWidth(30);
 	}
 
 
@@ -120,6 +122,18 @@ namespace wce
 				this->FontChangeCallback(Event);
 			}
 			break;
+
+			case EEventType::GameDataRequested:
+			{
+				this->GameDataRequestCallback(Event);
+			}
+			break;
+
+			case EEventType::GameLoaded:
+			{
+				this->GameLoadCallback(Event);
+			}
+			break;
 		}
 
 		if (this->IsActive())
@@ -128,13 +142,13 @@ namespace wce
 			{
 				case EEventType::ButtonPressed:
 				{
-					ButtonPressCallback(Event);
+					this->ButtonPressCallback(Event);
 				}
 				break;
 
 				case EEventType::KeyPressed:
 				{
-					KeyPressCallback(Event);
+					this->KeyPressCallback(Event);
 				}
 				break;
 			}
@@ -153,13 +167,6 @@ namespace wce
 
 	void SGame::ApplicationCloseCallback(const FEvent* const Event)
 	{
-		FGameData Data;
-
-		Data.Time    = L"Dummy Time: 11:11:11";
-		Data.Date    = L"Dummy Date: 22/22/22";
-		Data.Chapter = Chapter;
-
-		MDataManager::SaveGame(Data, L"Memory/0001.mem");
 	}
 
 	void SGame::ScreenSwitchCallback(const FEvent* const Event)
@@ -177,19 +184,19 @@ namespace wce
 
 	void SGame::ButtonPressCallback(const FEvent* const Event)
 	{
-		if      ( (Event->ButtonData.ButtonName == EButtonName::Choice_0) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		if      ( (Event->ButtonData.ID == Buttons.at(EButton::Choice_0).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			Chapter = Choices.at(Chapter)[0].ToChapter;
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::Choice_1) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::Choice_1).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			Chapter = Choices.at(Chapter)[1].ToChapter;
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::Choice_2) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::Choice_2).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			Chapter = Choices.at(Chapter)[2].ToChapter;
 		}
-		else if ( (Event->ButtonData.ButtonName == EButtonName::Choice_3) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
+		else if ( (Event->ButtonData.ID == Buttons.at(EButton::Choice_3).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
 			Chapter = Choices.at(Chapter)[3].ToChapter;
 		}
@@ -205,6 +212,18 @@ namespace wce
 
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
+	}
+
+	void SGame::GameDataRequestCallback(const FEvent* const Event)
+	{
+		FEventSystem::PushEvent(FEvent(EEventType::GameDataSent, FGameData{ L"<Time>", L"<Date>", Chapter, Event->MemorySlotData.ID }));
+	}
+
+	void SGame::GameLoadCallback(const FEvent* const Event)
+	{
+		Chapter = Event->GameData.Chapter;
+
+		this->Update();
 	}
 
 
