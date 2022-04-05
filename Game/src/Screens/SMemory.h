@@ -46,6 +46,6 @@ namespace wce
 		void ButtonPressCallback         (const FEvent* const Event);
 		void KeyPressCallback            (const FEvent* const Event);
 		void MemorySlotPressCallback     (const FEvent* const Event);
-		void GameDataSendCallback        (const FEvent* const Event);
+		void GameSaveApproveCallback     (const FEvent* const Event);
 	};
 }

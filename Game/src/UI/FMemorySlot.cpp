@@ -66,7 +66,7 @@ namespace wce
 
 		TimeField.SetPosition(Position);
 		DateField.SetPosition(COORD{ static_cast<SHORT>(TimeField.GetPosition().X + TimeField.GetLength() + 2i16), Position.Y });
-		Buttons.at(EButton::Save).SetPosition(COORD{ static_cast<SHORT>(DateField.GetPosition().X + DateField.GetLength() + 3i16), Position.Y });
+		Buttons.at(EButton::Save).SetPosition(COORD{ static_cast<SHORT>(DateField.GetPosition().X + DateField.GetLength() + 2i16), Position.Y });
 		Buttons.at(EButton::Load).SetPosition(COORD{ static_cast<SHORT>(Buttons.at(EButton::Save).GetPosition().X + Buttons.at(EButton::Save).GetWidth() + 2i16), Position.Y });
 
 		return *this;
@@ -98,7 +98,7 @@ namespace wce
 
 	void FMemorySlot::Init()
 	{
-		TimeField.SetText(L"--:--");
+		TimeField.SetText(L"--:--:--");
 		DateField.SetText(L"--/--/----");
 		Buttons[EButton::Save].SetWidth(6).SetText(L"Save");
 		Buttons[EButton::Load].SetWidth(6).SetText(L"Load");

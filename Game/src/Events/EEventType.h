@@ -45,7 +45,7 @@ namespace wce
 		GameSaved,
 		GameLoaded,
 		MemorySlotPressed,
-		GameDataRequested,
-		GameDataSent
+		GameSaveRequested,
+		GameSaveApproved
 	};
 }

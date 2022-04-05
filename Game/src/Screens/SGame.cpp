@@ -16,7 +16,7 @@ namespace wce
 		FEventSystem::Subscribe(EEventType::FontChanged       , this);
 		FEventSystem::Subscribe(EEventType::ButtonPressed     , this);
 		FEventSystem::Subscribe(EEventType::KeyPressed        , this);
-		FEventSystem::Subscribe(EEventType::GameDataRequested , this);
+		FEventSystem::Subscribe(EEventType::GameSaveRequested , this);
 		FEventSystem::Subscribe(EEventType::GameLoaded        , this);
 	}
 
@@ -123,9 +123,9 @@ namespace wce
 			}
 			break;
 
-			case EEventType::GameDataRequested:
+			case EEventType::GameSaveRequested:
 			{
-				this->GameDataRequestCallback(Event);
+				this->GameSaveCallback(Event);
 			}
 			break;
 
@@ -214,9 +214,28 @@ namespace wce
 		}
 	}
 
-	void SGame::GameDataRequestCallback(const FEvent* const Event)
+	void SGame::GameSaveCallback(const FEvent* const Event)
 	{
-		FEventSystem::PushEvent(FEvent(EEventType::GameDataSent, FGameData{ L"<Time>", L"<Date>", Chapter, Event->MemorySlotData.ID }));
+		FGameData Data;
+
+		std::wstring TimeRecieved = FTimeStamp::TimeAsString();
+
+		for (size_t i = 0u; i < TimeRecieved.size(); i++)
+		{
+			Data.Time[i] = TimeRecieved[i];
+		}
+
+		std::wstring DateRecieved = FTimeStamp::DateAsString();
+
+		for (size_t i = 0u; i < DateRecieved.size(); i++)
+		{
+			Data.Date[i] = DateRecieved[i];
+		}
+
+		Data.Chapter      = Chapter;
+		Data.MemorySlotID = Event->MemorySlotData.ID;
+
+		FEventSystem::PushEvent(FEvent(EEventType::GameSaveApproved, Data));
 	}
 
 	void SGame::GameLoadCallback(const FEvent* const Event)

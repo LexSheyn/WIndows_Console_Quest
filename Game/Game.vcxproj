@@ -110,6 +110,7 @@
     </ClCompile>
     <ClCompile Include="src\Screens\IScreen.cpp" />
     <ClCompile Include="src\Screens\SSettings.cpp" />
+    <ClCompile Include="src\Time\FTimeStamp.cpp" />
     <ClCompile Include="src\UI\FButton.cpp" />
     <ClCompile Include="src\UI\FMarker.cpp" />
     <ClCompile Include="src\UI\FMemorySlot.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="src\Screens\SGame.h" />
     <ClInclude Include="src\Screens\SMemory.h" />
     <ClInclude Include="src\Screens\SSettings.h" />
+    <ClInclude Include="src\Time\FTimeStamp.h" />
     <ClInclude Include="src\Types\WCE_Types.h" />
     <ClInclude Include="src\Screens\SMenu.h" />
     <ClInclude Include="src\Screens\IScreen.h" />

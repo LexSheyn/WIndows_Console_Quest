@@ -16,7 +16,7 @@ namespace wce
 		FEventSystem::Subscribe(EEventType::ButtonPressed        , this);
 		FEventSystem::Subscribe(EEventType::KeyPressed           , this);
 		FEventSystem::Subscribe(EEventType::MemorySlotPressed    , this);
-		FEventSystem::Subscribe(EEventType::GameDataSent         , this);
+		FEventSystem::Subscribe(EEventType::GameSaveApproved     , this);
 	}
 
 	SMemory::~SMemory()
@@ -111,9 +111,9 @@ namespace wce
 				}
 				break;
 
-				case EEventType::GameDataSent:
+				case EEventType::GameSaveApproved:
 				{
-					this->GameDataSendCallback(Event);
+					this->GameSaveApproveCallback(Event);
 				}
 				break;
 			}
@@ -125,6 +125,26 @@ namespace wce
 
 	void SMemory::ApplicationStartCallback(const FEvent* const Event)
 	{
+		if (MFileManager::Exists(L"Memory/Slot0.mem"))
+		{
+			FGameData Data = MDataManager::LoadGame(L"Memory/Slot0.mem");
+
+			MemorySlots.at(0).SetTime(Data.Time).SetDate(Data.Date);
+		}
+		
+		if (MFileManager::Exists(L"Memory/Slot1.mem"))
+		{
+			FGameData Data = MDataManager::LoadGame(L"Memory/Slot1.mem");
+	
+			MemorySlots.at(1).SetTime(Data.Time).SetDate(Data.Date);
+		}
+		
+		if (MFileManager::Exists(L"Memory/Slot2.mem"))
+		{
+			FGameData Data = MDataManager::LoadGame(L"Memory/Slot2.mem");
+	
+			MemorySlots.at(2).SetTime(Data.Time).SetDate(Data.Date);
+		}
 	}
 
 	void SMemory::ScreenSwitchCallback(const FEvent* const Event)
@@ -164,7 +184,7 @@ namespace wce
 	{
 		if ( (Event->MemorySlotData.ID == MemorySlots.at(0).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Save) )
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::GameDataRequested, FMemorySlotData{ MemorySlots.at(0).GetID(), EMemorySlotButton::Save, Event->MemorySlotData.MouseButton }));
+			FEventSystem::PushEvent(FEvent(EEventType::GameSaveRequested, FMemorySlotData{ MemorySlots.at(0).GetID(), EMemorySlotButton::Save, Event->MemorySlotData.MouseButton }));
 		}
 		else if ( (Event->MemorySlotData.ID == MemorySlots.at(0).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Load) )
 		{
@@ -176,7 +196,7 @@ namespace wce
 		}
 		if ( (Event->MemorySlotData.ID == MemorySlots.at(1).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Save) )
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::GameDataRequested, FMemorySlotData{ MemorySlots.at(1).GetID(), EMemorySlotButton::Save, Event->MemorySlotData.MouseButton }));
+			FEventSystem::PushEvent(FEvent(EEventType::GameSaveRequested, FMemorySlotData{ MemorySlots.at(1).GetID(), EMemorySlotButton::Save, Event->MemorySlotData.MouseButton }));
 		}
 		else if ( (Event->MemorySlotData.ID == MemorySlots.at(1).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Load) )
 		{
@@ -188,7 +208,7 @@ namespace wce
 		}
 		if ( (Event->MemorySlotData.ID == MemorySlots.at(2).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Save) )
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::GameDataRequested, FMemorySlotData{ MemorySlots.at(2).GetID(), EMemorySlotButton::Save, Event->MemorySlotData.MouseButton }));
+			FEventSystem::PushEvent(FEvent(EEventType::GameSaveRequested, FMemorySlotData{ MemorySlots.at(2).GetID(), EMemorySlotButton::Save, Event->MemorySlotData.MouseButton }));
 		}
 		else if ( (Event->MemorySlotData.ID == MemorySlots.at(2).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Load) )
 		{
@@ -200,7 +220,7 @@ namespace wce
 		}
 	}
 
-	void SMemory::GameDataSendCallback(const FEvent* const Event)
+	void SMemory::GameSaveApproveCallback(const FEvent* const Event)
 	{
 		if (Event->GameData.MemorySlotID == MemorySlots.at(0).GetID())
 		{
