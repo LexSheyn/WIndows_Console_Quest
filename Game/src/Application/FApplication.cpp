@@ -66,8 +66,12 @@ namespace wce
 	{
 		Console.SetTitle(L"Game v.0.0.0.1");
 
-		MFileManager::CreateDirectory(L"Memory");
 		MFileManager::CreateDirectory(L"Config");
+		MFileManager::CreateDirectory(L"Content");
+		MFileManager::CreateDirectory(L"Memory");
+		MFileManager::CreateDirectory(L"Resources");
+		MFileManager::CreateDirectory(L"Resources/Sound");
+		MFileManager::CreateDirectory(L"Resources/Music");
 	}
 
 
