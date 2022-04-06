@@ -151,9 +151,33 @@ namespace wce
 
 	void SMemory::ScreenSwitchCallback(const FEvent* const Event)
 	{
-		if (Event->GetType() == EEventType::ScreenSwitched && Event->ScreenData.ToScreen == this->GetName())
+		if (Event->ScreenData.ToScreen == this->GetName())
 		{
 			this->Activate();
+
+			for (auto& [Key, Button] : Buttons)
+			{
+				Button.Enable();
+			}
+
+			for (auto& [Key, Slot] : MemorySlots)
+			{
+				Slot.Enable();
+			}
+		}
+		else
+		{
+			this->Deactivate();
+
+			for (auto& [Key, Button] : Buttons)
+			{
+				Button.Disable();
+			}
+
+			for (auto& [Key, Slot] : MemorySlots)
+			{
+				Slot.Disable();
+			}
 		}
 	}
 
@@ -166,8 +190,6 @@ namespace wce
 	{
 		if ((Event->ButtonData.ID == Buttons.at(EButton::Back).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left))
 		{
-			this->Deactivate();
-
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
 	}
@@ -176,8 +198,6 @@ namespace wce
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{
-			this->Deactivate();
-
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
 	}

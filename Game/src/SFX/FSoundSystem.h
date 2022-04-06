@@ -31,7 +31,7 @@ namespace wce
 
 	// Private Functions:
 
-		void LoadFile    (ESound Index, const std::wstring& FilePath);
+		void LoadFile    (ESound Index, const std::string& FilePath);
 		void Play        (ESound Index);
 		void Play        (EMusic Index);
 		void Stop        (ESound Index);
@@ -46,8 +46,8 @@ namespace wce
 
 	// Private Constructors and Destructor:
 
-		 FSoundSystem () {}
-		~FSoundSystem () {}
+		 FSoundSystem ();
+		~FSoundSystem ();
 
 	// Instance:
 
@@ -85,5 +85,8 @@ namespace wce
 
 		void ApplicationStartCallback    (const FEvent* const Event);
 		void ApplicationCloseCallback    (const FEvent* const Event);
+		void ScreenSwitchCallback        (const FEvent* const Event);
+		void ButtonPressCallback         (const FEvent* const Event);
+		void KeyPressCallback            (const FEvent* const Event);
 	};
 }

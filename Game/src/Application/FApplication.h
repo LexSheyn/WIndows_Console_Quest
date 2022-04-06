@@ -51,6 +51,7 @@ namespace wce
 
 	// Event Callbacks:
 
-		void MenuExitCallback (const FEvent* const Event);
+		void ApplicationCloseCallback    (const FEvent* const Event);
+		void MenuExitCallback            (const FEvent* const Event);		
 	};
 }

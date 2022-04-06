@@ -15,7 +15,9 @@ namespace wce
 
 	// Functions:
 
-		void      Draw    (class FScreenBuffer& ScreenBuffer);
+		void Disable    ();
+		void Enable     ();
+		void Draw       (class FScreenBuffer& ScreenBuffer);
 
 	// Accessors:
 
@@ -23,6 +25,8 @@ namespace wce
 		const COORD&        GetPosition    () const;
 		const std::wstring& GetTime        () const;
 		const std::wstring& GetDate        () const;
+		const bool8&        IsEnabled      () const;
+
 
 	// Modifiers:
 
@@ -41,6 +45,7 @@ namespace wce
 
 		WORD  ID;
 		COORD Position;
+		bool8 Enabled;
 
 	// Components:
 

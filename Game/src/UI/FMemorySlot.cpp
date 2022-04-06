@@ -8,6 +8,7 @@ namespace wce
 // Constructors and Destructor:
 
 	FMemorySlot::FMemorySlot()
+		: Enabled(true)
 	{
 		this->GenerateID();
 		this->Init();
@@ -22,6 +23,26 @@ namespace wce
 
 
 // Functions:
+
+	void FMemorySlot::Disable()
+	{
+		for (auto&[Key, Button] : Buttons)
+		{
+			Button.Disable();
+		}
+
+		Enabled = false;
+	}
+
+	void FMemorySlot::Enable()
+	{
+		for (auto& [Key, Button] : Buttons)
+		{
+			Button.Enable();
+		}
+
+		Enabled = true;
+	}
 
 	void FMemorySlot::Draw(FScreenBuffer& ScreenBuffer)
 	{
@@ -55,6 +76,11 @@ namespace wce
 	const std::wstring& FMemorySlot::GetDate() const
 	{
 		return DateField.GetText();
+	}
+
+	const bool8& FMemorySlot::IsEnabled() const
+	{
+		return Enabled;
 	}
 
 
@@ -111,13 +137,16 @@ namespace wce
 
 	void FMemorySlot::OnEvent(const FEvent* const Event)
 	{
-		switch (Event->GetType())
+		if (this->IsEnabled())
 		{
-			case EEventType::ButtonPressed:
+			switch (Event->GetType())
 			{
-				this->ButtonPressCallback(Event);
+				case EEventType::ButtonPressed:
+				{
+					this->ButtonPressCallback(Event);
+				}
+				break;
 			}
-			break;
 		}
 	}
 

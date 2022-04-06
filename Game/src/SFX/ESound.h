@@ -4,6 +4,8 @@ namespace wce
 {
 	enum class ESound
 	{
-
+		ScreenSwitch,
+		ButtonPress,
+		KeyPress		
 	};
 }

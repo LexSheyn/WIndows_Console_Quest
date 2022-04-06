@@ -100,6 +100,20 @@ namespace wce
 		if (Event->ScreenData.ToScreen == this->GetName())
 		{
 			this->Activate();
+
+			for (auto& [Key, Button] : Buttons)
+			{
+				Button.Enable();
+			}
+		}
+		else
+		{
+			this->Deactivate();
+
+			for (auto& [Key, Button] : Buttons)
+			{
+				Button.Disable();
+			}
 		}
 	}
 
@@ -112,26 +126,18 @@ namespace wce
 	{
 		if      ( (Event->ButtonData.ID == Buttons[EButton::StartGame].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			this->Deactivate();
-		
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Game }));
 		}
 		else if ( (Event->ButtonData.ID == Buttons[EButton::Memory].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			this->Deactivate();
-		
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Memory }));
 		}
 		else if ( (Event->ButtonData.ID == Buttons[EButton::Settings].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			this->Deactivate();
-
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Settings }));
 		}
 		else if ( (Event->ButtonData.ID == Buttons[EButton::Exit].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			this->Deactivate();
-		
 			FEventSystem::PushEvent(FEvent(EEventType::MenuExit));
 		}
 	}

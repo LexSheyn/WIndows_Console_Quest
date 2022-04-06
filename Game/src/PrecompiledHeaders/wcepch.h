@@ -15,7 +15,10 @@
 #include <filesystem>
 
 // FMOD:
+#pragma warning( push )
+#pragma warning( disable: 26812 ) // Unscoped enum.
 #include <FMOD/fmod.hpp>
+#pragma warning( pop )
 
 // Windows:
 #define NOMINMAX

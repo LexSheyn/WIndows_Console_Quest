@@ -10,11 +10,10 @@ namespace wce
 	{
 		this->Init();
 
-		FEventSystem::Subscribe(EEventType::MenuExit, this);
-
-		FSoundSystem::Initialize(0.5f);
-
 		FEventCatcher::Initialize();
+
+		FEventSystem::Subscribe(EEventType::ApplicationClosed, this);
+		FEventSystem::Subscribe(EEventType::MenuExit         , this);
 
 		FEventSystem::PushEvent(FEvent(EEventType::ApplicationStarted));
 		FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ EScreenName::None, EScreenName::Menu }));
@@ -23,8 +22,6 @@ namespace wce
 	FApplication::~FApplication()
 	{
 		FEventSystem::UnsubscribeFromAll(this);
-
-		FSoundSystem::Shutdown();
 	}
 
 
@@ -80,6 +77,12 @@ namespace wce
 	{
 		switch (Event->GetType())
 		{
+			case EEventType::ApplicationClosed:
+			{
+				this->ApplicationCloseCallback(Event);
+			}
+			break;
+
 			case EEventType::MenuExit:
 			{
 				this->MenuExitCallback(Event);
@@ -91,10 +94,13 @@ namespace wce
 
 // Event Callbacks:
 
-	void FApplication::MenuExitCallback(const FEvent* const Event)
+	void FApplication::ApplicationCloseCallback(const FEvent* const Event)
 	{
 		ShouldClose = true;
+	}
 
+	void FApplication::MenuExitCallback(const FEvent* const Event)
+	{
 		FEventSystem::PushEvent(FEvent(EEventType::ApplicationClosed));
 	}
 

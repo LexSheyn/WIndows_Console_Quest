@@ -174,6 +174,22 @@ namespace wce
 		if (Event->ScreenData.ToScreen == this->GetName())
 		{
 			this->Activate();
+
+			for (auto& [Key, Button] : Buttons)
+			{
+				Button.Enable();
+			}
+
+			this->Update();
+		}
+		else
+		{
+			this->Deactivate();
+
+			for (auto& [Key, Button] : Buttons)
+			{
+				Button.Disable();
+			}
 		}
 	}
 
@@ -208,8 +224,6 @@ namespace wce
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{
-			this->Deactivate();
-
 			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
 		}
 	}
