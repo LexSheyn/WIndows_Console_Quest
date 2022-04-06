@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Window/FConsole.h"
+#include "../SFX/FSoundSystem.h"
 #include "../Screens/SMenu.h"
 #include "../Screens/SGame.h"
 #include "../Screens/SMemory.h"

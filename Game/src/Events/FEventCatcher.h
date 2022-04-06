@@ -6,6 +6,11 @@ namespace wce
 	{
 	public:
 
+	// Constructors and Destructor:
+
+		 FEventCatcher() = delete;
+		~FEventCatcher() = delete;
+
 	// Functions:
 
 		static void Initialize     ();
@@ -19,14 +24,6 @@ namespace wce
 		static void __stdcall KeyEventProc       (KEY_EVENT_RECORD KeyData);
 		static void __stdcall MouseEventProc     (MOUSE_EVENT_RECORD MouseData);
 		static void __stdcall ResizeEventProc    (WINDOW_BUFFER_SIZE_RECORD WindowBufferData);
-
-	// Private Constructors and Destructor:
-
-		 FEventCatcher() {}
-		~FEventCatcher() {}
-
-		WCE_NO_COPY(FEventCatcher);
-		WCE_NO_MOVE(FEventCatcher);
 
 	// Variables:
 

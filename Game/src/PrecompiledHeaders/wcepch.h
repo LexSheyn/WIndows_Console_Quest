@@ -3,7 +3,6 @@
 // C++ STL
 #include <fstream>
 #include <iostream>
-#include <windows.h>
 #include <sstream>
 #include <unordered_map>
 #include <map>
@@ -15,8 +14,14 @@
 #include <list>
 #include <filesystem>
 
-// Windows defines:
+// FMOD:
+#include <FMOD/fmod.hpp>
+
+// Windows:
+#define NOMINMAX
+#include <windows.h>
 #undef CreateDirectory
+
 
 // Engine Types:
 #include "../Types/WCE_Types.h"

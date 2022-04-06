@@ -9,6 +9,11 @@ namespace wce
 	{
 	public:
 
+	// Constructors and Destructor:
+
+		 FEventSystem () = delete;
+		~FEventSystem () = delete;
+
 	// Functions:
 
 		static void   PushEvent                (const FEvent& Event);
@@ -25,14 +30,6 @@ namespace wce
 	// Private Functions:
 
 		static void  Dispatch(FEvent* Event);
-
-	// Private Constructors and Destructor:
-
-		 FEventSystem () {}
-		~FEventSystem () {}
-
-		WCE_NO_COPY(FEventSystem);
-		WCE_NO_MOVE(FEventSystem);
 
 	// Variables:
 

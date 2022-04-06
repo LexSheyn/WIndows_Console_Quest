@@ -10,19 +10,21 @@ namespace wce
 	{
 		this->Init();
 
-		Console.SetTitle(L"Game v.0.0.0.1");
+		FEventSystem::Subscribe(EEventType::MenuExit, this);
+
+		FSoundSystem::Initialize(0.5f);
 
 		FEventCatcher::Initialize();
 
 		FEventSystem::PushEvent(FEvent(EEventType::ApplicationStarted));
 		FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ EScreenName::None, EScreenName::Menu }));
-
-		FEventSystem::Subscribe(EEventType::MenuExit, this);
 	}
 
 	FApplication::~FApplication()
 	{
 		FEventSystem::UnsubscribeFromAll(this);
+
+		FSoundSystem::Shutdown();
 	}
 
 
@@ -47,9 +49,9 @@ namespace wce
 		FEventCatcher::CatchEvents();
 		FEventSystem::PollEvents();
 
-	// Game:
+	// Sound system:
 
-	//	Game.Update();
+		FSoundSystem::Update();
 	}
 
 	void FApplication::Render()
@@ -65,6 +67,8 @@ namespace wce
 
 	void FApplication::Init()
 	{
+		Console.SetTitle(L"Game v.0.0.0.1");
+
 		MFileManager::CreateDirectory(L"Memory");
 		MFileManager::CreateDirectory(L"Config");
 	}

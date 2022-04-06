@@ -63,10 +63,13 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>../PrecompiledHeaders/wcepch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)Linking\FMOD\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Linking\FMOD\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -80,12 +83,15 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>../PrecompiledHeaders/wcepch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)Linking\FMOD\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)Linking\FMOD\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -110,6 +116,7 @@
     </ClCompile>
     <ClCompile Include="src\Screens\IScreen.cpp" />
     <ClCompile Include="src\Screens\SSettings.cpp" />
+    <ClCompile Include="src\SFX\FSoundSystem.cpp" />
     <ClCompile Include="src\Time\FTimeStamp.cpp" />
     <ClCompile Include="src\UI\FButton.cpp" />
     <ClCompile Include="src\UI\FMarker.cpp" />
@@ -142,6 +149,11 @@
     <ClInclude Include="src\Screens\SGame.h" />
     <ClInclude Include="src\Screens\SMemory.h" />
     <ClInclude Include="src\Screens\SSettings.h" />
+    <ClInclude Include="src\SFX\EChannelGroup.h" />
+    <ClInclude Include="src\SFX\EMusic.h" />
+    <ClInclude Include="src\SFX\ESound.h" />
+    <ClInclude Include="src\SFX\FSoundSystem.h" />
+    <ClInclude Include="src\Templates\TArray.h" />
     <ClInclude Include="src\Time\FTimeStamp.h" />
     <ClInclude Include="src\Types\WCE_Types.h" />
     <ClInclude Include="src\Screens\SMenu.h" />

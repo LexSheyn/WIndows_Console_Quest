@@ -10,6 +10,11 @@ namespace wce
 	{
 	public:
 
+	// Constructors and Destructor:
+
+		 MDataManager () = delete;
+		~MDataManager () = delete;
+
 	// Settings:
 
 		static void          SaveSettings    (const FSettingsData& Data, const std::wstring& FilePath);
@@ -23,12 +28,5 @@ namespace wce
 	// Game:
 
 		static void LoadContent (std::map<WORD, std::vector<std::wstring>>& Dialogs, std::map<WORD, std::vector<FChoice>>& Choices, const std::wstring& FilePath);
-
-	private:
-
-	// Private Constructors and Destructor:
-
-		 MDataManager () {}
-		~MDataManager () {}
 	};
 }

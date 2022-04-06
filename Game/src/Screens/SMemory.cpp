@@ -1,6 +1,8 @@
 #include "../PrecompiledHeaders/wcepch.h"
 #include "SMemory.h"
 
+#include "../SFX/FSoundSystem.h"
+
 namespace wce
 {
 // Constructors and Destructor:
@@ -60,7 +62,7 @@ namespace wce
 		MemorySlots[1].SetPosition(COORD{ 10, 12 });
 		MemorySlots[2].SetPosition(COORD{ 10, 14 });
 
-		Buttons[EButton::Back].SetPosition(COORD{ 10, 16 }).SetText(L"Back");
+		Buttons[EButton::Back].SetPosition(COORD{ 10, 16 }).SetWidth(12).SetText(L"Back");
 	}
 
 
