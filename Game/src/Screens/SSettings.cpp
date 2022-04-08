@@ -139,17 +139,28 @@ namespace wce
 	{
 		// Check does the file exist first, and if so - do the rest, but if not...
 		
-		if ( MFileManager::Exists(L"Config/Settings.cfg") == false )
+		FSettingsData Data;
+
+		if (MFileManager::Exists(L"Config/Settings.cfg"))
 		{
-			return;
+			Data = MDataManager::LoadSettings(L"Config/Settings.cfg");
 		}
+		else
+		{
+		// Default initialization:
 
-		FSettingsData Data = MDataManager::LoadSettings(L"Config/Settings.cfg");
-
+			Data.FontSliderSize  = 0;
+			Data.FontSize        = ScreenBuffer.GetFontSizeMin(); // 16
+			Data.MusicSliderSize = 3;
+			Data.MusicVolume     = 0.3f;
+			Data.SoundSliderSize = 5;
+			Data.SoundVolume     = 0.5f;
+		}
+			
 		Sliders[EScreenField::FontSize].SetSizeFill(Data.FontSliderSize);
 		ScreenBuffer.SetFontSize(Data.FontSize);
 		FEventSystem::PushEvent(FEvent(EEventType::FontChanged, FFontData{ ScreenBuffer.GetFontSizeMin(), ScreenBuffer.GetFontSize(), ScreenBuffer.GetFontName() }));
-		
+
 		Sliders[EScreenField::MusicVolume].SetSizeFill(Data.MusicSliderSize);
 		FEventSystem::PushEvent(FEvent(EEventType::SoundVolumeChanged, FSoundVolumeData{ 0.0f, Data.SoundVolume }));
 

@@ -64,7 +64,7 @@ namespace wce
 
 	void FApplication::Init()
 	{
-		Console.SetTitle(L"Game v.0.0.0.1");
+		Console.SetTitle(L"Ultimate Super Quest 3000");
 
 		MFileManager::CreateDirectory(L"Config");
 		MFileManager::CreateDirectory(L"Content");
@@ -72,6 +72,7 @@ namespace wce
 		MFileManager::CreateDirectory(L"Resources");
 		MFileManager::CreateDirectory(L"Resources/Sound");
 		MFileManager::CreateDirectory(L"Resources/Music");
+		MFileManager::CreateDirectory(L"Resources/Icons");
 	}
 
 

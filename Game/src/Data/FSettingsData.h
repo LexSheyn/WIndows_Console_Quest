@@ -4,13 +4,13 @@ namespace wce
 {
 	struct FSettingsData
 	{
-		LONG  FontSliderSize  = 0;
-		SHORT FontSize        = 16;
+		LONG  FontSliderSize;
+		SHORT FontSize;
 
-		LONG  MusicSliderSize = 0;
-		FLOAT MusicVolume     = 0.0f;
+		LONG  MusicSliderSize;
+		FLOAT MusicVolume;
 
-		LONG  SoundSliderSize = 0;
-		FLOAT SoundVolume     = 0.0f;
+		LONG  SoundSliderSize;
+		FLOAT SoundVolume;
 	};
 }
