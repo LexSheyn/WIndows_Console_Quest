@@ -1,1 +1,1 @@
-"# Windows_Console_Quest" 
+Event driven Win32 console quest game.
