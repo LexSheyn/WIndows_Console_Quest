@@ -31,18 +31,23 @@ namespace wce
 
 	// Private Functions:
 
-		void LoadFile    (ESound Index, const std::string& FilePath);
-		void Play        (ESound Index);
-		void Play        (EMusic Index);
-		void Stop        (ESound Index);
-		void Stop        (EMusic Index);
-		void Stop        (EChannelGroup Index = EChannelGroup::Master);
-		void Pause       (ESound Index);
-		void Pause       (EMusic Index);
-		void Pause       (EChannelGroup Index = EChannelGroup::Master);
-		void Unpause     (ESound Index);
-		void Unpause     (EMusic Index);
-		void Unpause     (EChannelGroup Index = EChannelGroup::Master);
+		void  Switch          (EMusic Index);
+		void  CreateSound     (ESound Index, const std::string& FilePath);
+		void  CreateStream    (EMusic Index, const std::string& FilePath);
+		void  Play            (ESound Index);
+		void  Play            (EMusic Index);
+		void  Stop            (ESound Index);
+		void  Stop            (EMusic Index);
+		void  Stop            (EChannelGroup Index = EChannelGroup::Master);
+		void  Pause           (ESound Index);
+		void  Pause           (EMusic Index);
+		void  Pause           (EChannelGroup Index = EChannelGroup::Master);
+		void  Unpause         (ESound Index);
+		void  Unpause         (EMusic Index);
+		void  Unpause         (EChannelGroup Index = EChannelGroup::Master);
+		bool8 IsPlaying       (ESound Index);
+		bool8 IsPlaying       (EMusic Index);
+		bool8 IsPlaying       (EChannelGroup Index = EChannelGroup::Master);
 
 	// Private Constructors and Destructor:
 
@@ -83,10 +88,12 @@ namespace wce
 
 	// Event Callbacks:
 
-		void ApplicationStartCallback    (const FEvent* const Event);
-		void ApplicationCloseCallback    (const FEvent* const Event);
-		void ScreenSwitchCallback        (const FEvent* const Event);
-		void ButtonPressCallback         (const FEvent* const Event);
-		void KeyPressCallback            (const FEvent* const Event);
+		void ApplicationStartCallback     (const FEvent* const Event);
+		void ApplicationCloseCallback     (const FEvent* const Event);
+		void ScreenSwitchCallback         (const FEvent* const Event);
+		void ButtonPressCallback          (const FEvent* const Event);
+		void KeyPressCallback             (const FEvent* const Event);
+		void SoundVolumeChangeCallback    (const FEvent* const Event);
+		void MusicVolumeChangeCallback    (const FEvent* const Event);
 	};
 }

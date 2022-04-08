@@ -23,6 +23,7 @@ namespace wce
 		FEvent (EEventType Type, FButtonData               ButtonData)       : Type(Type), ButtonData       (ButtonData)       {}
 		FEvent (EEventType Type, FGameData                 GameData)         : Type(Type), GameData         (GameData)         {}
 		FEvent (EEventType Type, FMemorySlotData           MemorySlotData)   : Type(Type), MemorySlotData   (MemorySlotData)   {}
+		FEvent (EEventType Type, FSoundVolumeData          SoundVolumeData)  : Type(Type), SoundVolumeData  (SoundVolumeData)  {}
 
 		~FEvent () {}
 
@@ -42,11 +43,12 @@ namespace wce
 
 		// Engine:
 
-			FScreenData     ScreenData;
-			FFontData       FontData;
-			FButtonData     ButtonData;
-			FGameData       GameData;
-			FMemorySlotData MemorySlotData;
+			FScreenData      ScreenData;
+			FFontData        FontData;
+			FButtonData      ButtonData;
+			FGameData        GameData;
+			FMemorySlotData  MemorySlotData;
+			FSoundVolumeData SoundVolumeData;
 		};
 
 	private:

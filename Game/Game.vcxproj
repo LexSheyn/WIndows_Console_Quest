@@ -144,7 +144,7 @@
     <ClInclude Include="src\Data\IMemoryData.h" />
     <ClInclude Include="src\PrecompiledHeaders\wcepch.h" />
     <ClInclude Include="src\ScreenBuffer\FScreenBuffer.h" />
-    <ClInclude Include="src\Screens\EScreenName.h" />
+    <ClInclude Include="src\Screens\EScreen.h" />
     <ClInclude Include="src\Screens\EScreenField.h" />
     <ClInclude Include="src\Screens\SGame.h" />
     <ClInclude Include="src\Screens\SMemory.h" />

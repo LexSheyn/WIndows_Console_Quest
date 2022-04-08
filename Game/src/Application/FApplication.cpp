@@ -16,7 +16,7 @@ namespace wce
 		FEventSystem::Subscribe(EEventType::MenuExit         , this);
 
 		FEventSystem::PushEvent(FEvent(EEventType::ApplicationStarted));
-		FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ EScreenName::None, EScreenName::Menu }));
+		FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ EScreen::None, EScreen::Menu }));
 	}
 
 	FApplication::~FApplication()

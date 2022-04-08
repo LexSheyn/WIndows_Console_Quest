@@ -6,7 +6,7 @@ namespace wce
 // Constructors and Destructor:
 
 	SGame::SGame()
-		: IScreen(EScreenName::Game)
+		: IScreen(EScreen::Game)
 	{
 		this->Init();
 
@@ -224,7 +224,7 @@ namespace wce
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Menu }));
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 namespace wce
 {
-	enum class EScreenName
+	enum class EScreen
 	{
 		None = 0,
 		Menu,

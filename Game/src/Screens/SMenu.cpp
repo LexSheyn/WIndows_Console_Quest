@@ -6,7 +6,7 @@ namespace wce
 // Constructors and Destructor:
 
 	SMenu::SMenu()
-		: IScreen(EScreenName::Menu)
+		: IScreen(EScreen::Menu)
 	{
 		this->Init();
 
@@ -126,15 +126,15 @@ namespace wce
 	{
 		if      ( (Event->ButtonData.ID == Buttons[EButton::StartGame].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Game }));
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Game }));
 		}
 		else if ( (Event->ButtonData.ID == Buttons[EButton::Memory].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Memory }));
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Memory }));
 		}
 		else if ( (Event->ButtonData.ID == Buttons[EButton::Settings].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Settings }));
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Settings }));
 		}
 		else if ( (Event->ButtonData.ID == Buttons[EButton::Exit].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{

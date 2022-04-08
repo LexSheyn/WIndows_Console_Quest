@@ -5,7 +5,7 @@ namespace wce
 {
 // Constructors and Destructor:
 
-	IScreen::IScreen(EScreenName Name)
+	IScreen::IScreen(EScreen Name)
 		: Name(Name),
 		  Activated(false)
 	{
@@ -32,7 +32,7 @@ namespace wce
 
 // Accessors:
 
-	const EScreenName& IScreen::GetName() const
+	const EScreen& IScreen::GetName() const
 	{
 		return Name;
 	}

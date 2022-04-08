@@ -46,6 +46,11 @@ namespace wce
 		GameLoaded,
 		MemorySlotPressed,
 		GameSaveRequested,
-		GameSaveApproved
+		GameSaveApproved,
+
+	// Settings:
+
+		SoundVolumeChanged,
+		MusicVolumeChanged,
 	};
 }

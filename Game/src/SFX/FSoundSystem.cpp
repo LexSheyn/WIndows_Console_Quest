@@ -34,10 +34,12 @@ namespace wce
 		// Sound:
 
 			Instance.SoundChannels[i]->setChannelGroup(Instance.Groups[0]);
+			Instance.SoundChannels[i]->setVolume(VolumeMax);
 			
 		// Music:
 			
 			Instance.MusicChannels[i]->setChannelGroup(Instance.Groups[1]);
+			Instance.MusicChannels[i]->setVolume(VolumeMax);
 		}
 
 		Instance.Groups[EChannelGroup::Sound ]->setVolume(Volume);
@@ -99,40 +101,57 @@ namespace wce
 
 // Private Functions:
 
-	void FSoundSystem::LoadFile(ESound Index, const std::string& FilePath)
+	void FSoundSystem::Switch(EMusic Index)
 	{
-		System->createSound(FilePath.c_str(), FMOD_DEFAULT, nullptr, &Sounds[Index]);
+		bool8 Paused;
+
+		MusicChannels[Index]->getPaused(&Paused);
+		MusicChannels[Index]->setPaused(!Paused);
+	}
+
+	void FSoundSystem::CreateSound(ESound Index, const std::string& FilePath)
+	{
+		System->createSound(FilePath.c_str(), FMOD_DEFAULT | FMOD_2D, nullptr, &Sounds[Index]);
+	}
+
+	void FSoundSystem::CreateStream(EMusic Index, const std::string& FilePath)
+	{
+		System->createStream(FilePath.c_str(), FMOD_LOOP_NORMAL | FMOD_2D, nullptr, &Music[Index]);
 	}
 
 	void FSoundSystem::Play(ESound Index)
 	{
-		System->playSound(Sounds[Index], Groups[EChannelGroup::Sound], true, &SoundChannels[Index]);
-		SoundChannels[Index]->setVolume(Volumes[EChannelGroup::Sound]);
-		SoundChannels[Index]->setPaused(false);
+		System->playSound(Sounds[Index], Groups[EChannelGroup::Sound], false, &SoundChannels[Index]);
 	}
 
 	void FSoundSystem::Play(EMusic Index)
 	{
+		System->playSound(Music[Index], Groups[EChannelGroup::Music], false, &MusicChannels[Index]);
 	}
 
 	void FSoundSystem::Stop(ESound Index)
 	{
+		SoundChannels[Index]->stop();
 	}
 
 	void FSoundSystem::Stop(EMusic Index)
 	{
+		MusicChannels[Index]->stop();
 	}
 
 	void FSoundSystem::Stop(EChannelGroup Index)
 	{
+		Groups[Index]->stop();
 	}
 
 	void FSoundSystem::Pause(ESound Index)
 	{
+		SoundChannels[Index]->setPaused(true);
 	}
 
 	void FSoundSystem::Pause(EMusic Index)
 	{
+		MusicChannels[Index]->setPaused(true);
 	}
 
 	void FSoundSystem::Pause(EChannelGroup Index)
@@ -142,15 +161,44 @@ namespace wce
 
 	void FSoundSystem::Unpause(ESound Index)
 	{
+		SoundChannels[Index]->setPaused(false);
 	}
 
 	void FSoundSystem::Unpause(EMusic Index)
 	{
+		MusicChannels[Index]->setPaused(false);
 	}
 
 	void FSoundSystem::Unpause(EChannelGroup Index)
 	{
 		Groups[Index]->setPaused(false);
+	}
+
+	bool8 FSoundSystem::IsPlaying(ESound Index)
+	{
+		bool8 Playing;
+
+		SoundChannels[Index]->isPlaying(&Playing);
+
+		return Playing;
+	}
+
+	bool8 FSoundSystem::IsPlaying(EMusic Index)
+	{
+		bool8 Playing;
+
+		MusicChannels[Index]->isPlaying(&Playing);
+
+		return Playing;
+	}
+
+	bool8 FSoundSystem::IsPlaying(EChannelGroup Index)
+	{
+		bool8 Playing;
+
+		Groups[Index]->isPlaying(&Playing);
+
+		return Playing;
 	}
 
 
@@ -162,7 +210,9 @@ namespace wce
 		FEventSystem::Subscribe(EEventType::ApplicationClosed , &Instance);
 		FEventSystem::Subscribe(EEventType::ScreenSwitched    , &Instance);
 		FEventSystem::Subscribe(EEventType::ButtonPressed     , &Instance);
-	//	FEventSystem::Subscribe(EEventType::KeyPressed        , &Instance);
+		FEventSystem::Subscribe(EEventType::KeyPressed        , &Instance);
+		FEventSystem::Subscribe(EEventType::SoundVolumeChanged, &Instance);
+		FEventSystem::Subscribe(EEventType::MusicVolumeChanged, &Instance);
 	}
 
 	FSoundSystem::~FSoundSystem()
@@ -211,6 +261,18 @@ namespace wce
 				Instance.KeyPressCallback(Event);
 			}
 			break;
+
+			case EEventType::SoundVolumeChanged:
+			{
+				this->SoundVolumeChangeCallback(Event);
+			}
+			break;
+
+			case EEventType::MusicVolumeChanged:
+			{
+				this->MusicVolumeChangeCallback(Event);
+			}
+			break;
 		}
 	}
 
@@ -219,11 +281,26 @@ namespace wce
 
 	void FSoundSystem::ApplicationStartCallback(const FEvent* const Event)
 	{
-		FSoundSystem::Initialize(0.5f);
+	// System:
 
-		Instance.LoadFile(ESound::ScreenSwitch, "Resources/Sound/ScreenSwitch.mp3");
-		Instance.LoadFile(ESound::ButtonPress , "Resources/Sound/ButtonPress.mp3");
-	//	Instance.LoadFile(ESound::KeyPress    , "Resources/Sound/ButtonPress.mp3");
+		FSoundSystem::Initialize(0.4f);
+
+	// Sound:
+
+		this->CreateSound(ESound::ScreenSwitch, "Resources/Sound/ScreenSwitch.mp3");
+		this->CreateSound(ESound::ButtonPress , "Resources/Sound/ButtonPress.mp3");
+	//	this->CreateSound(ESound::KeyPress    , "Resources/Sound/ButtonPress.mp3");
+		
+	// Music:
+
+		this->CreateStream(EMusic::Menu, "Resources/Music/Menu.mp3");
+		this->CreateStream(EMusic::Game, "Resources/Music/Game.mp3");
+
+		this->Play(EMusic::Menu);
+		this->Pause(EMusic::Menu);
+
+		this->Play(EMusic::Game);
+		this->Pause(EMusic::Game);
 	}
 
 	void FSoundSystem::ApplicationCloseCallback(const FEvent* const Event)
@@ -233,6 +310,17 @@ namespace wce
 
 	void FSoundSystem::ScreenSwitchCallback(const FEvent* const Event)
 	{
+		if (Event->ScreenData.ToScreen == EScreen::Menu)
+		{
+			this->Pause(EMusic::Game);
+			this->Unpause(EMusic::Menu);
+		}
+		else if (Event->ScreenData.ToScreen == EScreen::Game)
+		{
+			this->Pause(EMusic::Menu);
+			this->Unpause(EMusic::Game);
+		}
+
 		Instance.Play(ESound::ScreenSwitch);
 	}
 
@@ -244,6 +332,16 @@ namespace wce
 	void FSoundSystem::KeyPressCallback(const FEvent* const Event)
 	{
 	//	Instance.Play(ESound::KeyPress);
+	}
+
+	void FSoundSystem::SoundVolumeChangeCallback(const FEvent* const Event)
+	{
+		Groups[EChannelGroup::Sound]->setVolume(Event->SoundVolumeData.ToVolume);
+	}
+
+	void FSoundSystem::MusicVolumeChangeCallback(const FEvent* const Event)
+	{
+		Groups[EChannelGroup::Music]->setVolume(Event->SoundVolumeData.ToVolume);
 	}
 
 }

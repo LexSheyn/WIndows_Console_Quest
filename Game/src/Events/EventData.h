@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Screens/EScreenName.h"
+#include "../Screens/EScreen.h"
 #include "../UI/EButton.h"
 #include "../UI/EMemorySlotButton.h"
 #include "../Data/FGameData.h"
@@ -10,13 +10,11 @@
 
 namespace wce
 {
-	struct FScreenData     { EScreenName FromScreen; EScreenName ToScreen; };
-					       
-	struct FFontData       { SHORT FromSize; SHORT ToSize; const WCHAR* Name; };
-					       
-	struct FButtonData     { WORD ID; DWORD MouseButton; };
-
-	struct FMemorySlotData { WORD ID; EMemorySlotButton Button; DWORD MouseButton; };
+	struct FScreenData      { EScreen FromScreen; EScreen ToScreen; };					       
+	struct FFontData        { SHORT FromSize; SHORT ToSize; const WCHAR* Name; };					       
+	struct FButtonData      { WORD ID; DWORD MouseButton; };
+	struct FMemorySlotData  { WORD ID; EMemorySlotButton Button; DWORD MouseButton; };
+	struct FSoundVolumeData { FLOAT FromVolume; FLOAT ToVolume; };
 }
 
 #pragma warning( push )

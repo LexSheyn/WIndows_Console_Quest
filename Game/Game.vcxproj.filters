@@ -125,7 +125,7 @@
     <ClInclude Include="src\Events\FEventCatcher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Screens\EScreenName.h">
+    <ClInclude Include="src\Screens\EScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Screens\EScreenField.h">

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EScreenName.h"
+#include "EScreen.h"
 #include "EScreenField.h"
 #include "../Input/FKey.h"
 #include "../Input/FMouseButton.h"
@@ -16,7 +16,7 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		         IScreen (EScreenName Name);
+		         IScreen (EScreen Name);
 		virtual ~IScreen ();
 
 	// Intarface:
@@ -31,7 +31,7 @@ namespace wce
 
 	// Accessors:
 
-		const EScreenName& GetName     () const;
+		const EScreen& GetName     () const;
 		const bool8&       IsActive    () const;
 
 	// Components:
@@ -42,7 +42,7 @@ namespace wce
 
 	// Variables:
 
-		EScreenName Name;
+		EScreen Name;
 		bool8       Activated;
 
 	public:

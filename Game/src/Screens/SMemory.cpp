@@ -8,7 +8,7 @@ namespace wce
 // Constructors and Destructor:
 
 	SMemory::SMemory()
-		: IScreen(EScreenName::Memory)
+		: IScreen(EScreen::Memory)
 	{
 		this->Init();
 
@@ -190,7 +190,7 @@ namespace wce
 	{
 		if ((Event->ButtonData.ID == Buttons.at(EButton::Back).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left))
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Menu }));
 		}
 	}
 
@@ -198,7 +198,7 @@ namespace wce
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{
-			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Menu }));
+			FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Menu }));
 		}
 	}
 
@@ -213,7 +213,7 @@ namespace wce
 			if (MFileManager::Exists(L"Memory/Slot0.mem"))
 			{
 				FEventSystem::PushEvent(FEvent(EEventType::GameLoaded, MDataManager::LoadGame(L"Memory/Slot0.mem")));
-				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Game }));
+				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Game }));
 			}
 		}
 		if ( (Event->MemorySlotData.ID == MemorySlots.at(1).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Save) )
@@ -225,7 +225,7 @@ namespace wce
 			if (MFileManager::Exists(L"Memory/Slot1.mem"))
 			{
 				FEventSystem::PushEvent(FEvent(EEventType::GameLoaded, MDataManager::LoadGame(L"Memory/Slot1.mem")));
-				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Game }));
+				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Game }));
 			}
 		}
 		if ( (Event->MemorySlotData.ID == MemorySlots.at(2).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Save) )
@@ -237,7 +237,7 @@ namespace wce
 			if (MFileManager::Exists(L"Memory/Slot2.mem"))
 			{
 				FEventSystem::PushEvent(FEvent(EEventType::GameLoaded, MDataManager::LoadGame(L"Memory/Slot2.mem")));
-				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreenName::Game }));
+				FEventSystem::PushEvent(FEvent(EEventType::ScreenSwitched, FScreenData{ this->GetName(), EScreen::Game }));
 			}
 		}
 	}
