@@ -27,10 +27,10 @@
 
 
 // Engine Types:
-#include "../Types/WCE_Types.h"
+//#include "../Types/WCE_Types.h"
 
 // Engine Macros:
-#include "../Macros/WCE_Macros.h"
+//#include "../Macros/WCE_Macros.h"
 
 // Event Core:
 #include "../Events/FEventCatcher.h"

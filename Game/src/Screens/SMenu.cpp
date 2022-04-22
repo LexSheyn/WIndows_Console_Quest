@@ -68,13 +68,13 @@ namespace wce
 
 			case EEventType::ScreenSwitched:
 			{
-				this->ScreenSwitchCallback(Event);
+				this->OnScreenSwitch(Event);
 			}
 			break;
 
 			case EEventType::FontChanged:
 			{
-				this->FontChangeCallback(Event);
+				this->OnFontChange(Event);
 			}
 			break;
 		}
@@ -85,7 +85,7 @@ namespace wce
 			{
 				case EEventType::ButtonPressed:
 				{
-					this->ButtonPressCallback(Event);
+					this->OnButtonPress(Event);
 				}
 				break;
 			}
@@ -95,7 +95,7 @@ namespace wce
 
 // Event Callbacks:
 
-	void SMenu::ScreenSwitchCallback(const FEvent* const Event)
+	void SMenu::OnScreenSwitch(const FEvent* const Event)
 	{
 		if (Event->ScreenData.ToScreen == this->GetName())
 		{
@@ -117,12 +117,12 @@ namespace wce
 		}
 	}
 
-	void SMenu::FontChangeCallback(const FEvent* const Event)
+	void SMenu::OnFontChange(const FEvent* const Event)
 	{
 		ScreenBuffer.SetFontSize(Event->FontData.ToSize);
 	}
 
-	void SMenu::ButtonPressCallback(const FEvent* const Event)
+	void SMenu::OnButtonPress(const FEvent* const Event)
 	{
 		if      ( (Event->ButtonData.ID == Buttons[EButton::StartGame].GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{

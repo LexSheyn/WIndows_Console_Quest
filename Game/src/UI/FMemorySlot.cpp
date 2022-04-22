@@ -78,7 +78,7 @@ namespace wce
 		return DateField.GetText();
 	}
 
-	const bool8& FMemorySlot::IsEnabled() const
+	const bool& FMemorySlot::IsEnabled() const
 	{
 		return Enabled;
 	}
@@ -143,7 +143,7 @@ namespace wce
 			{
 				case EEventType::ButtonPressed:
 				{
-					this->ButtonPressCallback(Event);
+					this->OnButtonPress(Event);
 				}
 				break;
 			}
@@ -153,7 +153,7 @@ namespace wce
 
 // Event Callbacks:
 
-	void FMemorySlot::ButtonPressCallback(const FEvent* const Event)
+	void FMemorySlot::OnButtonPress(const FEvent* const Event)
 	{
 		if      ( (Event->ButtonData.ID == Buttons.at(EButton::Save).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{

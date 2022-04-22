@@ -57,15 +57,8 @@ namespace wce
 
 		FGameData Data;
 
-		for (size_t i = 0u; i < Content[0].size(); i++)
-		{
-			Data.Time[i] = Content[0][i];
-		}
-
-		for (size_t i = 0u; i < Content[1].size(); i++)
-		{
-			Data.Date[i] = Content[1][i];
-		}
+		wmemcpy_s(Data.Time, 9 , Content[0].c_str(), 9);
+		wmemcpy_s(Data.Date, 12, Content[1].c_str(), 12);
 
 		Data.Chapter = static_cast<WORD>( std::stoul(Content[2]) );
 

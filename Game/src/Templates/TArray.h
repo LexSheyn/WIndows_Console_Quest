@@ -9,9 +9,9 @@ namespace wce
 
 	// Accessors:
 
-		constexpr size_t Size() const noexcept { return S; }
-		const         T* Data() const          { return Array; }
-		              T* Data()                { return Array; }
+		constexpr size_t Size    () const noexcept { return S; }
+		const         T* Data    () const          { return Array; }
+		              T* Data    ()                { return Array; }
 
 	// Operators:
 		

@@ -52,7 +52,7 @@ namespace wce
 	{
 		TextField.Draw(ScreenBuffer);
 
-		ScreenBuffer.FillWithAttribute(Attribute, static_cast<DWORD>(Width), Position);
+		ScreenBuffer.FillWithAttribute(Position, static_cast<DWORD>(Width), Attribute);
 	}
 
 
@@ -83,7 +83,7 @@ namespace wce
 		return TextField.GetText();
 	}
 
-	const bool8& FButton::IsEnabled() const
+	const bool& FButton::IsEnabled() const
 	{
 		return Enabled;
 	}
@@ -142,13 +142,13 @@ namespace wce
 			{
 				case EEventType::MouseMoved:
 				{
-					MousePositionCallback(Event);
+					OnMouseMove(Event);
 				}
 				break;
 
 				case EEventType::MousePressed:
 				{
-					MousePressCallback(Event);
+					OnMousePress(Event);
 				}
 				break;
 			}
@@ -158,7 +158,7 @@ namespace wce
 
 // Event Callbacks:
 
-	void FButton::MousePositionCallback(const FEvent* const Event)
+	void FButton::OnMouseMove(const FEvent* const Event)
 	{
 		MousePositionLast = Event->MouseData.dwMousePosition;
 
@@ -172,7 +172,7 @@ namespace wce
 		}
 	}
 
-	void FButton::MousePressCallback(const FEvent* const Event)
+	void FButton::OnMousePress(const FEvent* const Event)
 	{
 		if ( ((MousePositionLast.X >= Position.X) && (MousePositionLast.X <= Position.X + Width)) && (MousePositionLast.Y == Position.Y) )
 		{

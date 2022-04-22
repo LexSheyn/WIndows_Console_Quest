@@ -10,8 +10,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 SSettings ();
-		~SSettings ();
+		 SSettings    ();
+		~SSettings    ();
 
 	// IScreen Intarface:
 
@@ -22,28 +22,28 @@ namespace wce
 
 	// Private Functions:
 
-		void Init ();
+		void Init    ();
 
 	// Components:
 
 		std::map<EScreenField, FTextField> TextFields;
-		std::map<EButton , FButton>        Buttons;
+		std::map<EButton     , FButton>    Buttons;
 		std::map<EScreenField, FSlider>    Sliders;
 
 	public:
 
 	// IEventListener Interface:
 
-		void OnEvent (const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	private:
 
 	// Event Callbacks:
 
-		void ApplicationStartCallback    (const FEvent* const Event);
-		void ApplicationCloseCallback    (const FEvent* const Event);
-		void ScreenSwitchCallback        (const FEvent* const Event);
-		void ButtonPressCallback         (const FEvent* const Event);
-		void KeyPressCallback            (const FEvent* const Event);
+		void OnApplicationStart    (const FEvent* const Event);
+		void OnApplicationClose    (const FEvent* const Event);
+		void OnScreenSwitch        (const FEvent* const Event);
+		void OnButtonPress         (const FEvent* const Event);
+		void OnKeyPress            (const FEvent* const Event);
 	};
 }

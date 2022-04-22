@@ -16,8 +16,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		         IScreen (EScreen Name);
-		virtual ~IScreen ();
+		         IScreen    (EScreen Name);
+		virtual ~IScreen    ();
 
 	// Intarface:
 
@@ -32,7 +32,7 @@ namespace wce
 	// Accessors:
 
 		const EScreen& GetName     () const;
-		const bool8&       IsActive    () const;
+		const bool&    IsActive    () const;
 
 	// Components:
 
@@ -43,12 +43,12 @@ namespace wce
 	// Variables:
 
 		EScreen Name;
-		bool8       Activated;
+		bool    Activated;
 
 	public:
 
 	// IEventListener Interface:
 
-		virtual void OnEvent (const FEvent* const Event) override = 0;
+		virtual void OnEvent    (const FEvent* const Event) override = 0;
 	};
 }

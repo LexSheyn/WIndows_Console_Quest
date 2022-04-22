@@ -15,8 +15,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FApplication();
-		~FApplication();
+		 FApplication    ();
+		~FApplication    ();
 
 	// Functions:
 
@@ -28,11 +28,11 @@ namespace wce
 
 	// Private Functons:
 
-		void Init ();
+		void Init    ();
 
 	// Variables:
 
-		bool8 ShouldClose;
+		bool ShouldClose;
 
 	// Screens:
 
@@ -47,11 +47,11 @@ namespace wce
 
 	// IEventListener Interface:
 
-		void OnEvent(const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	// Event Callbacks:
 
-		void ApplicationCloseCallback    (const FEvent* const Event);
-		void MenuExitCallback            (const FEvent* const Event);		
+		void OnApplication    (const FEvent* const Event);
+		void OnMenuExit       (const FEvent* const Event);		
 	};
 }

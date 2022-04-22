@@ -67,7 +67,7 @@ namespace wce
 		}
 	}
 
-	bool8 FEventSystem::IsSubscribed(EEventType Type, IEventListener* Listener)
+	bool FEventSystem::IsSubscribed(EEventType Type, IEventListener* Listener)
 	{
 		std::pair Range = ListenerRegistry.equal_range(Type);
 

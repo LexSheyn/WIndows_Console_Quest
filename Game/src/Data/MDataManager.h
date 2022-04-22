@@ -12,8 +12,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 MDataManager () = delete;
-		~MDataManager () = delete;
+		 MDataManager    () = delete;
+		~MDataManager    () = delete;
 
 	// Settings:
 
@@ -27,6 +27,6 @@ namespace wce
 
 	// Game:
 
-		static void LoadContent (std::map<WORD, std::vector<std::wstring>>& Dialogs, std::map<WORD, std::vector<FChoice>>& Choices, const std::wstring& FilePath);
+		static void LoadContent    (std::map<WORD, std::vector<std::wstring>>& Dialogs, std::map<WORD, std::vector<FChoice>>& Choices, const std::wstring& FilePath);
 	};
 }

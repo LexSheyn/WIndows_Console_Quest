@@ -37,7 +37,7 @@ namespace wce
 		return Name;
 	}
 
-	const bool8& IScreen::IsActive() const
+	const bool& IScreen::IsActive() const
 	{
 		return Activated;
 	}

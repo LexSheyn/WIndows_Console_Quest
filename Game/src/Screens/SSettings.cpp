@@ -95,19 +95,19 @@ namespace wce
 		{
 			case EEventType::ApplicationStarted:
 			{
-				this->ApplicationStartCallback(Event);
+				this->OnApplicationStart(Event);
 			}
 			break;
 
 			case EEventType::ApplicationClosed:
 			{
-				this->ApplicationCloseCallback(Event);
+				this->OnApplicationClose(Event);
 			}
 			break;
 
 			case EEventType::ScreenSwitched:
 			{
-				this->ScreenSwitchCallback(Event);
+				this->OnScreenSwitch(Event);
 			}
 			break;
 		}
@@ -118,13 +118,13 @@ namespace wce
 			{
 				case EEventType::ButtonPressed:
 				{
-					this->ButtonPressCallback(Event);
+					this->OnButtonPress(Event);
 				}
 				break;
 
 				case EEventType::KeyPressed:
 				{
-					this->KeyPressCallback(Event);
+					this->OnKeyPress(Event);
 				}
 				break;
 
@@ -135,7 +135,7 @@ namespace wce
 
 // Event Callbacks:
 
-	void SSettings::ApplicationStartCallback(const FEvent* const Event)
+	void SSettings::OnApplicationStart(const FEvent* const Event)
 	{
 		// Check does the file exist first, and if so - do the rest, but if not...
 		
@@ -168,7 +168,7 @@ namespace wce
 		FEventSystem::PushEvent(FEvent(EEventType::MusicVolumeChanged, FSoundVolumeData{ 0.0f, Data.MusicVolume }));
 	}
 
-	void SSettings::ApplicationCloseCallback(const FEvent* const Event)
+	void SSettings::OnApplicationClose(const FEvent* const Event)
 	{
 		FSettingsData Data;
 
@@ -182,7 +182,7 @@ namespace wce
 		MDataManager::SaveSettings(Data, L"Config/Settings.cfg");
 	}
 
-	void SSettings::ScreenSwitchCallback(const FEvent* const Event)
+	void SSettings::OnScreenSwitch(const FEvent* const Event)
 	{
 		if (Event->ScreenData.ToScreen == this->GetName())
 		{
@@ -204,7 +204,7 @@ namespace wce
 		}
 	}
 
-	void SSettings::ButtonPressCallback(const FEvent* const Event)
+	void SSettings::OnButtonPress(const FEvent* const Event)
 	{
 		if ( (Event->ButtonData.ID == Buttons.at(EButton::Back).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
@@ -270,7 +270,7 @@ namespace wce
 		}
 	}
 
-	void SSettings::KeyPressCallback(const FEvent* const Event)
+	void SSettings::OnKeyPress(const FEvent* const Event)
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{

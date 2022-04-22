@@ -101,37 +101,37 @@ namespace wce
 		{
 			case EEventType::ApplicationStarted:
 			{
-				this->ApplicationStartCallback(Event);
+				this->OnApplicationStart(Event);
 			}
 			break;
 
 			case EEventType::ApplicationClosed:
 			{
-				this->ApplicationCloseCallback(Event);
+				this->OnApplicationClose(Event);
 			}
 			break;
 
 			case EEventType::ScreenSwitched:
 			{
-				this->ScreenSwitchCallback(Event);
+				this->OnScreenSwitch(Event);
 			}
 			break;
 
 			case EEventType::FontChanged:
 			{
-				this->FontChangeCallback(Event);
+				this->OnFontChange(Event);
 			}
 			break;
 
 			case EEventType::GameSaveRequested:
 			{
-				this->GameSaveCallback(Event);
+				this->OnGameSave(Event);
 			}
 			break;
 
 			case EEventType::GameLoaded:
 			{
-				this->GameLoadCallback(Event);
+				this->OnGameLoad(Event);
 			}
 			break;
 		}
@@ -142,13 +142,13 @@ namespace wce
 			{
 				case EEventType::ButtonPressed:
 				{
-					this->ButtonPressCallback(Event);
+					this->OnButtonPress(Event);
 				}
 				break;
 
 				case EEventType::KeyPressed:
 				{
-					this->KeyPressCallback(Event);
+					this->OnKeyPress(Event);
 				}
 				break;
 			}
@@ -156,20 +156,20 @@ namespace wce
 	}
 
 
-// Event Callbacks:
+// Event s:
 
-	void SGame::ApplicationStartCallback(const FEvent* const Event)
+	void SGame::OnApplicationStart(const FEvent* const Event)
 	{
 		MDataManager::LoadContent(Dialogs, Choices, L"Content/Content.tale");
 
 		this->Update();
 	}
 
-	void SGame::ApplicationCloseCallback(const FEvent* const Event)
+	void SGame::OnApplicationClose(const FEvent* const Event)
 	{
 	}
 
-	void SGame::ScreenSwitchCallback(const FEvent* const Event)
+	void SGame::OnScreenSwitch(const FEvent* const Event)
 	{
 		if (Event->ScreenData.ToScreen == this->GetName())
 		{
@@ -193,12 +193,12 @@ namespace wce
 		}
 	}
 
-	void SGame::FontChangeCallback(const FEvent* const Event)
+	void SGame::OnFontChange(const FEvent* const Event)
 	{
 		ScreenBuffer.SetFontSize(Event->FontData.ToSize);
 	}
 
-	void SGame::ButtonPressCallback(const FEvent* const Event)
+	void SGame::OnButtonPress(const FEvent* const Event)
 	{
 		if      ( (Event->ButtonData.ID == Buttons.at(EButton::Choice_0).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left) )
 		{
@@ -220,7 +220,7 @@ namespace wce
 		this->Update();
 	}
 
-	void SGame::KeyPressCallback(const FEvent* const Event)
+	void SGame::OnKeyPress(const FEvent* const Event)
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{
@@ -228,23 +228,15 @@ namespace wce
 		}
 	}
 
-	void SGame::GameSaveCallback(const FEvent* const Event)
+	void SGame::OnGameSave(const FEvent* const Event)
 	{
 		FGameData Data;
 
-		std::wstring TimeRecieved = FTimeStamp::TimeAsString();
+		std::wstring TimeReceived = FTimeStamp::TimeAsString();
+		std::wstring DateReceived = FTimeStamp::DateAsString();
 
-		for (size_t i = 0u; i < TimeRecieved.size(); i++)
-		{
-			Data.Time[i] = TimeRecieved[i];
-		}
-
-		std::wstring DateRecieved = FTimeStamp::DateAsString();
-
-		for (size_t i = 0u; i < DateRecieved.size(); i++)
-		{
-			Data.Date[i] = DateRecieved[i];
-		}
+		wmemcpy_s(Data.Time, 9 , TimeReceived.c_str(), 9);
+		wmemcpy_s(Data.Date, 12, DateReceived.c_str(), 12);
 
 		Data.Chapter      = Chapter;
 		Data.MemorySlotID = Event->MemorySlotData.ID;
@@ -252,7 +244,7 @@ namespace wce
 		FEventSystem::PushEvent(FEvent(EEventType::GameSaveApproved, Data));
 	}
 
-	void SGame::GameLoadCallback(const FEvent* const Event)
+	void SGame::OnGameLoad(const FEvent* const Event)
 	{
 		Chapter = Event->GameData.Chapter;
 

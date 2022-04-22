@@ -38,8 +38,8 @@ namespace wce
 
 	// Event Callbacks:
 
-		void ScreenSwitchCallback    (const FEvent* const Event);
-		void FontChangeCallback      (const FEvent* const Event);
-		void ButtonPressCallback     (const FEvent* const Event);
+		void OnScreenSwitch    (const FEvent* const Event);
+		void OnFontChange      (const FEvent* const Event);
+		void OnButtonPress     (const FEvent* const Event);
 	};
 }

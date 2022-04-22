@@ -119,7 +119,6 @@
     <ClCompile Include="src\SFX\FSoundSystem.cpp" />
     <ClCompile Include="src\Time\FTimeStamp.cpp" />
     <ClCompile Include="src\UI\FButton.cpp" />
-    <ClCompile Include="src\UI\FMarker.cpp" />
     <ClCompile Include="src\UI\FMemorySlot.cpp" />
     <ClCompile Include="src\UI\FSlider.cpp" />
     <ClCompile Include="src\UI\FTextField.cpp" />
@@ -137,7 +136,6 @@
     <ClInclude Include="src\FileManager\MFileManager.h" />
     <ClInclude Include="src\Input\FKey.h" />
     <ClInclude Include="src\Input\FMouseButton.h" />
-    <ClInclude Include="src\Macros\WCE_Macros.h" />
     <ClInclude Include="src\Data\FGameData.h" />
     <ClInclude Include="src\Data\MDataManager.h" />
     <ClInclude Include="src\Data\FSettingsData.h" />
@@ -155,13 +153,11 @@
     <ClInclude Include="src\SFX\FSoundSystem.h" />
     <ClInclude Include="src\Templates\TArray.h" />
     <ClInclude Include="src\Time\FTimeStamp.h" />
-    <ClInclude Include="src\Types\WCE_Types.h" />
     <ClInclude Include="src\Screens\SMenu.h" />
     <ClInclude Include="src\Screens\IScreen.h" />
     <ClInclude Include="src\UI\EButton.h" />
     <ClInclude Include="src\UI\EMemorySlotButton.h" />
     <ClInclude Include="src\UI\FButton.h" />
-    <ClInclude Include="src\UI\FMarker.h" />
     <ClInclude Include="src\UI\FMemorySlot.h" />
     <ClInclude Include="src\UI\FSlider.h" />
     <ClInclude Include="src\UI\FTextField.h" />

@@ -11,8 +11,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 SMemory ();
-		~SMemory ();
+		 SMemory    ();
+		~SMemory    ();
 
 	// IScreen Intarface:
 
@@ -34,18 +34,18 @@ namespace wce
 
 	// IEventListener Interface:
 
-		void OnEvent (const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	private:
 
 	// Event Callbacks:
 
-		void ApplicationStartCallback    (const FEvent* const Event);
-		void ScreenSwitchCallback        (const FEvent* const Event);
-		void FontChangeCallback          (const FEvent* const Event);
-		void ButtonPressCallback         (const FEvent* const Event);
-		void KeyPressCallback            (const FEvent* const Event);
-		void MemorySlotPressCallback     (const FEvent* const Event);
-		void GameSaveApproveCallback     (const FEvent* const Event);
+		void OnApplicationStart    (const FEvent* const Event);
+		void OnScreenSwitch        (const FEvent* const Event);
+		void OnFontChange          (const FEvent* const Event);
+		void OnButtonPress         (const FEvent* const Event);
+		void OnKeyPress            (const FEvent* const Event);
+		void OnMemorySlotPress     (const FEvent* const Event);
+		void OnGameSaveApprove     (const FEvent* const Event);
 	};
 }

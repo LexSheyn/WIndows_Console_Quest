@@ -103,7 +103,7 @@ namespace wce
 
 	void FSoundSystem::Switch(EMusic Index)
 	{
-		bool8 Paused;
+		bool Paused;
 
 		MusicChannels[Index]->getPaused(&Paused);
 		MusicChannels[Index]->setPaused(!Paused);
@@ -174,27 +174,27 @@ namespace wce
 		Groups[Index]->setPaused(false);
 	}
 
-	bool8 FSoundSystem::IsPlaying(ESound Index)
+	bool FSoundSystem::IsPlaying(ESound Index)
 	{
-		bool8 Playing;
+		bool Playing;
 
 		SoundChannels[Index]->isPlaying(&Playing);
 
 		return Playing;
 	}
 
-	bool8 FSoundSystem::IsPlaying(EMusic Index)
+	bool FSoundSystem::IsPlaying(EMusic Index)
 	{
-		bool8 Playing;
+		bool Playing;
 
 		MusicChannels[Index]->isPlaying(&Playing);
 
 		return Playing;
 	}
 
-	bool8 FSoundSystem::IsPlaying(EChannelGroup Index)
+	bool FSoundSystem::IsPlaying(EChannelGroup Index)
 	{
-		bool8 Playing;
+		bool Playing;
 
 		Groups[Index]->isPlaying(&Playing);
 
@@ -234,43 +234,43 @@ namespace wce
 		{
 			case EEventType::ApplicationStarted:
 			{
-				Instance.ApplicationStartCallback(Event);
+				Instance.OnApplicationStart(Event);
 			}
 			break;
 
 			case EEventType::ApplicationClosed:
 			{
-				Instance.ApplicationCloseCallback(Event);
+				Instance.OnApplicationClose(Event);
 			}
 			break;
 
 			case EEventType::ScreenSwitched:
 			{
-				Instance.ScreenSwitchCallback(Event);
+				Instance.OnScreenSwitch(Event);
 			}
 			break;
 
 			case EEventType::ButtonPressed:
 			{
-				Instance.ButtonPressCallback(Event);
+				Instance.OnButtonPress(Event);
 			}
 			break;
 
 			case EEventType::KeyPressed:
 			{
-				Instance.KeyPressCallback(Event);
+				Instance.OnKeyPress(Event);
 			}
 			break;
 
 			case EEventType::SoundVolumeChanged:
 			{
-				this->SoundVolumeChangeCallback(Event);
+				this->OnSoundVolumeChange(Event);
 			}
 			break;
 
 			case EEventType::MusicVolumeChanged:
 			{
-				this->MusicVolumeChangeCallback(Event);
+				this->OnMusicVolumeChange(Event);
 			}
 			break;
 		}
@@ -279,7 +279,7 @@ namespace wce
 
 // Event Callbacks:
 
-	void FSoundSystem::ApplicationStartCallback(const FEvent* const Event)
+	void FSoundSystem::OnApplicationStart(const FEvent* const Event)
 	{
 	// System:
 
@@ -303,12 +303,12 @@ namespace wce
 		this->Pause(EMusic::Game);
 	}
 
-	void FSoundSystem::ApplicationCloseCallback(const FEvent* const Event)
+	void FSoundSystem::OnApplicationClose(const FEvent* const Event)
 	{
 		FSoundSystem::Shutdown();
 	}
 
-	void FSoundSystem::ScreenSwitchCallback(const FEvent* const Event)
+	void FSoundSystem::OnScreenSwitch(const FEvent* const Event)
 	{
 		if (Event->ScreenData.ToScreen == EScreen::Menu)
 		{
@@ -324,22 +324,22 @@ namespace wce
 		Instance.Play(ESound::ScreenSwitch);
 	}
 
-	void FSoundSystem::ButtonPressCallback(const FEvent* const Event)
+	void FSoundSystem::OnButtonPress(const FEvent* const Event)
 	{
 		Instance.Play(ESound::ButtonPress);
 	}
 
-	void FSoundSystem::KeyPressCallback(const FEvent* const Event)
+	void FSoundSystem::OnKeyPress(const FEvent* const Event)
 	{
 	//	Instance.Play(ESound::KeyPress);
 	}
 
-	void FSoundSystem::SoundVolumeChangeCallback(const FEvent* const Event)
+	void FSoundSystem::OnSoundVolumeChange(const FEvent* const Event)
 	{
 		Groups[EChannelGroup::Sound]->setVolume(Event->SoundVolumeData.ToVolume);
 	}
 
-	void FSoundSystem::MusicVolumeChangeCallback(const FEvent* const Event)
+	void FSoundSystem::OnMusicVolumeChange(const FEvent* const Event)
 	{
 		Groups[EChannelGroup::Music]->setVolume(Event->SoundVolumeData.ToVolume);
 	}

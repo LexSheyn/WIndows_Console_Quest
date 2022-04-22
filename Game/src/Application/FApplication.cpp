@@ -84,13 +84,13 @@ namespace wce
 		{
 			case EEventType::ApplicationClosed:
 			{
-				this->ApplicationCloseCallback(Event);
+				this->OnApplication(Event);
 			}
 			break;
 
 			case EEventType::MenuExit:
 			{
-				this->MenuExitCallback(Event);
+				this->OnMenuExit(Event);
 			}
 			break;
 		}
@@ -99,12 +99,12 @@ namespace wce
 
 // Event Callbacks:
 
-	void FApplication::ApplicationCloseCallback(const FEvent* const Event)
+	void FApplication::OnApplication(const FEvent* const Event)
 	{
 		ShouldClose = true;
 	}
 
-	void FApplication::MenuExitCallback(const FEvent* const Event)
+	void FApplication::OnMenuExit(const FEvent* const Event)
 	{
 		FEventSystem::PushEvent(FEvent(EEventType::ApplicationClosed));
 	}

@@ -33,9 +33,6 @@
     <ClCompile Include="src\Screens\IScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UI\FMarker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\UI\FTextField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -89,19 +86,10 @@
     <ClInclude Include="src\ScreenBuffer\FScreenBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Types\WCE_Types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Macros\WCE_Macros.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Screens\SMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Screens\IScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UI\FMarker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\UI\FTextField.h">

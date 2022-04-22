@@ -19,40 +19,39 @@ namespace wce
 
 	// Accessors:
 
-		static FSoundSystem* GetInstance ();
-		
-		const FLOAT& GetVolume (EChannelGroup Index);
+		static FSoundSystem* GetInstance    ();		
+		const FLOAT&         GetVolume      (EChannelGroup Index);
 
 	// Modifiers:
 
-		void SetVolume (EChannelGroup Index, FLOAT Value);
+		void SetVolume    (EChannelGroup Index, FLOAT Value);
 
 	private:
 
 	// Private Functions:
 
-		void  Switch          (EMusic Index);
-		void  CreateSound     (ESound Index, const std::string& FilePath);
-		void  CreateStream    (EMusic Index, const std::string& FilePath);
-		void  Play            (ESound Index);
-		void  Play            (EMusic Index);
-		void  Stop            (ESound Index);
-		void  Stop            (EMusic Index);
-		void  Stop            (EChannelGroup Index = EChannelGroup::Master);
-		void  Pause           (ESound Index);
-		void  Pause           (EMusic Index);
-		void  Pause           (EChannelGroup Index = EChannelGroup::Master);
-		void  Unpause         (ESound Index);
-		void  Unpause         (EMusic Index);
-		void  Unpause         (EChannelGroup Index = EChannelGroup::Master);
-		bool8 IsPlaying       (ESound Index);
-		bool8 IsPlaying       (EMusic Index);
-		bool8 IsPlaying       (EChannelGroup Index = EChannelGroup::Master);
+		void Switch          (EMusic Index);
+		void CreateSound     (ESound Index, const std::string& FilePath);
+		void CreateStream    (EMusic Index, const std::string& FilePath);
+		void Play            (ESound Index);
+		void Play            (EMusic Index);
+		void Stop            (ESound Index);
+		void Stop            (EMusic Index);
+		void Stop            (EChannelGroup Index = EChannelGroup::Master);
+		void Pause           (ESound Index);
+		void Pause           (EMusic Index);
+		void Pause           (EChannelGroup Index = EChannelGroup::Master);
+		void Unpause         (ESound Index);
+		void Unpause         (EMusic Index);
+		void Unpause         (EChannelGroup Index = EChannelGroup::Master);
+		bool IsPlaying       (ESound Index);
+		bool IsPlaying       (EMusic Index);
+		bool IsPlaying       (EChannelGroup Index = EChannelGroup::Master);
 
 	// Private Constructors and Destructor:
 
-		 FSoundSystem ();
-		~FSoundSystem ();
+		 FSoundSystem    ();
+		~FSoundSystem    ();
 
 	// Instance:
 
@@ -82,18 +81,18 @@ namespace wce
 
 	// IEveneListener Interface:
 
-		void OnEvent(const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	private:
 
 	// Event Callbacks:
 
-		void ApplicationStartCallback     (const FEvent* const Event);
-		void ApplicationCloseCallback     (const FEvent* const Event);
-		void ScreenSwitchCallback         (const FEvent* const Event);
-		void ButtonPressCallback          (const FEvent* const Event);
-		void KeyPressCallback             (const FEvent* const Event);
-		void SoundVolumeChangeCallback    (const FEvent* const Event);
-		void MusicVolumeChangeCallback    (const FEvent* const Event);
+		void OnApplicationStart     (const FEvent* const Event);
+		void OnApplicationClose     (const FEvent* const Event);
+		void OnScreenSwitch         (const FEvent* const Event);
+		void OnButtonPress          (const FEvent* const Event);
+		void OnKeyPress             (const FEvent* const Event);
+		void OnSoundVolumeChange    (const FEvent* const Event);
+		void OnMusicVolumeChange    (const FEvent* const Event);
 	};
 }

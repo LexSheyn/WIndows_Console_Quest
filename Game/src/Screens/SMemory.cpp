@@ -74,19 +74,19 @@ namespace wce
 		{
 			case EEventType::ApplicationStarted:
 			{
-				this->ApplicationStartCallback(Event);
+				this->OnApplicationStart(Event);
 			}
 			break;
 
 			case EEventType::ScreenSwitched:
 			{
-				this->ScreenSwitchCallback(Event);
+				this->OnScreenSwitch(Event);
 			}
 			break;
 
 			case EEventType::FontChanged:
 			{
-				this->FontChangeCallback(Event);
+				this->OnFontChange(Event);
 			}
 			break;
 		}
@@ -97,25 +97,25 @@ namespace wce
 			{
 				case EEventType::ButtonPressed:
 				{
-					this->ButtonPressCallback(Event);
+					this->OnButtonPress(Event);
 				}
 				break;
 
 				case EEventType::KeyPressed:
 				{
-					this->KeyPressCallback(Event);
+					this->OnKeyPress(Event);
 				}
 				break;
 
 				case EEventType::MemorySlotPressed:
 				{
-					this->MemorySlotPressCallback(Event);
+					this->OnMemorySlotPress(Event);
 				}
 				break;
 
 				case EEventType::GameSaveApproved:
 				{
-					this->GameSaveApproveCallback(Event);
+					this->OnGameSaveApprove(Event);
 				}
 				break;
 			}
@@ -125,7 +125,7 @@ namespace wce
 
 // Event Callbacks:
 
-	void SMemory::ApplicationStartCallback(const FEvent* const Event)
+	void SMemory::OnApplicationStart(const FEvent* const Event)
 	{
 		if (MFileManager::Exists(L"Memory/Slot0.mem"))
 		{
@@ -149,7 +149,7 @@ namespace wce
 		}
 	}
 
-	void SMemory::ScreenSwitchCallback(const FEvent* const Event)
+	void SMemory::OnScreenSwitch(const FEvent* const Event)
 	{
 		if (Event->ScreenData.ToScreen == this->GetName())
 		{
@@ -181,12 +181,12 @@ namespace wce
 		}
 	}
 
-	void SMemory::FontChangeCallback(const FEvent* const Event)
+	void SMemory::OnFontChange(const FEvent* const Event)
 	{
 		ScreenBuffer.SetFontSize(Event->FontData.ToSize);
 	}
 
-	void SMemory::ButtonPressCallback(const FEvent* const Event)
+	void SMemory::OnButtonPress(const FEvent* const Event)
 	{
 		if ((Event->ButtonData.ID == Buttons.at(EButton::Back).GetID()) && (Event->ButtonData.MouseButton == FMouseButton::Left))
 		{
@@ -194,7 +194,7 @@ namespace wce
 		}
 	}
 
-	void SMemory::KeyPressCallback(const FEvent* const Event)
+	void SMemory::OnKeyPress(const FEvent* const Event)
 	{
 		if (Event->KeyData.wVirtualKeyCode == FKey::Escape)
 		{
@@ -202,7 +202,7 @@ namespace wce
 		}
 	}
 
-	void SMemory::MemorySlotPressCallback(const FEvent* const Event)
+	void SMemory::OnMemorySlotPress(const FEvent* const Event)
 	{
 		if ( (Event->MemorySlotData.ID == MemorySlots.at(0).GetID()) && (Event->MemorySlotData.Button == EMemorySlotButton::Save) )
 		{
@@ -242,7 +242,7 @@ namespace wce
 		}
 	}
 
-	void SMemory::GameSaveApproveCallback(const FEvent* const Event)
+	void SMemory::OnGameSaveApprove(const FEvent* const Event)
 	{
 		if (Event->GameData.MemorySlotID == MemorySlots.at(0).GetID())
 		{

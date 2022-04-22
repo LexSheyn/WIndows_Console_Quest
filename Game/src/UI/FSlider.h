@@ -8,8 +8,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FSlider ();
-		~FSlider ();
+		 FSlider    ();
+		~FSlider    ();
 
 	// Functions:
 
@@ -40,11 +40,11 @@ namespace wce
 
 	// Variables:
 
-		COORD Coord;
+		COORD Position;
 		WORD  AttributeBack;
 		WORD  AttributeFill;
-		LONG SizeBack;
-		LONG SizeFill;
+		LONG  SizeBack;
+		LONG  SizeFill;
 
 		SHORT ValueMin;
 		SHORT ValueMax;

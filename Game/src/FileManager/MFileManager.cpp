@@ -15,7 +15,7 @@ namespace wce
 		std::filesystem::create_directories(Path);
 	}
 
-	bool8 MFileManager::Exists(const std::wstring& FilePath)
+	bool MFileManager::Exists(const std::wstring& FilePath)
 	{
 		return std::filesystem::exists(FilePath);
 	}

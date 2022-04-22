@@ -12,8 +12,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FButton ();
-		~FButton ();
+		 FButton    ();
+		~FButton    ();
 
 	// Functions:
 
@@ -28,7 +28,7 @@ namespace wce
 		const SHORT&        GetWidth        () const;
 		const WORD&         GetAttribute    () const;
 		const std::wstring& GetText         () const;
-		const bool8&        IsEnabled       () const;
+		const bool&         IsEnabled       () const;
 
 	// Modifiers:
 
@@ -41,7 +41,7 @@ namespace wce
 
 	// Private Functions:
 
-		void GenerateID ();
+		void GenerateID    ();
 
 	// Components:
 
@@ -49,7 +49,7 @@ namespace wce
 		COORD Position;
 		SHORT Width;
 		WORD  Attribute;
-		bool8 Enabled;
+		bool  Enabled;
 
 		COORD MousePositionLast;
 		DWORD MouseButtonStateLast;
@@ -70,13 +70,13 @@ namespace wce
 
 	// IEventListener Interface:
 
-		void OnEvent(const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	private:
 
 	// Event Callbacks:
 
-		void MousePositionCallback    (const FEvent* const Event);
-		void MousePressCallback       (const FEvent* const Event);		
+		void OnMouseMove     (const FEvent* const Event);
+		void OnMousePress    (const FEvent* const Event);		
 	};
 }

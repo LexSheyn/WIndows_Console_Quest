@@ -26,7 +26,7 @@ namespace wce
 
 	void FTextField::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.FillWithAttribute(Attribute, static_cast<DWORD>(Text.length()), Position);
+		ScreenBuffer.FillWithAttribute(Position, static_cast<DWORD>(Text.length()), Attribute);
 		ScreenBuffer.Write(Position, Text);
 	}
 
@@ -48,9 +48,9 @@ namespace wce
 		return Text;
 	}
 
-	uint64 FTextField::GetLength() const
+	size_t FTextField::GetLength() const
 	{
-		return static_cast<uint64>(Text.length());
+		return static_cast<size_t>(Text.length());
 	}
 
 

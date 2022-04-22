@@ -10,8 +10,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FMemorySlot ();
-		~FMemorySlot ();
+		 FMemorySlot    ();
+		~FMemorySlot    ();
 
 	// Functions:
 
@@ -25,7 +25,7 @@ namespace wce
 		const COORD&        GetPosition    () const;
 		const std::wstring& GetTime        () const;
 		const std::wstring& GetDate        () const;
-		const bool8&        IsEnabled      () const;
+		const bool&         IsEnabled      () const;
 
 
 	// Modifiers:
@@ -45,7 +45,7 @@ namespace wce
 
 		WORD  ID;
 		COORD Position;
-		bool8 Enabled;
+		bool Enabled;
 
 	// Components:
 
@@ -57,12 +57,12 @@ namespace wce
 
 	// IEventListener Interface:
 
-		void OnEvent(const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	private:
 
 	// Event Callbacks:
 
-		void ButtonPressCallback    (const FEvent* const Event);
+		void OnButtonPress    (const FEvent* const Event);
 	};
 }

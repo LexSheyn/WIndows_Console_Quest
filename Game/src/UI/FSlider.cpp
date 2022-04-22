@@ -8,7 +8,7 @@ namespace wce
 // Constructors and Destructors:
 
 	FSlider::FSlider()
-		: Coord(COORD{}),
+		: Position(COORD{}),
 		  AttributeBack(128),
 		  AttributeFill(BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY),
 	//	  AttributeFill(BACKGROUND_RED | BACKGROUND_GREEN |                   BACKGROUND_INTENSITY),
@@ -26,8 +26,8 @@ namespace wce
 
 	void FSlider::Draw(FScreenBuffer& ScreenBuffer)
 	{
-		ScreenBuffer.FillWithAttribute(AttributeBack, static_cast<DWORD>(SizeBack), Coord);
-		ScreenBuffer.FillWithAttribute(AttributeFill, static_cast<DWORD>(SizeFill), Coord);
+		ScreenBuffer.FillWithAttribute(Position, static_cast<DWORD>(SizeBack), AttributeBack);
+		ScreenBuffer.FillWithAttribute(Position, static_cast<DWORD>(SizeFill), AttributeFill);
 	}
 
 	void FSlider::SetRange(SHORT ValueMin, SHORT ValueMax)
@@ -67,7 +67,7 @@ namespace wce
 
 	const COORD& FSlider::GetPosition() const
 	{
-		return Coord;
+		return Position;
 	}
 
 	const WORD& FSlider::GetAttributeBack() const
@@ -95,7 +95,7 @@ namespace wce
 
 	FSlider& FSlider::SetPosition(COORD Position)
 	{
-		Coord = Position;
+		this->Position = Position;
 
 		return *this;
 	}

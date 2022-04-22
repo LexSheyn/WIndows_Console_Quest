@@ -8,7 +8,7 @@ namespace wce
 
 	// Functions:
 
-		static std::wstring TimeAsString();
-		static std::wstring DateAsString();
+		static std::wstring TimeAsString    ();
+		static std::wstring DateAsString    ();
 	};
 }

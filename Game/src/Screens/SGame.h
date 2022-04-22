@@ -10,8 +10,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 SGame ();
-		~SGame ();
+		 SGame    ();
+		~SGame    ();
 
 	// IScreen Intarface:
 
@@ -22,7 +22,7 @@ namespace wce
 
 	// Private Functions:
 
-		void Init ();
+		void Init    ();
 
 	// Components:
 
@@ -39,19 +39,19 @@ namespace wce
 
 	// IEventListener Interface:
 
-		void OnEvent (const FEvent* const Event) override;
+		void OnEvent    (const FEvent* const Event) override;
 
 	private:
 
 	// Event Callbacks:
 
-		void ApplicationStartCallback    (const FEvent* const Event);
-		void ApplicationCloseCallback    (const FEvent* const Event);
-		void ScreenSwitchCallback        (const FEvent* const Event);
-		void FontChangeCallback          (const FEvent* const Event);
-		void ButtonPressCallback         (const FEvent* const Event);
-		void KeyPressCallback            (const FEvent* const Event);
-		void GameSaveCallback            (const FEvent* const Event);
-		void GameLoadCallback            (const FEvent* const Event);
+		void OnApplicationStart    (const FEvent* const Event);
+		void OnApplicationClose    (const FEvent* const Event);
+		void OnScreenSwitch        (const FEvent* const Event);
+		void OnFontChange          (const FEvent* const Event);
+		void OnButtonPress         (const FEvent* const Event);
+		void OnKeyPress            (const FEvent* const Event);
+		void OnGameSave            (const FEvent* const Event);
+		void OnGameLoad            (const FEvent* const Event);
 	};
 }

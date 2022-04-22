@@ -8,15 +8,12 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FConsole();
-		~FConsole();
-
-		WCE_NO_COPY(FConsole);
-		WCE_NO_MOVE(FConsole);
+		 FConsole    ();
+		~FConsole    ();
 
 	// Functions:
 
-		void ArrangeToCenter ();
+		void ArrangeToCenter    ();
 
 	// Accessors:
 

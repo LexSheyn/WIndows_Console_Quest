@@ -8,19 +8,19 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FScreenBuffer ();
-		~FScreenBuffer ();
+		 FScreenBuffer    ();
+		~FScreenBuffer    ();
 
 	// Functions:
 
 		void Activate             ();
 		void Clear                ();
-		void FillWithAttribute    (WORD Attribute, DWORD Length, COORD Coordinate);
-		void Write                (COORD Coordinate, WCHAR Character);
-		void Write                (COORD Coordinate, const std::wstring& String);
+		void FillWithAttribute    (COORD Position, DWORD Length, WORD Attribute); // M
+		void Write                (COORD Position, WCHAR Character);
+		void Write                (COORD Position, const std::wstring& String);
 		void Present              ();
-		void IncreaseFontSize     (SHORT Offset = 1i16);
-		void DecreaseFontSize     (SHORT Offset = 1i16);
+		void IncreaseFontSize     (SHORT Offset = 1);
+		void DecreaseFontSize     (SHORT Offset = 1);
 
 	// Accessors:
 
@@ -33,14 +33,15 @@ namespace wce
 	// Modifiers:
 
 		FScreenBuffer& SetFont               (const std::wstring& FontName);
-		FScreenBuffer& SetFontSize           (SHORT FontHeight);
+		FScreenBuffer& SetFontSize           (SHORT Size); // M
 		FScreenBuffer& SetOutputAttribute    (WORD Attribute);
 
 	private:
 
 	// Private Functions:
 
-		void HideConsoleCursor();
+		void HideConsoleCursor    ();
+		void UpdateFont           (); // M
 
 	// Variables:
 
@@ -56,8 +57,10 @@ namespace wce
 		CONSOLE_SCREEN_BUFFER_INFO ConsoleScreenInfo;
 		CONSOLE_CURSOR_INFO        ConsoleCursorInfo;
 		CONSOLE_FONT_INFOEX        ConsoleFontInfo;
-		static constexpr SHORT     FontSizeMax = 26i16;
-		static constexpr SHORT     FontSizeMin = 16i16;
+		static constexpr SHORT     FontSizeMax = 26;
+		static constexpr SHORT     FontSizeMin = 16;
+		SHORT                      FontSize;     // M
+		WCHAR                      FontName[32]; // M
 
 		DWORD NumAttributesWritten;
 	};

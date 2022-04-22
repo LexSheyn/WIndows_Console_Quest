@@ -16,14 +16,14 @@ namespace wce
 
 	// Functions:
 
-		static void   PushEvent                (const FEvent& Event);
-		static void   PollEvents               ();
-		static void   Subscribe                (EEventType Type, IEventListener* Listener);
-		static void   Unsubscribe              (EEventType Type, IEventListener* Listener);
-		static void   UnsubscribeFromAll       (IEventListener* Listener);
-		static bool8  IsSubscribed             (EEventType Type, IEventListener* Listener);
-		static void   ClearEventQueue          ();
-		static void   ClearListenerRegistry    ();
+		static void PushEvent                (const FEvent& Event);
+		static void PollEvents               ();
+		static void Subscribe                (EEventType Type, IEventListener* Listener);
+		static void Unsubscribe              (EEventType Type, IEventListener* Listener);
+		static void UnsubscribeFromAll       (IEventListener* Listener);
+		static bool IsSubscribed             (EEventType Type, IEventListener* Listener);
+		static void ClearEventQueue          ();
+		static void ClearListenerRegistry    ();
 
 	private:
 
