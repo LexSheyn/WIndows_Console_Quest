@@ -6,8 +6,8 @@ namespace wce
 // Constructors and Destructor:
 
 	IScreen::IScreen(EScreen Name)
-		: Name(Name),
-		  Activated(false)
+		: Name      (Name),
+		  Activated (false)
 	{
 	}
 
@@ -21,6 +21,7 @@ namespace wce
 	void IScreen::Activate()
 	{
 		ScreenBuffer.Activate();
+		
 		Activated = true;
 	}
 

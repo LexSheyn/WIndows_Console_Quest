@@ -7,8 +7,7 @@ namespace wce
 {
 // Constructors and Destructor:
 
-	SMemory::SMemory()
-		: IScreen(EScreen::Memory)
+	SMemory::SMemory() : IScreen(EScreen::Memory)
 	{
 		this->Init();
 

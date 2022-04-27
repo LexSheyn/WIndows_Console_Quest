@@ -5,8 +5,7 @@ namespace wce
 {
 // Constructors and Destructor:
 
-	SSettings::SSettings()
-		: IScreen(EScreen::Settings)
+	SSettings::SSettings() : IScreen(EScreen::Settings)
 	{
 		this->Init();
 

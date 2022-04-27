@@ -5,8 +5,7 @@ namespace wce
 {
 // Constructors and Destructor:
 
-	SGame::SGame()
-		: IScreen(EScreen::Game)
+	SGame::SGame() : IScreen(EScreen::Game)
 	{
 		this->Init();
 

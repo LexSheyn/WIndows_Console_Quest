@@ -5,8 +5,7 @@ namespace wce
 {
 // Constructors and Destructor:
 
-	SMenu::SMenu()
-		: IScreen(EScreen::Menu)
+	SMenu::SMenu() : IScreen(EScreen::Menu)
 	{
 		this->Init();
 
