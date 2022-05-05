@@ -10,8 +10,6 @@ namespace wce
 	{
 		this->Init();
 
-		FEventCatcher::Initialize();
-
 		FEventSystem::Subscribe(EEventType::ApplicationClosed, this);
 		FEventSystem::Subscribe(EEventType::MenuExit         , this);
 
@@ -43,7 +41,7 @@ namespace wce
 	{
 	// Poll Events:
 
-		FEventCatcher::CatchEvents();
+		EventCatcher.CatchEvents();
 		FEventSystem::PollEvents();
 
 	// Sound system:

@@ -37,9 +37,8 @@ namespace wce
 
 		bool ShouldClose;
 
-	// SFX:
-
-		FSoundSystem SoundSystem;
+		FEventCatcher EventCatcher;
+		FSoundSystem  SoundSystem;
 
 	// Screens:
 

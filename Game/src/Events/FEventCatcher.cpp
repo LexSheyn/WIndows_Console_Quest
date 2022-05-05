@@ -4,22 +4,20 @@
 
 namespace wce
 {
-// Functions:
+// Constructors and Destructor:
 
-	void FEventCatcher::Initialize()
+	FEventCatcher::FEventCatcher()
 	{
-	// Get standsrd input handle:
-
-		StdInput = GetStdHandle(STD_INPUT_HANDLE);
-
-	// Save current input mode to be restored on exit:
-
-		GetConsoleMode(StdInput, &ConsoleModeOld);
-
-	// Disable Quick Edit Mode and enable the window and mouse input events:
-
-		SetConsoleMode(StdInput, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+		this->Initialize();
 	}
+
+	FEventCatcher::~FEventCatcher()
+	{
+		this->Shutdown();
+	}
+
+
+// Functions:
 
 	void FEventCatcher::CatchEvents()
 	{
@@ -71,9 +69,27 @@ namespace wce
 		}
 	}
 
-	void FEventCatcher::ShutDown()
+
+// Private Functions:
+
+	void FEventCatcher::Initialize()
 	{
-	// Restored default console mode on exit:
+		// Get standsrd input handle:
+
+		StdInput = GetStdHandle(STD_INPUT_HANDLE);
+
+		// Save current input mode to be restored on exit:
+
+		GetConsoleMode(StdInput, &ConsoleModeOld);
+
+		// Disable Quick Edit Mode and enable the window and mouse input events:
+
+		SetConsoleMode(StdInput, ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT);
+	}
+
+	void FEventCatcher::Shutdown()
+	{
+		// Restored default console mode on exit:
 
 		SetConsoleMode(StdInput, ConsoleModeOld);
 	}
@@ -126,17 +142,6 @@ namespace wce
 	{
 		FEventSystem::PushEvent(FEvent(EEventType::WindowResized, WindowBufferData));
 	}
-
-
-// Static Variables:
-
-	HANDLE FEventCatcher::StdInput = nullptr;
-
-	DWORD FEventCatcher::ConsoleMode    = 0;
-	DWORD FEventCatcher::ConsoleModeOld = 0;
-
-	INPUT_RECORD FEventCatcher::EventData[128];
-	DWORD        FEventCatcher::NumRecordsRead = 0;
 
 
 }
