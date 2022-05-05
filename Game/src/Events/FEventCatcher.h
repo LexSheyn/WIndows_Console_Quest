@@ -19,7 +19,7 @@ namespace wce
 
 	private:
 
-	// Private Functions:
+	// Event Process Functions:
 
 		static void __stdcall KeyEventProc       (KEY_EVENT_RECORD KeyData);
 		static void __stdcall MouseEventProc     (MOUSE_EVENT_RECORD MouseData);

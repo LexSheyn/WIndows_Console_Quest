@@ -48,7 +48,7 @@ namespace wce
 
 	// Sound system:
 
-		FSoundSystem::Update();
+		SoundSystem.Update();
 	}
 
 	void FApplication::Render()

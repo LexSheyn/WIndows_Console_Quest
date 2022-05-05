@@ -3,76 +3,34 @@
 
 namespace wce
 {
+// Constructors and Destructor:
+
+	FSoundSystem::FSoundSystem()
+	{
+		FEventSystem::Subscribe(EEventType::ApplicationStarted, this);
+		FEventSystem::Subscribe(EEventType::ApplicationClosed , this);
+		FEventSystem::Subscribe(EEventType::ScreenSwitched    , this);
+		FEventSystem::Subscribe(EEventType::ButtonPressed     , this);
+		FEventSystem::Subscribe(EEventType::KeyPressed        , this);
+		FEventSystem::Subscribe(EEventType::SoundVolumeChanged, this);
+		FEventSystem::Subscribe(EEventType::MusicVolumeChanged, this);
+	}
+
+	FSoundSystem::~FSoundSystem()
+	{
+		FEventSystem::UnsubscribeFromAll(this);
+	}
+
+
 // Functions:
-
-	void FSoundSystem::Initialize(FLOAT Volume)
-	{
-	// Volume:
-
-		Instance.Volumes[EChannelGroup::Sound ] = Volume;
-		Instance.Volumes[EChannelGroup::Music ] = Volume;
-		Instance.Volumes[EChannelGroup::Master] = Volume;
-
-	// System:
-
-		FMOD::System_Create(&Instance.System);
-
-		Instance.System->init(static_cast<INT>(NumChannels * 2u), FMOD_DEFAULT, nullptr);
-
-	// Channel groups:
-
-		Instance.System->createChannelGroup("Sound", &Instance.Groups[EChannelGroup::Sound]);
-		Instance.System->createChannelGroup("Music", &Instance.Groups[EChannelGroup::Music]);
-
-		Instance.System->getMasterChannelGroup(&Instance.Groups[2]);
-
-		Instance.Groups[2]->addGroup(Instance.Groups[0]);
-		Instance.Groups[2]->addGroup(Instance.Groups[1]);
-
-		for (size_t i = 0u; i < NumChannels; i++)
-		{
-		// Sound:
-
-			Instance.SoundChannels[i]->setChannelGroup(Instance.Groups[0]);
-			Instance.SoundChannels[i]->setVolume(VolumeMax);
-			
-		// Music:
-			
-			Instance.MusicChannels[i]->setChannelGroup(Instance.Groups[1]);
-			Instance.MusicChannels[i]->setVolume(VolumeMax);
-		}
-
-		Instance.Groups[EChannelGroup::Sound ]->setVolume(Volume);
-		Instance.Groups[EChannelGroup::Music ]->setVolume(Volume);
-		Instance.Groups[EChannelGroup::Master]->setVolume(Volume);
-	}
-
-	void FSoundSystem::Shutdown()
-	{
-		Instance.Groups[EChannelGroup::Master]->stop();
-
-		for (size_t i = 0u; i < NumChannels; i++)
-		{
-			Instance.Sounds[i]->release();
-			Instance.Music [i]->release();
-		}
-
-		Instance.System->close();
-		Instance.System->release();
-	}
 
 	void FSoundSystem::Update()
 	{
-		Instance.System->update();
+		System->update();
 	}
 
 
 // Accessors:
-
-	FSoundSystem* FSoundSystem::GetInstance()
-	{
-		return &Instance;
-	}
 
 	const FLOAT& FSoundSystem::GetVolume(EChannelGroup Index)
 	{
@@ -100,6 +58,62 @@ namespace wce
 
 
 // Private Functions:
+
+	void FSoundSystem::Initialize(FLOAT Volume)
+	{
+	// Volume:
+
+		Volumes[EChannelGroup::Sound ] = Volume;
+		Volumes[EChannelGroup::Music ] = Volume;
+		Volumes[EChannelGroup::Master] = Volume;
+
+	// System:
+
+		FMOD::System_Create(&System);
+
+		System->init(static_cast<INT>(NumChannels * 2u), FMOD_DEFAULT, nullptr);
+
+	// Channel groups:
+
+		System->createChannelGroup("Sound", &Groups[EChannelGroup::Sound]);
+		System->createChannelGroup("Music", &Groups[EChannelGroup::Music]);
+
+		System->getMasterChannelGroup(&Groups[2]);
+
+		Groups[2]->addGroup(Groups[0]);
+		Groups[2]->addGroup(Groups[1]);
+
+		for (size_t i = 0u; i < NumChannels; i++)
+		{
+		// Sound:
+
+			SoundChannels[i]->setChannelGroup(Groups[0]);
+			SoundChannels[i]->setVolume(VolumeMax);
+			
+		// Music:
+			
+			MusicChannels[i]->setChannelGroup(Groups[1]);
+			MusicChannels[i]->setVolume(VolumeMax);
+		}
+
+		Groups[EChannelGroup::Sound ]->setVolume(Volume);
+		Groups[EChannelGroup::Music ]->setVolume(Volume);
+		Groups[EChannelGroup::Master]->setVolume(Volume);
+	}
+
+	void FSoundSystem::Shutdown()
+	{
+		Groups[EChannelGroup::Master]->stop();
+
+		for (size_t i = 0u; i < NumChannels; i++)
+		{
+			Sounds[i]->release();
+			Music [i]->release();
+		}
+
+		System->close();
+		System->release();
+	}
 
 	void FSoundSystem::Switch(EMusic Index)
 	{
@@ -202,30 +216,6 @@ namespace wce
 	}
 
 
-// Private Constructors and Destructor:
-
-	FSoundSystem::FSoundSystem()
-	{
-		FEventSystem::Subscribe(EEventType::ApplicationStarted, &Instance);
-		FEventSystem::Subscribe(EEventType::ApplicationClosed , &Instance);
-		FEventSystem::Subscribe(EEventType::ScreenSwitched    , &Instance);
-		FEventSystem::Subscribe(EEventType::ButtonPressed     , &Instance);
-		FEventSystem::Subscribe(EEventType::KeyPressed        , &Instance);
-		FEventSystem::Subscribe(EEventType::SoundVolumeChanged, &Instance);
-		FEventSystem::Subscribe(EEventType::MusicVolumeChanged, &Instance);
-	}
-
-	FSoundSystem::~FSoundSystem()
-	{
-		FEventSystem::UnsubscribeFromAll(&Instance);
-	}
-
-
-// Instance:
-
-	FSoundSystem FSoundSystem::Instance;
-
-
 // IEveneListener Interface:
 
 	void FSoundSystem::OnEvent(const FEvent* const Event)
@@ -234,31 +224,31 @@ namespace wce
 		{
 			case EEventType::ApplicationStarted:
 			{
-				Instance.OnApplicationStart(Event);
+				OnApplicationStart(Event);
 			}
 			break;
 
 			case EEventType::ApplicationClosed:
 			{
-				Instance.OnApplicationClose(Event);
+				OnApplicationClose(Event);
 			}
 			break;
 
 			case EEventType::ScreenSwitched:
 			{
-				Instance.OnScreenSwitch(Event);
+				OnScreenSwitch(Event);
 			}
 			break;
 
 			case EEventType::ButtonPressed:
 			{
-				Instance.OnButtonPress(Event);
+				OnButtonPress(Event);
 			}
 			break;
 
 			case EEventType::KeyPressed:
 			{
-				Instance.OnKeyPress(Event);
+				OnKeyPress(Event);
 			}
 			break;
 
@@ -321,17 +311,17 @@ namespace wce
 			this->Unpause(EMusic::Game);
 		}
 
-		Instance.Play(ESound::ScreenSwitch);
+		Play(ESound::ScreenSwitch);
 	}
 
 	void FSoundSystem::OnButtonPress(const FEvent* const Event)
 	{
-		Instance.Play(ESound::ButtonPress);
+		Play(ESound::ButtonPress);
 	}
 
 	void FSoundSystem::OnKeyPress(const FEvent* const Event)
 	{
-	//	Instance.Play(ESound::KeyPress);
+	//	Play(ESound::KeyPress);
 	}
 
 	void FSoundSystem::OnSoundVolumeChange(const FEvent* const Event)

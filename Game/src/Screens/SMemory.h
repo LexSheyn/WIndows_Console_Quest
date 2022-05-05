@@ -2,6 +2,8 @@
 
 #include "IScreen.h"
 #include "../UI/FMemorySlot.h"
+#include "../FileManager/MFileManager.h"
+#include "../Data/MDataManager.h"
 
 namespace wce
 {

@@ -9,10 +9,8 @@ namespace wce
 
 	FTextField::FTextField()
 		: Position  (COORD{}),
-	//	  Attribute (FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
-	//	  Attribute (FOREGROUND_RED | FOREGROUND_GREEN )
-	//	  Attribute (FOREGROUND_RED |                    FOREGROUND_BLUE)
-		  Attribute (                 FOREGROUND_GREEN | FOREGROUND_BLUE)
+		  Attribute (FOREGROUND_GREEN | FOREGROUND_BLUE),
+		  Enabled   (true)
 	{
 		Text.reserve(120);
 	}
@@ -23,6 +21,20 @@ namespace wce
 
 
 // Functions:
+
+	void FTextField::Enable()
+	{
+		this->SetAttribute(TextAttributeEnabled);
+
+		Enabled = true;
+	}
+
+	void FTextField::Disable()
+	{
+		this->SetAttribute(TextAttributeDisabled);
+
+		Enabled = false;
+	}
 
 	void FTextField::Draw(FScreenBuffer& ScreenBuffer)
 	{
@@ -50,7 +62,7 @@ namespace wce
 
 	size_t FTextField::GetLength() const
 	{
-		return static_cast<size_t>(Text.length());
+		return Text.length();
 	}
 
 
@@ -70,7 +82,7 @@ namespace wce
 		return *this;
 	}
 
-	FTextField& FTextField::SetText(const std::wstring Text)
+	FTextField& FTextField::SetText(const std::wstring& Text)
 	{
 		this->Text = Text;
 

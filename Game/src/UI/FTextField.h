@@ -13,7 +13,9 @@ namespace wce
 
 	// Functions:
 
-		void Draw    (class FScreenBuffer& ScreenBuffer);
+		void Enable     ();
+		void Disable    ();
+		void Draw       (class FScreenBuffer& ScreenBuffer);
 
 	// Accessors:
 
@@ -26,7 +28,7 @@ namespace wce
 
 		FTextField& SetPosition     (COORD Position);
 		FTextField& SetAttribute    (WORD Attribute);
-		FTextField& SetText         (const std::wstring Text);
+		FTextField& SetText         (const std::wstring& Text);
 
 	private:
 
@@ -35,5 +37,9 @@ namespace wce
 		COORD        Position;
 		WORD         Attribute;
 		std::wstring Text;
+		bool         Enabled;
+
+		static constexpr WORD TextAttributeEnabled  = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		static constexpr WORD TextAttributeDisabled = 8;
 	};
 }

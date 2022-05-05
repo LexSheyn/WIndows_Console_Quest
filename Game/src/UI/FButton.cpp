@@ -8,11 +8,11 @@ namespace wce
 // Constructors and Destructor:
 
 	FButton::FButton()
-		: Position  (COORD{}),
-		  Width     (10),
-		  Attribute (ButtonEnabledAttribute),
-		  Enabled   (true),
-		  MousePositionLast(COORD{})
+		: Position          (COORD{}),
+		  Width             (10),
+		  Attribute         (ButtonAttributeEnabled),
+		  Enabled           (true),
+		  MousePositionLast (COORD{})
 	{
 		this->GenerateID();
 
@@ -30,22 +30,22 @@ namespace wce
 
 // Functions:
 
-	void FButton::Disable()
-	{
-		this->SetAttribute(ButtonDisabledAttribute);
-
-		TextField.SetAttribute(TextDisabledAttribute);
-
-		Enabled = false;
-	}
-
 	void FButton::Enable()
 	{
-		this->SetAttribute(ButtonEnabledAttribute);
+		TextField.Enable();
 
-		TextField.SetAttribute(TextEnabledAttribute);
+		this->SetAttribute(ButtonAttributeEnabled);
 
 		Enabled = true;
+	}
+
+	void FButton::Disable()
+	{
+		TextField.Disable();
+
+		this->SetAttribute(ButtonAttributeDisabled);
+
+		Enabled = false;
 	}
 
 	void FButton::Draw(FScreenBuffer& ScreenBuffer)
@@ -164,11 +164,11 @@ namespace wce
 
 		if ( ((MousePositionLast.X >= Position.X) && (MousePositionLast.X <= Position.X + Width)) && (MousePositionLast.Y == Position.Y) )
 		{
-			this->SetAttribute(ButtonHoveredAttribute);
+			this->SetAttribute(ButtonAttributeHovered);
 		}
 		else
 		{
-			this->SetAttribute(ButtonEnabledAttribute);
+			this->SetAttribute(ButtonAttributeEnabled);
 		}
 	}
 

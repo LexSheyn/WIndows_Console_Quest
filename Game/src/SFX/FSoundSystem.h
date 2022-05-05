@@ -4,6 +4,7 @@
 #include "ESound.h"
 #include "EMusic.h"
 #include "../Templates/TArray.h"
+#include "../Events/FEventSystem.h"
 
 namespace wce
 {
@@ -11,16 +12,18 @@ namespace wce
 	{
 	public:
 
+	// Constructors and Destructor:
+
+		 FSoundSystem    ();
+		~FSoundSystem    ();
+
 	// Functions:
 
-		static void Initialize    (FLOAT Volume);
-		static void Shutdown      ();
-		static void Update        ();
+		void Update    ();
 
 	// Accessors:
 
-		static FSoundSystem* GetInstance    ();		
-		const FLOAT&         GetVolume      (EChannelGroup Index);
+		const FLOAT& GetVolume    (EChannelGroup Index);
 
 	// Modifiers:
 
@@ -30,6 +33,8 @@ namespace wce
 
 	// Private Functions:
 
+		void Initialize      (FLOAT Volume);
+		void Shutdown        ();
 		void Switch          (EMusic Index);
 		void CreateSound     (ESound Index, const std::string& FilePath);
 		void CreateStream    (EMusic Index, const std::string& FilePath);
@@ -47,15 +52,6 @@ namespace wce
 		bool IsPlaying       (ESound Index);
 		bool IsPlaying       (EMusic Index);
 		bool IsPlaying       (EChannelGroup Index = EChannelGroup::Master);
-
-	// Private Constructors and Destructor:
-
-		 FSoundSystem    ();
-		~FSoundSystem    ();
-
-	// Instance:
-
-		static FSoundSystem Instance;
 
 	// System:
 

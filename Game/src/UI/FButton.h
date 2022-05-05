@@ -3,6 +3,7 @@
 #include "EButton.h"
 #include "FTextFIeld.h"
 #include "../Input/FMouseButton.h"
+#include "../Events/FEventSystem.h"
 
 namespace wce
 {
@@ -17,8 +18,8 @@ namespace wce
 
 	// Functions:
 
-		void Disable    ();
 		void Enable     ();
+		void Disable    ();		
 		void Draw       (class FScreenBuffer& ScreenBuffer);
 
 	// Accessors:
@@ -45,6 +46,10 @@ namespace wce
 
 	// Components:
 
+		FTextField TextField;
+
+	// Variables:
+
 		WORD  ID;
 		COORD Position;
 		SHORT Width;
@@ -52,19 +57,11 @@ namespace wce
 		bool  Enabled;
 
 		COORD MousePositionLast;
-		DWORD MouseButtonStateLast;
+		DWORD MouseButtonStateLast;		
 
-		FTextField TextField;
-
-	//	static constexpr WORD ButtonEnabledAttribute  = 128;
-	//	static constexpr WORD ButtonEnabledAttribute  = BACKGROUND_RED | BACKGROUND_GREEN ;
-	//	static constexpr WORD ButtonEnabledAttribute  = BACKGROUND_RED                    | BACKGROUND_BLUE;
-		static constexpr WORD ButtonEnabledAttribute  =                  BACKGROUND_GREEN | BACKGROUND_BLUE;
-		static constexpr WORD ButtonDisabledAttribute = 8;
-		static constexpr WORD ButtonHoveredAttribute  = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY;
-		
-		static constexpr WORD TextEnabledAttribute    = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		static constexpr WORD TextDisabledAttribute   = 8;
+		static constexpr WORD ButtonAttributeEnabled  = BACKGROUND_GREEN | BACKGROUND_BLUE;
+		static constexpr WORD ButtonAttributeDisabled = 8;
+		static constexpr WORD ButtonAttributeHovered  = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY;
 
 	public:
 

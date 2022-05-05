@@ -1,6 +1,9 @@
 #pragma once
 
 #include "IScreen.h"
+#include "../Data/FChoice.h"
+#include "../Data/MDataManager.h"
+#include "../Time/FTimeStamp.h"
 
 namespace wce
 {

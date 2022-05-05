@@ -6,6 +6,9 @@
 #include "../Screens/SGame.h"
 #include "../Screens/SMemory.h"
 #include "../Screens/SSettings.h"
+#include "../FileManager/MFileManager.h"
+#include "../Events/FEventCatcher.h"
+#include "../Events/FEventSystem.h"
 
 namespace wce
 {
@@ -33,6 +36,10 @@ namespace wce
 	// Variables:
 
 		bool ShouldClose;
+
+	// SFX:
+
+		FSoundSystem SoundSystem;
 
 	// Screens:
 

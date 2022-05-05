@@ -1,5 +1,6 @@
 #include "../PrecompiledHeaders/wcepch.h"
 #include "FEventCatcher.h"
+#include "FEventSystem.h"
 
 namespace wce
 {
@@ -78,7 +79,7 @@ namespace wce
 	}
 
 
-// Private Functions:
+// Event Process Functions:
 
 	void __stdcall FEventCatcher::KeyEventProc(KEY_EVENT_RECORD KeyData)
 	{
@@ -135,7 +136,7 @@ namespace wce
 	DWORD FEventCatcher::ConsoleModeOld = 0;
 
 	INPUT_RECORD FEventCatcher::EventData[128];
-	DWORD FEventCatcher::NumRecordsRead = 0;
+	DWORD        FEventCatcher::NumRecordsRead = 0;
 
 
 }

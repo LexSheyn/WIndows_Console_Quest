@@ -3,6 +3,7 @@
 #include "FSettingsData.h"
 #include "FGameData.h"
 #include "FChoice.h"
+#include "../FileManager/MFileManager.h"
 
 namespace wce
 {

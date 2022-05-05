@@ -7,6 +7,7 @@
 #include "../ScreenBuffer/FScreenBuffer.h"
 #include "../UI/FButton.h"
 #include "../UI/FSlider.h"
+#include "../Events/FEventSystem.h"
 
 namespace wce
 {

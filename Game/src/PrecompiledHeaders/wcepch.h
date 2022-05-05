@@ -24,17 +24,3 @@
 #define NOMINMAX
 #include <windows.h>
 #undef CreateDirectory
-
-
-// Engine Types:
-//#include "../Types/WCE_Types.h"
-
-// Engine Macros:
-//#include "../Macros/WCE_Macros.h"
-
-// Event Core:
-#include "../Events/FEventCatcher.h"
-#include "../Events/FEventSystem.h"
-#include "../FileManager/MFileManager.h"
-#include "../Data/MDataManager.h"
-#include "../Time/FTimeStamp.h"
