@@ -12,7 +12,7 @@ namespace wce
 
 	void FEventSystem::PollEvents()
 	{
-		while (EventQueue.size() > 0u)
+		while (EventQueue.empty() == false)
 		{
 			Dispatch(&EventQueue.front());
 
@@ -39,7 +39,7 @@ namespace wce
 
 		std::pair Range = ListenerRegistry.equal_range(Type);
 
-		for (auto& Entry = Range.first; Entry != Range.second; Entry++)
+		for (auto& Entry = Range.first; Entry != Range.second; ++Entry)
 		{
 			if (Entry->second == Listener)
 			{
@@ -62,7 +62,7 @@ namespace wce
 			}
 			else
 			{
-				Entry++;
+				++Entry;
 			}
 		}
 	}
@@ -71,7 +71,7 @@ namespace wce
 	{
 		std::pair Range = ListenerRegistry.equal_range(Type);
 
-		for (auto& Entry = Range.first; Entry != Range.second; Entry++)
+		for (auto& Entry = Range.first; Entry != Range.second; ++Entry)
 		{
 			if (Entry->second == Listener)
 			{
@@ -99,7 +99,7 @@ namespace wce
 	{
 		std::pair Range = ListenerRegistry.equal_range(Event->GetType());
 
-		for (auto& Entry = Range.first; Entry != Range.second; Entry++)
+		for (auto& Entry = Range.first; Entry != Range.second; ++Entry)
 		{
 			Entry->second->OnEvent(Event);
 		}

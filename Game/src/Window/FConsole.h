@@ -32,17 +32,9 @@ namespace wce
 
 		HWND Console;
 		RECT ConsoleRect;
-		INT  ConsoleWidth;
-		INT  ConsoleHeight;
-		INT  ConsoleX;
-		INT  ConsoleY;
 
 		HWND Desktop;
 		RECT DesktopRect;
-		INT  DesktopWidth;
-		INT  DesktopHeight;
-		INT  DesktopX;
-		INT  DesktopY;
 
 		LONG Style;
 	};

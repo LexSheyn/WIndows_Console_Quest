@@ -11,8 +11,8 @@ namespace wce
 
 	// Constructors and Destructor:
 
-		 FEventSystem () = delete;
-		~FEventSystem () = delete;
+		 FEventSystem    () = delete;
+		~FEventSystem    () = delete;
 
 	// Functions:
 
@@ -29,7 +29,7 @@ namespace wce
 
 	// Private Functions:
 
-		static void  Dispatch(FEvent* Event);
+		static void  Dispatch    (FEvent* Event);
 
 	// Variables:
 
