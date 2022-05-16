@@ -142,13 +142,13 @@ namespace wce
 			{
 				case EEventType::MouseMoved:
 				{
-					OnMouseMove(Event);
+					this->OnMouseMove(Event);
 				}
 				break;
 
 				case EEventType::MousePressed:
 				{
-					OnMousePress(Event);
+					this->OnMousePress(Event);
 				}
 				break;
 			}
